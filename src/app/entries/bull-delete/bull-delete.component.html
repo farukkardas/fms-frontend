@@ -1,0 +1,43 @@
+<img src='assets/icons/menu/bull.png' style="margin-left: 47%;">
+<br>
+<br>
+<div style="padding-left: 30%;">
+  <mat-form-field appearance="fill">
+    <mat-label>Select COW ID</mat-label>
+    <mat-select style="margin-left: 4%;" [(ngModel)]="property">
+      <mat-option *ngFor="let bull of bulls" [value]="bull">
+        <p>{{bull.bullId}}</p>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<body>
+  <div *ngIf="property">
+    <form [formGroup]="deleteBullGroup">
+      <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
+        placeholder="{{property.id}}" readonly>
+      <input class="form-control" formControlName="bullId" [ngModel]="property.bullId" type="hidden"
+        placeholder="{{property.bullId}}" readonly>
+      <h1 id="header">Age</h1>
+      <input class="form-control" formControlName="age" type="text" [ngModel]="property.age"
+        placeholder="{{property.age}}" readonly>
+      <h1 id="header">Bull Name</h1>
+      <input class="form-control" formControlName="bullName" type="text" [ngModel]="property.bullName"
+        placeholder="{{property.bullName}}" readonly>
+      <h1 id="header">Weight</h1>
+      <input class="form-control" formControlName="weight" type="number" [ngModel]="property.weight"
+        placeholder="{{property.weight}}" readonly>
+    
+    </form>
+    <br>
+    <a mat-raised-button (click)="openModal(template)" color="primary">Delete</a>
+    <ng-template #template>
+      <div class="modal-body text-center">
+        <p>Do you want to delete?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+      </div>
+    </ng-template>
+  </div>
+</body>

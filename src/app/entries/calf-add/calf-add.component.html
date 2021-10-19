@@ -1,0 +1,70 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addCalfGroup">
+            <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
+            <h1 class="h3 mb-3 fw-normal">Add a new Calf </h1>
+
+            <div class="form-floating">
+                <input formControlName="calfId" type="number" class="form-control" placeholder="Cow ID.." required />
+                <label for="floatingInput">Calf ID</label>
+            </div>
+            <div *ngIf="calfId.invalid" class="alert" style="height: 60px;">
+
+                <ngb-alert style="color: black; background-color: red; border-radius: 100px" [dismissible]="false">
+                    <span style="color: white; ;">Calf ID is required.</span>
+                </ngb-alert>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input formControlName="age" type="number" class="form-control" placeholder="Age.." />
+                <label for="floatingPassword">Age</label>
+            </div>
+
+            <br>
+            <div class=form-floating>
+                <mat-form-field appearance="fill">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender" matNativeControl>
+                        <mat-option value="0">Male</mat-option>
+                        <mat-option value="1">Female</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="calfName" type="text" class="form-control" placeholder="Calf Name.." />
+                <label for="floatingPassword">Calf Name</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="weight" type="number" class="form-control" placeholder="Weight.." />
+                <label for="floatingPassword">Weight</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+
+                <h1 id="header">Birth Date</h1>
+                <input formControlName="birthDate" type="datetime-local" class="form-control"
+                     placeholder="Birth Date" />
+            </div>
+
+            <br>
+
+
+            <br>
+            <button type="button" class="btn btn-primary" [disabled]="!this.addCalfGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

@@ -1,0 +1,56 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addSheepGroup">
+            <img src='assets/icons/menu/sheep.png' style="width: 24px; height: 24px;">
+            <h1 class="h3 mb-3 fw-normal">Add a new Sheep </h1>
+
+            <div class="form-floating">
+                <input formControlName="sheepId" type="number" class="form-control" placeholder="Sheep ID.." required />
+                <label for="floatingInput">Sheep ID</label>
+            </div>
+            <div *ngIf="sheepId.invalid" class="alert" style="height: 60px;">
+
+                <ngb-alert style="color: black; background-color: red; border-radius: 100px" [dismissible]="false">
+                    <span style="color: white; ;">Sheep ID is required.</span>
+                </ngb-alert>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input formControlName="age" type="number" class="form-control" placeholder="Age.." />
+                <label for="floatingPassword">Age</label>
+            </div>
+
+            <br>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="race" type="text" class="form-control" placeholder="Race.." />
+                <label for="floatingPassword">Race</label>
+            </div>
+
+            <br>
+      
+          <br>
+            <div class="form-floating">
+                <input formControlName="weight" type="datetime-local " class="form-control"
+                    placeholder="Weight.." />
+                <label for="floatingPassword">Weight</label>
+            </div>
+
+            <br>
+
+
+            <br>
+            <button type="button" class="btn btn-primary" [disabled]="!this.addSheepGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

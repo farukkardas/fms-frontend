@@ -1,0 +1,81 @@
+mat-toolbar {
+    background: red;
+    color: white;
+    
+}
+
+mat-sidenav {
+    margin: 10px;
+    width: 220px;
+    border-right: none;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.btn-outline-primary{
+    background-color: grey;
+    color: white;
+   
+ 
+}
+
+mat-form-field{
+    height: 40px;
+    background-color: white;
+}
+
+.content {
+    margin: 16px;
+    margin-left: 32px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+mat-sidenav-container {
+    height: calc(90vh);
+}
+
+.img {
+    width: 20px;
+    height: 20px;
+    margin-right: 25%;
+}
+
+.mat-raised-button {
+    width: 150px;
+    height: 36px;
+    color: black;
+    font-weight: 500;
+ margin-top: 5%;
+ right: 10px;
+}
+
+.mat-expansion-panel {
+    margin-left: 2%;
+    width: 180px;
+}
+
+.mat-expansion-panel-header {
+   
+    color: black;
+    font-weight: 500;
+}
+
+#hicon {
+    width: 150px;
+    height: 80px;
+    pointer-events: none
+}
+
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.open, .open>.dropdown-toggle.btn-outline-primary {
+    background-color: white;
+    box-shadow: none;
+    color: black;
+    border-color: white;
+}

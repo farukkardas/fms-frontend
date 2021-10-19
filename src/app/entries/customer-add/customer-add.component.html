@@ -1,0 +1,49 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addCustomerGroup">
+            <img src='assets/icons/menu/customer.png' style="width: 24px; height: 24px;">
+            <h1 class="h3 mb-3 fw-normal">Add a new Customer </h1>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="firstName" type="text" class="form-control" placeholder="First Name.." />
+                <label for="floatingPassword">First Name</label>
+            </div>
+
+            <br>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="lastName" type="text" class="form-control" placeholder="Last Name.." />
+                <label for="floatingPassword">Last Name</label>
+            </div>
+
+            <br>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="address" type="text" class="form-control" placeholder="Address.." />
+                <label for="floatingPassword">Address</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone Number.." />
+                <label for="floatingPassword">Phone Number</label>
+            </div>
+            <br>
+
+
+            <br>
+            <button type="button" class="btn btn-primary" [disabled]="!this.addCustomerGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

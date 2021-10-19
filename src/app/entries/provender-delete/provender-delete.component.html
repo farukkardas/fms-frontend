@@ -1,0 +1,49 @@
+<img src='assets/icons/menu/provender.png' style="margin-left: 47%; width: 24px; height: 24px;">
+<br>
+<br>
+<div style="padding-left: 30%;">
+    <mat-form-field appearance="fill">
+        <mat-label>Select Calf ID</mat-label>
+        <mat-select style="margin-left: 4%;" [(ngModel)]="property">
+            <mat-option *ngFor="let provender of provenders" [value]="provender">
+                <p>{{provender.id}}</p>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<body>
+    <div *ngIf="property">
+        <form [formGroup]="deleteProvenderGroup">
+
+            <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
+                placeholder="{{property.id}}" readonly>
+
+            <h1 id="header">Provender Name</h1>
+            <input class="form-control" formControlName="provenderName" [ngModel]="property.provenderName" type="hidden"
+                placeholder="{{property.provenderName}}" readonly>
+
+            <h1 id="header">Weight</h1>
+            <input class="form-control" formControlName="weight" type="number" [ngModel]="property.weight"
+                placeholder="{{property.weight}}" readonly>
+
+            <h1 id="header">Price</h1>
+            <input class="form-control" formControlName="price" [ngModel]="property.price" type="number"
+                placeholder="{{property.price}}" readonly>
+
+            <h1 id="header">Bought Date</h1>
+            <input class="form-control" formControlName="boughtDate" type="datetime-local" [ngModel]="property.boughtDate"
+                placeholder="{{property.boughtDate}}" readonly>
+
+        </form>
+        <br>
+        <a mat-raised-button (click)="openModal(template)" color="primary">Delete</a>
+        <ng-template #template>
+            <div class="modal-body text-center">
+                <p>Do you want to delete?</p>
+                <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+            </div>
+        </ng-template>
+    </div>
+</body>

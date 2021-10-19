@@ -1,0 +1,56 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addFertilizerGroup">
+            <img src='assets/icons/menu/fertilizer.png'>
+            <h1 class="h3 mb-3 fw-normal">Add a new Fertilizer </h1>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="fertilizerType" type="text" class="form-control" placeholder="Fertilizer Type.." />
+                <label for="floatingPassword">Fertilizer Type</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="fertilizerBrand" type="text" class="form-control" placeholder="Brand.." />
+                <label for="floatingPassword">Brand</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="weight" type="number" class="form-control" placeholder="Weight.." />
+                <label for="floatingPassword">Weight</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="price" type="number" class="form-control"
+                    placeholder="Price.." />
+                <label for="floatingPassword">Price</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="boughtDate" type="datetime-local" class="form-control"
+                    placeholder="Bought Date.." />
+                <label for="floatingPassword">Bought Date</label>
+            </div>
+
+    
+
+            <br>
+            <!-- <button mat-raised-button style="background-color: red; width: 30%" (click)="confirmDialog()"
+                color="warn">Add</button> -->
+            <button type="button" class="btn btn-primary" [disabled]="!this.addFertilizerGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

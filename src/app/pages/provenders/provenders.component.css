@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-raised-button {
+  margin-right: 1%;
+  width: 5%;
+}
+

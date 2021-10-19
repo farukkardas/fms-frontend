@@ -1,0 +1,52 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addMilkSaleGroup">
+            <img src='assets/icons/menu/milk-bottle.png' style="width: 24px; height: 24px;">
+            <h1 class="h3 mb-3 fw-normal">Add a new Milk Sale </h1>
+
+            <div class="form-floating">
+                <input formControlName="amount" type="number" class="form-control" placeholder="Amount.." />
+                <label for="floatingPassword">Amount (LT)</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input formControlName="salePrice" type="number" class="form-control" placeholder="Sale Price.." />
+                <label for="floatingPassword">Sale Price (LT)</label>
+            </div>
+
+            <br>
+            <div class=form-floating>
+                <mat-form-field appearance="fill">
+                    <mat-label>Müşteri İsmi</mat-label>
+                    <mat-select formControlName="customerId" matNativeControl>
+                        <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.firstName}}
+                            {{customer.lastName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <br>
+
+            <div class="form-floating">
+                <h1 id="header">Birth Date</h1>
+                <input formControlName="boughtDate" type="datetime-local" class="form-control"
+                    placeholder="Bought Date" />
+            </div>
+
+            <br>
+
+
+            <br>
+            <button type="button" class="btn btn-primary" [disabled]="!this.addMilkSaleGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

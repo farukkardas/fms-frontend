@@ -1,0 +1,71 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addCowGroup">
+            <img src='assets/icons/menu/cow.png'>
+            <h1 class="h3 mb-3 fw-normal">Add a new Cow </h1>
+
+            <div class="form-floating">
+                <input formControlName="cowId" type="number" class="form-control" placeholder="Cow ID.." required />
+                <label for="floatingInput">Cow ID</label>
+            </div>
+            <div *ngIf="cowId.invalid" class="alert" style="height: 60px;">
+
+                <ngb-alert style="color: black; background-color: red; border-radius: 100px" [dismissible]="false">
+                 <span style="color: white; ;">Cow ID is required.</span>
+                </ngb-alert>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input formControlName="cowName" type="text" class="form-control" placeholder="Cow Name.." />
+                <label for="floatingPassword">Cow Name</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="age" type="number" class="form-control" placeholder="Age.." />
+                <label for="floatingPassword">Age</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="weight" type="number" class="form-control" placeholder="Weight.." />
+                <label for="floatingPassword">Weight</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="dailyMilkAmount" type="number" class="form-control"
+                    placeholder="Daily Milk Amount.." />
+                <label for="floatingPassword">Daily Milk Amount</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="weeklyMilkAmount" type="number" class="form-control"
+                    placeholder="Weekly Milk Amount.." />
+                <label for="floatingPassword">Weekly Milk Amount</label>
+            </div>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="monthlyMilkAmount" type="number" class="form-control"
+                    placeholder="Monthly Milk Amount.." />
+                <label for="floatingPassword">Monthly Milk Amount</label>
+            </div>
+
+            <br>
+            <!-- <button mat-raised-button style="background-color: red; width: 30%" (click)="confirmDialog()"
+                color="warn">Add</button> -->
+            <button type="button" class="btn btn-primary" [disabled]="!this.addCowGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

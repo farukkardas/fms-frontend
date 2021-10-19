@@ -1,0 +1,56 @@
+<img src='assets/icons/menu/provender.png' style="margin-left: 47%; width: 24px; height: 24px;">
+<br>
+<br>
+<div style="padding-left: 30%;">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Select Provender ID</mat-label>
+        <mat-select style="margin-left: 4%;" [(ngModel)]="property">
+            <mat-option *ngFor="let provender of provenders" [value]="provender">
+                <p>{{provender.id}}</p>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<body>
+
+    <div *ngIf="property">
+
+        <form [formGroup]="updateProvenderGroup">
+
+            <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
+                placeholder="{{property.id}}" readonly>
+
+
+            <h1 id="header">Provender Name</h1>
+            <input formControlName="provenderName" type="text" class="form-control" [ngModel]="property.provenderName"
+                placeholder="Provender Name.." />
+
+
+            <h1 id="header">Weight</h1>
+            <input formControlName="weight" type="number" class="form-control" [ngModel]="property.weight"
+                placeholder="Weight.." />
+
+            <h1 id="header" style="margin-top: 0%;">Price</h1>
+            <input formControlName="price" type="text" class="form-control" [ngModel]="property.price"
+                placeholder="Price.." />
+
+                
+            <h1 id="header" style="margin-top: 0%;">Bought Date</h1>
+            <input formControlName="boughtDate" type="datetime-local" class="form-control" [ngModel]="property.boughtDate"
+                placeholder="Bought Date.." />
+
+        </form>
+        <br>
+        <a mat-raised-button (click)="openModal(template)" [disabled]="!this.updateProvenderGroup.valid"
+            color="primary">Update</a>
+        <ng-template #template>
+            <div class="modal-body text-center">
+                <p>Do you want to update?</p>
+                <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+            </div>
+        </ng-template>
+    </div>
+</body>
