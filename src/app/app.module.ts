@@ -6,9 +6,8 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { ComponentsModule } from './components/components.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NotfoundfComponent } from './pages/notfoundf/notfoundf.component';
 
 
 
@@ -28,8 +29,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-
+    AdminLayoutComponent
+    
+  
     
   ],
   imports: [
@@ -39,7 +41,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgbPaginationModule,
     NgbAlertModule,
     BrowserAnimationsModule,
-    ComponentsModule,
     FontAwesomeModule,
     HttpClientModule,
     MatSidenavModule,
@@ -53,7 +54,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule.forRoot()
   ],
   providers: [
-   
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}
   ],
   bootstrap: [AppComponent],
 

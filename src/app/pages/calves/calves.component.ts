@@ -27,6 +27,7 @@ export class CalvesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCalves();
+    
   }
 
   applyFilter(filterValue: string) {
@@ -35,6 +36,14 @@ export class CalvesComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+  filterGender(gender:string){
+    if(gender != "0"){
+      gender == 'Female'
+    }
+    if (gender != "1") {
+      gender == "Male"
+    }
+  }
 
 
   getAllCalves(){

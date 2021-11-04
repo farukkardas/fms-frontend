@@ -3,7 +3,7 @@
 <br>
 <div style="padding-left: 30%;">
     <mat-form-field appearance="fill">
-        <mat-label>Select COW ID</mat-label>
+        <mat-label>Select Customer ID</mat-label>
         <mat-select style="margin-left: 4%;" [(ngModel)]="property">
             <mat-option *ngFor="let customer of customers" [value]="customer" [(ngModel)]="customers">
                 <p>{{customer.id}}</p>

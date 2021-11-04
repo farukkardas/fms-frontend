@@ -9,7 +9,7 @@ import { Sheep } from '../models/sheep';
   providedIn: 'root'
 })
 export class SheepsService {
-  apiUrl = "http://localhost:45523/api/";
+  apiUrl = "http://localhost:5000/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAllSheeps(): Observable<ListResponseModel<Sheep>> {

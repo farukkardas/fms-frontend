@@ -10,7 +10,7 @@ import { ResponseModel } from '../models/responseModel';
 })
 export class FertilizersService {
 
-  apiUrl: string = "http://localhost:45523/api/"
+  apiUrl: string = "http://localhost:5000/api/"
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<Fertilizer>> {

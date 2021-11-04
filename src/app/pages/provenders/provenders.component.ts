@@ -51,7 +51,7 @@ export class ProvendersComponent implements OnInit {
   openAddMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
-    dialogConfig.height = "75%";
+    dialogConfig.height = "60%";
     this.dialog.open(ProvenderAddComponent, dialogConfig);
 
   }
@@ -59,14 +59,14 @@ export class ProvendersComponent implements OnInit {
   openDeleteMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
-    dialogConfig.height = "75%";
+    dialogConfig.height = "60%";
     this.dialog.open(ProvenderDeleteComponent, dialogConfig);
   }
 
   openUpdateMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
-    dialogConfig.height = "75%";
+    dialogConfig.height = "60%";
     this.dialog.open(ProvenderUpdateComponent, dialogConfig);
   }
 

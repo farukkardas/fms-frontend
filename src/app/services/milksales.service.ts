@@ -11,7 +11,7 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class MilksalesService {
-  apiUrl = "http://localhost:45523/api/";
+  apiUrl = "http://localhost:5000/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<MilkSales>> {

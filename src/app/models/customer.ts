@@ -4,4 +4,5 @@ export class Customer{
     lastName:string;
     address:string;
     phoneNumber:number;
+    totalSalesAmount:number;
 }

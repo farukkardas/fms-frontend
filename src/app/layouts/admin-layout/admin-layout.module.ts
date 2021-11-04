@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminLayoutRoutes } from './admin-layout-routing';
 import { CalvesComponent } from 'src/app/pages/calves/calves.component';
@@ -50,6 +50,12 @@ import { CustomersComponent } from 'src/app/pages/customers/customers.component'
 import { CustomerAddComponent } from 'src/app/entries/customer-add/customer-add.component';
 import { CustomerDeleteComponent } from 'src/app/entries/customer-delete/customer-delete.component';
 import { CustomerUpdateComponent } from 'src/app/entries/customer-update/customer-update.component';
+import { CookieService } from 'ngx-cookie-service';
+import { LoginComponent } from 'src/app/pages/auth/login/login.component';
+import { RegisterComponent } from 'src/app/pages/auth/register/register.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
+import { NotfoundfComponent } from 'src/app/pages/notfoundf/notfoundf.component';
 
 
 @NgModule({
@@ -63,6 +69,10 @@ import { CustomerUpdateComponent } from 'src/app/entries/customer-update/custome
     FuelconsumptionComponent,
     MilksalesComponent,
     CustomersComponent,
+    LoginComponent,
+    RegisterComponent,
+    DashboardComponent,
+    NotfoundfComponent,
     CowAddComponent,
     CowDeleteComponent,
     CowUpdateComponent,
@@ -105,9 +115,11 @@ import { CustomerUpdateComponent } from 'src/app/entries/customer-update/custome
     ReactiveFormsModule,
     MatSelectModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ], providers: [
-   []
+   [CookieService],
+  
   ]
 })
 export class AdminLayoutModule { }

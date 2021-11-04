@@ -1,43 +1,71 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="isAuth">
 
-  <div style="display: inline-flex; padding-left: 1600px;">
-    <form class="form-inline waves-light" mdbWavesEffect>
-      <div class="md-form mt-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      </div>
-    </form>
+  <!-- register login button -->
+  <!-- <div >
+    <div>
+      <button class="btn btn-primary" [routerLink]="loginPage" style="right: 70px;"> <i class="fa fa-sign-in"
+          style="color: black;"></i></button>
+    </div>
+    <div>
+      <button class="btn btn-primary" [routerLink]="registerPage" style="right: 10px;"> <i class="fa fa-user-circle-o"
+          style="color: black;"></i></button>
+    </div>
+  </div> -->
 
-    <div ngbDropdown class="d-inline-block" style="padding-left: 10px;">
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle style="background-color:grey"> <i
+
+  <div *ngIf="isAuth" style="display: inline-flex;">
+    <div style="display: inline-flex;">
+      <form mdbWavesEffect>
+        <div>
+          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+
+        </div>
+      </form>
+
+    </div>
+    <img style="height: 100px; width: 100px;" src="assets/icons/bannerfarm.png" />
+    <!-- <div>
+      <span class="maintitle">Farm Management System</span>
+    </div> -->
+
+    <div ngbDropdown>
+      <button class="btn profile-button" id="dropdownBasic1" ngbDropdownToggle style="background-color:white"> <i
           class="fas fa-user-circle" style="color: black;"></i></button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button ngbDropdownItem>Profile</button>
-        <button ngbDropdownItem>Settings</button>
+        <button ngbDropdownItem (click)="logout()">Logout</button>
       </div>
     </div>
+
   </div>
+
 
 
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <!-- sidebar -->
-  <mat-sidenav mode="side" opened>
+  <mat-sidenav mode="side" opened *ngIf="isAuth">
     <img id="hicon" src="assets/icons/lely.png" />
     <br>
     <br>
 
-    <mat-divider></mat-divider>
-    <!-- dashboard button -->
-    <a [routerLink]="routerLinkVariable">
+    <button mat-raised-button style="margin-bottom: 5%;" [routerLink]="routerLinkVariable">
+      <div style="margin-right: 40px;">
+        <img src='assets/icons/menu/wheat.png' />
+        Dashboard
+      </div>
 
-      <button mat-raised-button style="width: 180px; height: 48px;padding-right: 30%; right: 0px;"><img
-          style="margin-bottom: 5%;" src='assets/icons/menu/wheat.png'>Dashboard</button>
-    </a>
+    </button>
 
+    <button mat-raised-button [routerLink]="customerLinkVariable">
+      <div style="margin-right: 40px;"> 
+        <img src='assets/icons/menu/customer.png' />
+        Customers
+      </div>
+
+    </button>
     <br>
     <br>
-    <mat-divider></mat-divider>
     <!-- 
     animals -->
     <mat-expansion-panel>
@@ -48,38 +76,36 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <a [routerLink]="cowsLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="cowsLink" style="margin-right: 30%;">
+        <img src='assets/icons/menu/cow.png'>
+        Cows
+      </button>
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/cow.png'>
-          Cows</button>
-      </a>
       <br>
-      <a [routerLink]="calvesLink" style="margin-right: 30%;">
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
-          Calves</button>
-      </a>
+      <button mat-raised-button id="bottombutton" [routerLink]="calvesLink" style="margin-right: 50%;">
+        <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
+        Calves
+      </button>
+
       <br>
-      <a [routerLink]="bullsLink" style="margin-right: 30%;">
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/bull.png'>
-          Bulls</button>
-      </a>
+      <button mat-raised-button id="bottombutton" [routerLink]="bullsLink" style="margin-right: 30%;">
+        <img src='assets/icons/menu/bull.png'>
+        Bulls
+      </button>
+
       <br>
-      <a [routerLink]="sheepsLink" style="margin-right: 30%;">
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/sheep.png'>
-          Sheeps</button>
-      </a>
+      <button mat-raised-button id="bottombutton" [routerLink]="sheepsLink" style="margin-right: 30%;">
+        <img src='assets/icons/menu/sheep.png'>
+        Sheeps
+      </button>
     </mat-expansion-panel>
 
 
     <br>
-    <mat-divider></mat-divider>
+
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -89,32 +115,30 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <a [routerLink]="provendersLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="provendersLink" style="margin-right: 30%;">
+        <img src='assets/icons/menu/provender.png'>
+        Provenders
+      </button>
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/provender.png'>
-          Provenders</button>
-      </a>
       <br>
-      <a [routerLink]="fertilizerLink" style="margin-right: 30%;">
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/fertilizer.png' style="width: 24px; height: 24px;">
-          Fertilizers</button>
-      </a>
+      <button mat-raised-button id="bottombutton" [routerLink]="fertilizerLink" style="margin-right: 30%;">
+        <img src='assets/icons/menu/fertilizer.png' style="width: 24px; height: 24px;">
+        Fertilizers
+      </button>
+
       <br>
-      <a [routerLink]="fuelConsumptionLink" style="margin-right: 30%;">
 
-        <button mat-raised-button>
-          <img src='assets/icons/menu/oil.png'>
-          Fuel Consump.</button>
-      </a>
+      <button mat-raised-button id="bottombutton" [routerLink]="fuelConsumptionLink" style="margin-right: 30%;">
+        <img src='assets/icons/menu/oil.png'>
+        Fuel Consump.
+      </button>
+
       <br>
     </mat-expansion-panel>
 
 
     <br>
-    <mat-divider></mat-divider>
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -124,25 +148,18 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <a [routerLink]="milkSalesLink" style="margin-right: 30%;">
-
-        <button mat-raised-button>
-          <img src='assets/icons/menu/milk-bottle.png'>
-          Milk Sales</button>
-      </a>
+      <button id="bottombutton" mat-raised-button [routerLink]="milkSalesLink">
+        <img  src='assets/icons/menu/milk-bottle.png'>
+        Milk Sales
+      </button>
 
     </mat-expansion-panel>
-    <br>
-    <a [routerLink]="customerLinkVariable">
 
-      <button mat-raised-button style="width: 180px; height: 48px;padding-right: 30%; right: 0px; margin-top: 0%;"><img
-          style="margin-bottom: 5%; margin-right: 2%;" src='assets/icons/menu/customer.png'>Customers</button>
-    </a>
 
   </mat-sidenav>
   <!-- //Content -->
   <mat-sidenav-content>
-    <div class="content mat-elevation-z4">
+    <div class="content">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

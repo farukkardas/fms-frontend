@@ -9,7 +9,7 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class FuelConsumptionService {
-  apiUrl: string = "http://localhost:45523/api/"
+  apiUrl: string = "http://localhost:5000/api/"
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<FuelConsumption>> {

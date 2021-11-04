@@ -33,12 +33,12 @@
 
         <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-            <td mat-cell *matCellDef="let element"> {{element.price}} TL </td>
+            <td mat-cell *matCellDef="let element"> {{element.price | currency: "TRY":true}} </td>
         </ng-container>
 
         <ng-container matColumnDef="boughtDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Bought Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.boughtDate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.boughtDate | date:'short'}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

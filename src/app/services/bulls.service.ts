@@ -9,7 +9,7 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class BullsService {
-  apiUrl = "http://localhost:45523/api/";
+  apiUrl = "http://localhost:5000/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAllBulls(): Observable<ListResponseModel<Bull>> {

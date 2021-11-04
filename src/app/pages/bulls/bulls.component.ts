@@ -49,7 +49,7 @@ export class BullsComponent implements OnInit {
   openAddMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
-    dialogConfig.height = "75%";
+    dialogConfig.height = "70%";
     this.dialog.open(BullAddComponent, dialogConfig);
 
   }
@@ -57,14 +57,15 @@ export class BullsComponent implements OnInit {
   openDeleteMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
-    dialogConfig.height = "75%";
+    dialogConfig.height = "60%";
+    
      this.dialog.open(BullDeleteComponent, dialogConfig);
   }
 
   openUpdateMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
-    dialogConfig.height = "75%";
+    dialogConfig.height = "60%";
     this.dialog.open(BullUpdateComponent, dialogConfig);
   }
 }

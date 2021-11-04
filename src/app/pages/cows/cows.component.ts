@@ -67,6 +67,7 @@ export class CowsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
+    dialogConfig.hasBackdrop = false;
     this.dialog.open(CowUpdateComponent, dialogConfig);
   }
 

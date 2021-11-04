@@ -19,7 +19,7 @@ export class CustomersComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Customer>;
-  displayedColumns: string[] = ['id','firstName', 'lastName', 'address','phoneNumber'];
+  displayedColumns: string[] = ['id','firstName', 'lastName', 'address','phoneNumber','totalSalesAmount'];
 
   constructor(private customerService: CustomerService, private toastrService: ToastrService, private dialog: MatDialog) { }
 

@@ -10,7 +10,7 @@ import { SingleResponseModel } from '../models/singleResponseModel';
   providedIn: 'root'
 })
 export class CowsService {
-  apiUrl = "http://localhost:45523/api/";
+  apiUrl = "http://localhost:5000/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAllCows(): Observable<ListResponseModel<Cow>> {

@@ -9,7 +9,7 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class CalvesService {
-  apiUrl = "http://localhost:45523/api/";
+  apiUrl = "http://localhost:5000/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAllCalves(): Observable<ListResponseModel<Calf>> {

@@ -9,11 +9,11 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class CustomerService {
-  apiUrl = "http://localhost:45523/api/";
+  apiUrl = "http://localhost:5000/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<Customer>> {
-    let getAllPath = this.apiUrl + "customer/getall";
+    let getAllPath = this.apiUrl + "customer/getcustomersummary";
     return this.httpClient.get<ListResponseModel<Customer>>(getAllPath);
   }
   addCustomer(customer: Customer): Observable<ResponseModel> {

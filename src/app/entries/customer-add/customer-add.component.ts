@@ -27,7 +27,8 @@ export class CustomerAddComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       address: [''],
-      phoneNumber: ['']
+      phoneNumber: [''],
+      purchaseAmount:['']
     });
   }
 
