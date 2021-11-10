@@ -58,8 +58,9 @@ mat-sidenav-container {
     width: 150px;
     height: 80px;
     pointer-events: none;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-top: 15px;
+    margin-bottom: 0px;
 }
 
 .btn-primary {
@@ -107,10 +108,16 @@ mat-sidenav-container {
     top: 15px;
 }
 
-.maintitle {
+.maintitlediv {
     position: fixed;
+    height: 35px;
     top: 15px;
-    left: 20px;
+    left: 90px;
+    color: red;
+    font-weight: 500;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
 }
 
 #bottombutton {

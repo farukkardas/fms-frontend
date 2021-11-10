@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Fertilizer } from 'src/app/models/fertilizer';
 import { FertilizersService } from 'src/app/services/fertilizers.service';
@@ -14,7 +15,7 @@ import { FertilizersService } from 'src/app/services/fertilizers.service';
 export class FertilizerAddComponent implements OnInit {
   modalRef: BsModalRef;
   addFertilizerGroup: FormGroup;
-  constructor(
+  constructor(private cookieService:CookieService,
     private dialogRef: MatDialogRef<FertilizerAddComponent>, private formBuilder: FormBuilder, private fertilizerService: FertilizersService, private toastrService: ToastrService, private modalService: BsModalService) {
   }
 
@@ -27,10 +28,11 @@ export class FertilizerAddComponent implements OnInit {
   createAddFertilizerForm() {
     this.addFertilizerGroup = this.formBuilder.group({
       fertilizerType: ['',Validators.required],
-      fertilizerBrand: [''],
-      weight: [''],
-      price: [''],
-      boughtDate: ['']
+      fertilizerBrand: ['',Validators.required],
+      weight: ['',Validators.required],
+      price: ['',Validators.required],
+      boughtDate: ['',Validators.required],
+      ownerId : [this.cookieService.get("uid")]
     });
 
 
@@ -59,11 +61,10 @@ export class FertilizerAddComponent implements OnInit {
     // take the value of cowgroup
     let fertilizerGroup: Fertilizer = { ...this.addFertilizerGroup.value };
 
-    //request to restapi
+    //request to api
     this.fertilizerService.addFertilizer(fertilizerGroup).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       this.dialogRef.close();
-      setTimeout(this.reloadPage, 2000)
     }, responseError=>{
       console.log(responseError)
       if(responseError.error.errors.length>0){
@@ -74,10 +75,6 @@ export class FertilizerAddComponent implements OnInit {
       } 
     })
   
-  }
-
-  reloadPage() {
-    window.location.reload()
   }
 
   close() {

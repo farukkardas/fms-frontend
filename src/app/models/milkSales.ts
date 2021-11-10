@@ -4,4 +4,6 @@ export class MilkSales{
     salePrice:number;
     customerId:number;
     boughtDate:Date;
+    sellerId:number;
+   
 }

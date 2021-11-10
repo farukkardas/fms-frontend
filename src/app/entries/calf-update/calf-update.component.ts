@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Calf } from 'src/app/models/calf';
@@ -17,7 +18,7 @@ modalRef: BsModalRef;
 updateCalfGroup:FormGroup;
 dtTrigger: Subject<any> = new Subject<any>();
 property = this.calves[6];
-  constructor(private modalService:BsModalService,private formBuilder:FormBuilder,private calvesServices:CalvesService,private toastrService:ToastrService) { }
+  constructor(private cookieService:CookieService,private modalService:BsModalService,private formBuilder:FormBuilder,private calvesServices:CalvesService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllCalves();
@@ -37,11 +38,12 @@ property = this.calves[6];
     this.updateCalfGroup = this.formBuilder.group({
       id: [''],
       calfId: ['',Validators.required],
-      age: [''],
-      gender: [''],
-      calfName: [''],
-      weight: [''],
-      birthDate: ['']
+      age: ['',Validators.required],
+      gender: ['',Validators.required],
+      calfName: ['',Validators.required],
+      weight: ['',Validators.required],
+      birthDate: ['',Validators.required],
+      ownerId : [this.cookieService.get("uid")]
     });
   }
 

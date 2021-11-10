@@ -18,7 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { NotfoundfComponent } from './pages/notfoundf/notfoundf.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 
@@ -51,7 +51,10 @@ import { NotfoundfComponent } from './pages/notfoundf/notfoundf.component';
     MatButtonModule,
     MatSelectModule,
     ToastrModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    })
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}

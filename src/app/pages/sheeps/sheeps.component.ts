@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { SheepAddComponent } from 'src/app/entries/sheep-add/sheep-add.component';
@@ -21,8 +22,8 @@ export class SheepsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Sheep>;
   displayedColumns: string[] = ['id', 'age', 'race', 'weight'];
-
-  constructor(private sheepsService: SheepsService, private toastrService: ToastrService,
+  emptyData:boolean = false;
+  constructor(private cookieService:CookieService,private sheepsService: SheepsService, private toastrService: ToastrService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -36,7 +37,16 @@ export class SheepsComponent implements OnInit {
   }
 
   getAllSheeps() {
-     this.sheepsService.getAllSheeps().subscribe(response => {
+
+    let userId,securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+     this.sheepsService.getUserSheeps(userId,securitykey).subscribe(response => {
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -49,7 +59,9 @@ export class SheepsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(SheepAddComponent, dialogConfig);
+    this.dialog.open(SheepAddComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
 
   }
 
@@ -57,14 +69,20 @@ export class SheepsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(SheepDeleteComponent, dialogConfig);
+    this.dialog.open(SheepDeleteComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
 
   openUpdateMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(SheepUpdateComponent, dialogConfig);
+    this.dialog.open(SheepUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
-
+  refresh(){
+    this.getAllSheeps();
+  }
 }

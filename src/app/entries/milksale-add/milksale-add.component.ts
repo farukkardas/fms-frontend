@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer';
 import { MilkSales } from 'src/app/models/milkSales';
@@ -17,7 +18,7 @@ export class MilksaleAddComponent implements OnInit {
   modalRef: BsModalRef;
   addMilkSaleGroup: FormGroup;
   customers : Customer[] = [];
-  constructor(private formBuilder: FormBuilder,private customerService:CustomerService, private dialogRef: MatDialogRef<MilksaleAddComponent>, private modalService: BsModalService, private milkSaleService: MilksalesService, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService ,private formBuilder: FormBuilder,private customerService:CustomerService, private dialogRef: MatDialogRef<MilksaleAddComponent>, private modalService: BsModalService, private milkSaleService: MilksalesService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.createAddBullGroup();
@@ -25,7 +26,12 @@ export class MilksaleAddComponent implements OnInit {
   }
 
   getAllCustomers(){
-    this.customerService.getAll().subscribe((response)=>{
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.customerService.getUserCustomer(userId,securitykey).subscribe((response)=>{
       this.customers = response.data
     },(responseError)=>{
       responseError.message
@@ -35,10 +41,11 @@ export class MilksaleAddComponent implements OnInit {
 
   createAddBullGroup() {
     this.addMilkSaleGroup = this.formBuilder.group({
-      amount: [''],
-      salePrice: [''],
-      customerId: [''],
-      boughtDate: ['']
+      amount: ['',Validators.required],
+      salePrice: ['',Validators.required],
+      customerId: ['',Validators.required],
+      boughtDate: ['',Validators.required],
+      sellerId : [this.cookieService.get("uid")]
     });
   }
 

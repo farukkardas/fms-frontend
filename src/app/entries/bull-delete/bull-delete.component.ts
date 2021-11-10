@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Bull } from 'src/app/models/bull';
 import { BullsService } from 'src/app/services/bulls.service';
@@ -15,7 +16,8 @@ export class BullDeleteComponent implements OnInit {
   deleteBullGroup: FormGroup;
   bulls: Bull[] = [];
   property = this.bulls[0];
-  constructor(private bullsService: BullsService, private formBuilder: FormBuilder, private toastrService: ToastrService, private modalService: BsModalService) { }
+  id : number;
+  constructor(private cookieService:CookieService,private bullsService: BullsService, private formBuilder: FormBuilder, private toastrService: ToastrService, private modalService: BsModalService) { }
 
 
   ngOnInit(): void {
@@ -29,24 +31,35 @@ export class BullDeleteComponent implements OnInit {
       bullId: [''],
       age: [''],
       bullName: [''],
-      weight: ['']
+      weight: [''],
+      ownerId: [this.cookieService.get("uid")]
     });
 
 
   }
 
   getAllBulls() {
-    this.bullsService.getAllBulls().subscribe((response) => {
+    let userId,securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.bullsService.getUserBulls(userId,securitykey).subscribe((response) => {
       this.bulls = response.data;
     })
   }
+
+
 
   deleteCow() {
     let bullModel: Bull = { ...this.deleteBullGroup.value }
     this.bullsService.deleteBull(bullModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       this.getAllBulls();
+      this.deleteBullGroup.reset() 
+      this.createDeleteForm();
     }, (responseError) => {
+      console.log(responseError)
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
     })
   }

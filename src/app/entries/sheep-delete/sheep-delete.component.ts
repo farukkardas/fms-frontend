@@ -45,6 +45,8 @@ export class SheepDeleteComponent implements OnInit {
     this.sheepsService.deleteSheep(sheepModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       this.getAllSheeps();
+      this.deleteSheepGroup.reset() 
+      this.createDeleteForm();
     }, (responseError) => {
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
     })

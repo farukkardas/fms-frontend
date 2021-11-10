@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { FuelConsumption } from 'src/app/models/fuelConsumption';
@@ -18,7 +19,7 @@ export class FuelUpdateComponent implements OnInit {
   property = this.fuels[0];
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private fuelConsumptionService: FuelConsumptionService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
+  constructor(private cookieService: CookieService, private fuelConsumptionService: FuelConsumptionService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +39,12 @@ export class FuelUpdateComponent implements OnInit {
 
 
   getAllFuels() {
-    this.fuelConsumptionService.getAll().subscribe((response) => {
+    let uid, securityKey;
+
+    uid = this.cookieService.get("uid");
+    securityKey = this.cookieService.get("sk");
+
+    this.fuelConsumptionService.getUserFuelConsumptions(uid, securityKey).subscribe((response) => {
       this.fuels = response.data;
     })
   }
@@ -47,9 +53,10 @@ export class FuelUpdateComponent implements OnInit {
     this.updateFuelGroup = this.formBuilder.group({
       id: [''],
       fuelType: ['', Validators.required],
-      amount: [''],
-      price: [''],
-      boughtDate: ['']
+      amount: ['', Validators.required],
+      price: ['', Validators.required],
+      boughtDate: ['', Validators.required],
+      ownerId : [this.cookieService.get("uid")]
     });
   }
 
@@ -70,7 +77,6 @@ export class FuelUpdateComponent implements OnInit {
     this.fuelConsumptionService.updateFuel(updateFuel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
 
-      //After success load bulls again (Temporary, needs to be async)
       this.getAllFuels();
 
     }, (responseError) => {

@@ -16,28 +16,28 @@
     <div *ngIf="property">
         <form [formGroup]="deleteProvenderGroup">
 
-            <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
+            <input class="form-control" formControlName="id" [(ngModel)]="property.id" type="hidden"
                 placeholder="{{property.id}}" readonly>
 
             <h1 id="header">Provender Name</h1>
-            <input class="form-control" formControlName="provenderName" [ngModel]="property.provenderName" type="hidden"
+            <input class="form-control" formControlName="provenderName" [(ngModel)]="property.provenderName" type="text"
                 placeholder="{{property.provenderName}}" readonly>
 
             <h1 id="header">Weight</h1>
-            <input class="form-control" formControlName="weight" type="number" [ngModel]="property.weight"
+            <input class="form-control" formControlName="weight" type="number" [(ngModel)]="property.weight"
                 placeholder="{{property.weight}}" readonly>
 
             <h1 id="header">Price</h1>
-            <input class="form-control" formControlName="price" [ngModel]="property.price" type="number"
+            <input class="form-control" formControlName="price" [(ngModel)]="property.price" type="number"
                 placeholder="{{property.price}}" readonly>
 
             <h1 id="header">Bought Date</h1>
-            <input class="form-control" formControlName="boughtDate" type="datetime-local" [ngModel]="property.boughtDate"
+            <input class="form-control" formControlName="boughtDate" type="datetime-local" [(ngModel)]="property.boughtDate"
                 placeholder="{{property.boughtDate}}" readonly>
 
         </form>
         <br>
-        <a mat-raised-button (click)="openModal(template)" color="primary">Delete</a>
+        <a mat-raised-button (click)="openModal(template)" *ngIf="property.id" color="primary">Delete</a>
         <ng-template #template>
             <div class="modal-body text-center">
                 <p>Do you want to delete?</p>

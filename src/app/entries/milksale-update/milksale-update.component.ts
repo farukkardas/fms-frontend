@@ -1,10 +1,12 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
 import { MilkSales } from 'src/app/models/milkSales';
+import { MilkSalesDto } from 'src/app/models/milkSalesDto';
 import { CustomerService } from 'src/app/services/customer.service';
 import { MilksalesService } from 'src/app/services/milksales.service';
 
@@ -14,14 +16,14 @@ import { MilksalesService } from 'src/app/services/milksales.service';
   styleUrls: ['./milksale-update.component.css']
 })
 export class MilksaleUpdateComponent implements OnInit {
-  milkSales: MilkSales[] = [];
+  milkSales: MilkSalesDto[] = [];
   customers:Customer[] = [];
   modalRef: BsModalRef;
   updateMilkSaleGroup: FormGroup;
   property = this.milkSales[0];
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private customerService:CustomerService,private milkSaleService: MilksalesService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
+  constructor(private cookieService:CookieService,private customerService:CustomerService,private milkSaleService: MilksalesService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,12 @@ export class MilksaleUpdateComponent implements OnInit {
   }
 
   getAllCustomers(){
-    this.customerService.getAll().subscribe((response)=>{
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.customerService.getUserCustomer(userId,securitykey).subscribe((response)=>{
       this.customers = response.data
     },(responseError)=>{
       responseError.message
@@ -54,18 +61,26 @@ export class MilksaleUpdateComponent implements OnInit {
   };
 
   getAllSales() {
-    this.milkSaleService.getAll().subscribe((response) => {
+
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.milkSaleService.getUserMilkSales(userId,securitykey).subscribe((response) => {
+      console.log(response.data)
       this.milkSales = response.data;
     })
   }
 
   createUpdateSalesForm() {
     this.updateMilkSaleGroup = this.formBuilder.group({
-      id: [''],
-      amount: [''],
-      salePrice: [''],
-      customerId: [''],
-      boughtDate: ['']
+      id: ['',Validators.required],
+      amount: ['',Validators.required],
+      salePrice: ['',Validators.required],
+      customerId: ['',Validators.required],
+      boughtDate: ['',Validators.required],
+      sellerId : [this.cookieService.get("uid")]
     });
   }
 
@@ -86,7 +101,7 @@ export class MilksaleUpdateComponent implements OnInit {
     this.milkSaleService.updateMilkSales(updateMilkSalesModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
 
-      //After success load  again (Temporary, needs to be async)
+  
       this.getAllSales();
 
     }, (responseError) => {

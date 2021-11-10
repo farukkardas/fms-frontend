@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Cow } from 'src/app/models/cow';
 import { CowsService } from 'src/app/services/cows.service';
@@ -16,7 +17,7 @@ export class CowDeleteComponent implements OnInit {
   deleteCowGroup : FormGroup;
   modalRef: BsModalRef;
   property = this.cows[0];
-  constructor(private cowService: CowsService,private formBuilder:FormBuilder,private toastrService:ToastrService, private dialogRef: MatDialogRef<CowDeleteComponent>,private modalService:BsModalService) { }
+  constructor(private cookieService:CookieService,private cowService: CowsService,private formBuilder:FormBuilder,private toastrService:ToastrService, private dialogRef: MatDialogRef<CowDeleteComponent>,private modalService:BsModalService) { }
 
   ngOnInit(): void {
     this.getAllCows();
@@ -39,7 +40,12 @@ export class CowDeleteComponent implements OnInit {
   }
 
   getAllCows() {
-    this.cowService.getAllCows().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.cowService.getUserCows(userId, securitykey).subscribe((response) => {
       this.cows = response.data;
     })
   }
@@ -48,9 +54,11 @@ export class CowDeleteComponent implements OnInit {
     let cowModel : Cow = {...this.deleteCowGroup.value}
     this.cowService.deleteCow(cowModel).subscribe((response)=>{
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
+      this.getAllCows();
+      this.deleteCowGroup.reset() 
+      this.createDeleteCowForm();
     },(responseError)=>{
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
-      console.log(responseError)
     })
   }
 
@@ -61,13 +69,7 @@ export class CowDeleteComponent implements OnInit {
 
   confirm(){
     this.deleteCow();
-    this.reloadPage();
-    this.modalRef.hide();
-   
-  }
-
-  reloadPage() {
-    window.location.reload()
+    this.modalRef.hide()
   }
 
   decline(){

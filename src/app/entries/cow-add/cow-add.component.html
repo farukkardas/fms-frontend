@@ -8,8 +8,9 @@
                 <input formControlName="cowId" type="number" class="form-control" placeholder="Cow ID.." required />
                 <label for="floatingInput">Cow ID</label>
             </div>
+            
+            <!-- alert if cow id empty -->
             <div *ngIf="cowId.invalid" class="alert" style="height: 60px;">
-
                 <ngb-alert style="color: black; background-color: red; border-radius: 100px" [dismissible]="false">
                  <span style="color: white; ;">Cow ID is required.</span>
                 </ngb-alert>
@@ -54,8 +55,7 @@
             </div>
 
             <br>
-            <!-- <button mat-raised-button style="background-color: red; width: 30%" (click)="confirmDialog()"
-                color="warn">Add</button> -->
+         
             <button type="button" class="btn btn-primary" [disabled]="!this.addCowGroup.valid"
                 (click)="openModal(template)">Add</button>
             <br><br>

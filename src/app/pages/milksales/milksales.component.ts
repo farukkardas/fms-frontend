@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MilksaleAddComponent } from 'src/app/entries/milksale-add/milksale-add.component';
 import { MilksaleDeleteComponent } from 'src/app/entries/milksale-delete/milksale-delete.component';
@@ -20,8 +21,8 @@ export class MilksalesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<MilkSalesDto>;
   displayedColumns: string[] = ['salesId','customerName','amount','price','boughtDate'];
-  
-  constructor(private milkSalesService: MilksalesService, private toastrService: ToastrService, private dialog: MatDialog) { }
+  emptyData:boolean = false;
+  constructor(private cookieService:CookieService,private milkSalesService: MilksalesService, private toastrService: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllSales();
@@ -36,7 +37,15 @@ export class MilksalesComponent implements OnInit {
 
 
   getAllSales() {
-    this.milkSalesService.getMilkSales().subscribe(response => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.milkSalesService.getUserMilkSales(userId,securitykey).subscribe(response => {
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -49,7 +58,9 @@ export class MilksalesComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-     this.dialog.open(MilksaleAddComponent, dialogConfig);
+     this.dialog.open(MilksaleAddComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
 
   }
 
@@ -57,13 +68,21 @@ export class MilksalesComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-      this.dialog.open(MilksaleDeleteComponent, dialogConfig);
+      this.dialog.open(MilksaleDeleteComponent, dialogConfig).afterClosed().subscribe(result=>{
+        this.refresh();
+      });
   }
 
   openUpdateMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-     this.dialog.open(MilksaleUpdateComponent, dialogConfig);
+     this.dialog.open(MilksaleUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
+  }
+
+  refresh(){
+    this.getAllSales();
   }
 }

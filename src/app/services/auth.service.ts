@@ -11,23 +11,30 @@ import { TokenModel } from '../models/tokenModel';
 })
 export class AuthService {
   apiUrl = "http://localhost:5000/api/auth/";
-  constructor(private httpClient:HttpClient,private cookieService:CookieService) { }
+  constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
-login(loginModel:LoginModel){
-  return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl+"login",loginModel);
-}
-
-register(registerModel:RegisterModel){
-  return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl+"register",registerModel);
-}
-
-isAuthenticated(){
-  if(this.cookieService.get("jwt")){
-    return true;
+  login(loginModel: LoginModel) {
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "login", loginModel);
   }
-  else {
-    return false;
+
+  register(registerModel: RegisterModel) {
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "register", registerModel);
   }
-}
+
+  logout() {
+    this.cookieService.delete("jwt")
+    this.cookieService.delete("uid")
+    this.cookieService.delete("sk")
+    window.location.reload()
+  }
+
+  isAuthenticated() {
+    if (this.cookieService.get("jwt")) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
 }

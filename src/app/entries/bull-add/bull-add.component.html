@@ -8,9 +8,9 @@
                 <input formControlName="bullId" type="number" class="form-control" placeholder="Bull ID.." required />
                 <label for="floatingInput">Bull ID</label>
             </div>
-            <div *ngIf="bullId.invalid" class="alert" style="height: 60px;">
+            <div *ngIf="bullId.invalid" class="alert" style="height: 50px;">
 
-                <ngb-alert style="color: black; background-color: red; border-radius: 100px" [dismissible]="false">
+                <ngb-alert style="color: black; background-color: red; border-radius: 100px;height: 50px;" [dismissible]="false">
                     <span style="color: white; ;">Cow ID is required.</span>
                 </ngb-alert>
             </div>
@@ -29,16 +29,14 @@
             </div>
 
             <br>
-      
-          <br>
+
+            <br>
             <div class="form-floating">
-                <input formControlName="weight" type="datetime-local " class="form-control"
-                    placeholder="Weight.." />
+                <input formControlName="weight" type="datetime-local " class="form-control" placeholder="Weight.." />
                 <label for="floatingPassword">Weight</label>
             </div>
 
             <br>
-
 
             <br>
             <button type="button" class="btn btn-primary" [disabled]="!this.addBullGroup.valid"

@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Sheep } from 'src/app/models/sheep';
@@ -17,7 +18,7 @@ export class SheepUpdateComponent implements OnInit {
   updateSheepGroup: FormGroup;
   property = this.sheeps[0];
   dtTrigger: Subject<any> = new Subject<any>();
-  constructor(private sheepsService:SheepsService,private formBuilder:FormBuilder,private modalService:BsModalService,private toastrService:ToastrService) { }
+  constructor(private cookieService:CookieService,private sheepsService:SheepsService,private formBuilder:FormBuilder,private modalService:BsModalService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllSheeps();
@@ -41,7 +42,11 @@ export class SheepUpdateComponent implements OnInit {
   };
 
   getAllSheeps() {
-    this.sheepsService.getAllSheeps().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+    this.sheepsService.getUserSheeps(userId,securitykey).subscribe((response) => {
       this.sheeps = response.data;
     })
   }
@@ -50,9 +55,10 @@ export class SheepUpdateComponent implements OnInit {
     this.updateSheepGroup = this.formBuilder.group({
       id: [''],
       sheepId: ['', Validators.required],
-      age: [''],
-      race: [''],
-      weight: ['']
+      age: ['', Validators.required],
+      race: ['', Validators.required],
+      weight: ['', Validators.required],
+      ownerId : [this.cookieService.get("uid")]
     });
   }
 
@@ -73,7 +79,6 @@ export class SheepUpdateComponent implements OnInit {
     this.sheepsService.updateSheep(updateSheepModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
 
-      //After success load bulls again (Temporary, needs to be async)
       this.getAllSheeps();
 
     }, (responseError) => {

@@ -1,10 +1,9 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { Bull } from 'src/app/models/bull';
 import { Fertilizer } from 'src/app/models/fertilizer';
-import { BullsService } from 'src/app/services/bulls.service';
 import { FertilizersService } from 'src/app/services/fertilizers.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class FertilizerDeleteComponent implements OnInit {
   fertilizerGroup: FormGroup;
   fertilizers: Fertilizer[] = [];
   property = this.fertilizers[0];
-  constructor(private fertilizerService: FertilizersService, private formBuilder: FormBuilder, private toastrService: ToastrService, private modalService: BsModalService) { }
+  constructor(private cookieService:CookieService,private fertilizerService: FertilizersService, private formBuilder: FormBuilder, private toastrService: ToastrService, private modalService: BsModalService) { }
 
 
   ngOnInit(): void {
@@ -40,7 +39,13 @@ export class FertilizerDeleteComponent implements OnInit {
   }
 
   getAllFertilizers() {
-    this.fertilizerService.getAll().subscribe((response) => {
+    
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.fertilizerService.getUserFertilizers(userId,securitykey).subscribe((response) => {
       this.fertilizers = response.data;
     })
   }
@@ -50,6 +55,8 @@ export class FertilizerDeleteComponent implements OnInit {
     this.fertilizerService.deleteProvender(fertilizerModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       this.getAllFertilizers();
+      this.fertilizerGroup.reset() 
+      this.createDeleteForm();
     }, (responseError) => {
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
     })

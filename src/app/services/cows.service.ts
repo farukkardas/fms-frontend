@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cow } from '../models/cow';
@@ -37,6 +37,14 @@ export class CowsService {
 
   updateCow(cowModel: Cow): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "cow/update", cowModel);
+  }
+
+  getUserCows(id: number, securityKey: string): Observable<ListResponseModel<Cow>> {
+    let getAllPath = this.apiUrl + "cow/getusercows";
+    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+
+    return this.httpClient.get<ListResponseModel<Cow>>(getAllPath, { params: parameters })
+
   }
 
 }

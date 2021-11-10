@@ -4,4 +4,5 @@ export class Bull{
     age:number;
     bullName:string;
     weight:number;
+    ownerId:number;
 }

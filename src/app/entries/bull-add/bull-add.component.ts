@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Bull } from 'src/app/models/bull';
 import { BullsService } from 'src/app/services/bulls.service';
@@ -16,7 +17,7 @@ export class BullAddComponent implements OnInit {
   modalRef: BsModalRef;
   addBullGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private dialogRef: MatDialogRef<BullAddComponent>, private modalService: BsModalService, private bulService: BullsService, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService,private formBuilder: FormBuilder, private dialogRef: MatDialogRef<BullAddComponent>, private modalService: BsModalService, private bulService: BullsService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.createAddBullGroup();
@@ -28,7 +29,8 @@ export class BullAddComponent implements OnInit {
       bullId: ['', Validators.required],
       age: [''],
       bullName: [''],
-      weight: ['']
+      weight: [''],
+      ownerId: [this.cookieService.get("uid")]
     });
   }
 
@@ -59,6 +61,8 @@ export class BullAddComponent implements OnInit {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       this.dialogRef.close();
     }, responseError => {
+      console.log(this.addBullGroup)
+      console.log(responseError)
       if (responseError.error.Errors.length > 0) {
         for (let i = 0; i < responseError.error.Errors.length; i++) {
           this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Error", { positionClass: 'toast-bottom-right' }

@@ -2,12 +2,11 @@
 <br>
 <br>
 <div style="padding-left: 30%;">
-
     <mat-form-field appearance="fill">
         <mat-label>Select Bull ID</mat-label>
         <mat-select style="margin-left: 4%;" [(ngModel)]="property">
             <mat-option *ngFor="let bull of bulls" [value]="bull">
-                <p>{{bull.bullId}}</p>
+                <p [(ngModel)]="bulls.bullId">{{bull.bullId}}</p>
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -25,7 +24,7 @@
             <input class="form-control" formControlName="bullId" [ngModel]="property.bullId" type="hidden"
                 placeholder="{{property.bullId}}" readonly>
 
-                
+
             <h1 id="header">Age</h1>
             <input formControlName="age" type="number" class="form-control" [ngModel]="property.age"
                 placeholder="Age.." />

@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Provender } from 'src/app/models/provender';
 import { ProvenderService } from 'src/app/services/provender.service';
@@ -14,7 +15,7 @@ import { ProvenderService } from 'src/app/services/provender.service';
 export class ProvenderAddComponent implements OnInit {
   modalRef: BsModalRef;
   addProvenderGroup: FormGroup;
-  constructor(
+  constructor(private cookieService:CookieService,
     private dialogRef: MatDialogRef<ProvenderAddComponent>, private formBuilder: FormBuilder, private provenderService: ProvenderService, private toastrService: ToastrService, private modalService: BsModalService) {
   }
 
@@ -26,9 +27,10 @@ export class ProvenderAddComponent implements OnInit {
   createAddProvenderForm() : void {
     this.addProvenderGroup = this.formBuilder.group({
       provenderName: ['', Validators.required],
-      weight: [''],
-      price: [''],
-      boughtDate: ['']
+      weight: ['', Validators.required],
+      price: ['', Validators.required],
+      boughtDate: ['', Validators.required],
+      ownerId: [this.cookieService.get("uid")]
     });
   }
 

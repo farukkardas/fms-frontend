@@ -7,7 +7,7 @@
         <mat-label>Select Milksale ID</mat-label>
         <mat-select style="margin-left: 4%;" [(ngModel)]="property">
             <mat-option *ngFor="let milksale of milkSales" [value]="milksale">
-                <p>{{milksale.id}}</p>
+                <p>{{milksale.salesId}}</p>
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -19,8 +19,8 @@
 
         <form [formGroup]="updateMilkSaleGroup">
 
-            <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
-                placeholder="{{property.id}}" readonly>
+            <input class="form-control" formControlName="id" [ngModel]="property.salesId" type="hidden"
+                placeholder="{{property.salesId}}" readonly>
 
 
             <h1 id="header">Amount</h1>
@@ -29,7 +29,7 @@
 
 
             <h1 id="header" style="margin-top: 0%;">Price</h1>
-            <input formControlName="salePrice" type="text" class="form-control" [ngModel]="property.salePrice"
+            <input formControlName="salePrice" type="text" class="form-control" [ngModel]="property.price"
                 placeholder="Sale Price.." />
 
             <br>

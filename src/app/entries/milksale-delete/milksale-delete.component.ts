@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MilkSales } from 'src/app/models/milkSales';
 import { MilkSalesDto } from 'src/app/models/milkSalesDto';
@@ -14,10 +15,10 @@ import { MilksalesService } from 'src/app/services/milksales.service';
 export class MilksaleDeleteComponent implements OnInit {
 
   modalRef: BsModalRef;
-  milkSales: MilkSales[] = [];
+  milkSales: MilkSalesDto[] = [];
   deleteSaleGroup: FormGroup;
   property = this.milkSales[0];
-  constructor(private modalService: BsModalService, private milkSalesService: MilksalesService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService,private modalService: BsModalService, private milkSalesService: MilksalesService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllSales();
@@ -25,7 +26,12 @@ export class MilksaleDeleteComponent implements OnInit {
   }
 
   getAllSales() {
-    this.milkSalesService.getAll().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.milkSalesService.getUserMilkSales(userId,securitykey).subscribe((response) => {
       this.milkSales = response.data;
     })
   }
@@ -36,7 +42,8 @@ export class MilksaleDeleteComponent implements OnInit {
       amount: [''],
       salePrice: [''],
       customerId: [''],
-      boughtDate: ['']
+      boughtDate: [''],
+      sellerId : [this.cookieService.get("uid")]
     });
 
 
@@ -53,7 +60,9 @@ export class MilksaleDeleteComponent implements OnInit {
     
     this.milkSalesService.deleteMilkSales(milkModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
-    this.getAllSales();
+      this.getAllSales();
+      this.deleteSaleGroup.reset() 
+      this.createDeleteSaleForm();
     }, (responseError) => {
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
     })

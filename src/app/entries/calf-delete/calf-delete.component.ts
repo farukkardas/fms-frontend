@@ -53,7 +53,9 @@ export class CalfDeleteComponent implements OnInit {
     
     this.calvesServices.deleteCalf(calfModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
-    this.getAllCalves();
+      this.getAllCalves();
+      this.deleteCalfGroup.reset() 
+      this.createDeleteCalfForm();
     }, (responseError) => {
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
     })

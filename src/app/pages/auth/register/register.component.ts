@@ -61,6 +61,7 @@ get password() {
     this.authService.register(registerModel).subscribe((response) => {
       this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
       this.cookieService.set("jwt", response.data.token)
+      this.cookieService.set("uid", response.data.id)
       setTimeout(()=>window.location.reload(),1400)
     }, (responseError) => {
       console.log(responseError)

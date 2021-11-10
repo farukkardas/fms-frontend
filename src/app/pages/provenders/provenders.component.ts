@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ProvenderAddComponent } from 'src/app/entries/provender-add/provender-add.component';
 import { ProvenderDeleteComponent } from 'src/app/entries/provender-delete/provender-delete.component';
@@ -20,7 +21,8 @@ export class ProvendersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Provender>;
   displayedColumns: string[] = ['id', 'provenderName', 'weight', 'price', 'boughtDate'];
-  constructor(private provendersService: ProvenderService, private toastrService: ToastrService, private dialog: MatDialog,) {
+  emptyData:boolean = false;
+  constructor(private cookieService:CookieService,private provendersService: ProvenderService, private toastrService: ToastrService, private dialog: MatDialog,) {
   }
 
   ngOnInit(): void {
@@ -31,7 +33,15 @@ export class ProvendersComponent implements OnInit {
 
 
   getAllProvenders() {
-    this.provendersService.getAll().subscribe(response => {
+    let userId,securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.provendersService.getUserProvenders(userId,securitykey).subscribe(response => {
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -52,7 +62,9 @@ export class ProvendersComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "60%";
-    this.dialog.open(ProvenderAddComponent, dialogConfig);
+    this.dialog.open(ProvenderAddComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
 
   }
 
@@ -60,16 +72,22 @@ export class ProvendersComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "60%";
-    this.dialog.open(ProvenderDeleteComponent, dialogConfig);
+    this.dialog.open(ProvenderDeleteComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
 
   openUpdateMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "60%";
-    this.dialog.open(ProvenderUpdateComponent, dialogConfig);
+    this.dialog.open(ProvenderUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
-
+  refresh(){
+    this.getAllProvenders();
+  }
 }
 
 

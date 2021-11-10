@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Sheep } from 'src/app/models/sheep';
 import { SheepsService } from 'src/app/services/sheeps.service';
@@ -14,7 +15,7 @@ import { SheepsService } from 'src/app/services/sheeps.service';
 export class SheepAddComponent implements OnInit {
   addSheepGroup: FormGroup;
   modalRef:BsModalRef;
-  constructor(private dialogRef: MatDialogRef<SheepAddComponent>,private sheepsService: SheepsService,private formBuilder: FormBuilder,private modalService:BsModalService,private toastrService:ToastrService) { }
+  constructor(private cookieService:CookieService,private dialogRef: MatDialogRef<SheepAddComponent>,private sheepsService: SheepsService,private formBuilder: FormBuilder,private modalService:BsModalService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.createAddSheepGroup();
@@ -23,9 +24,10 @@ export class SheepAddComponent implements OnInit {
   createAddSheepGroup() {
     this.addSheepGroup = this.formBuilder.group({
       sheepId: ['', Validators.required],
-      age: [''],
-      race: [''],
-      weight: ['']
+      age: ['', Validators.required],
+      race: ['', Validators.required],
+      weight: ['', Validators.required],
+      ownerId: [this.cookieService.get("uid")]
     });
   }
 

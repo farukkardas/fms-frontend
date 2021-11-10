@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bull } from '../models/bull';
@@ -27,5 +27,13 @@ export class BullsService {
 
   deleteBull(bullModel : Bull) : Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "bull/delete",bullModel);
+  }
+
+  getUserBulls(id: number, securityKey: string): Observable<ListResponseModel<Bull>> {
+    let getAllPath = this.apiUrl + "bull/getuserbulls";
+    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+
+    return this.httpClient.get<ListResponseModel<Bull>>(getAllPath, { params: parameters })
+
   }
 }

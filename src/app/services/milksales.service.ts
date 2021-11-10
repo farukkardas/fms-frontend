@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from '../models/customer';
@@ -33,5 +33,12 @@ export class MilksalesService {
 
   deleteMilkSales(milkSales:MilkSales) : Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "milksales/delete",milkSales);
+  }
+
+  getUserMilkSales(id:number,securityKey:string) : Observable<ListResponseModel<MilkSalesDto>>{
+    let getAllPath = this.apiUrl + "milksales/getusermilksales";
+    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+
+    return this.httpClient.get<ListResponseModel<MilkSalesDto>>(getAllPath, { params: parameters })
   }
 }

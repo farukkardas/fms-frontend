@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Cow } from 'src/app/models/cow';
 import { CowsService } from 'src/app/services/cows.service';
@@ -15,7 +16,7 @@ export class CowUpdateComponent implements OnInit {
   updateCowGroup: FormGroup;
   modalRef: BsModalRef;
   property = this.cows[0];
-  constructor(private cowService: CowsService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
+  constructor(private cookieService: CookieService, private cowService: CowsService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllCows();
@@ -31,12 +32,13 @@ export class CowUpdateComponent implements OnInit {
     this.updateCowGroup = this.formBuilder.group({
       id: [''],
       cowId: ['', Validators.required],
-      cowName: [''],
-      age: [''],
-      weight: [''],
-      dailyMilkAmount: [''],
-      weeklyMilkAmount: [''],
-      monthlyMilkAmount: ['']
+      cowName: ['',Validators.required],
+      age: ['',Validators.required],
+      weight: ['',Validators.required],
+      dailyMilkAmount: ['',Validators.required],
+      weeklyMilkAmount: ['',Validators.required],
+      monthlyMilkAmount: ['',Validators.required],
+      ownerId : [this.cookieService.get("uid")]
     });
   }
 
@@ -51,7 +53,12 @@ export class CowUpdateComponent implements OnInit {
   };
 
   getAllCows() {
-    this.cowService.getAllCows().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.cowService.getUserCows(userId, securitykey).subscribe((response) => {
       this.cows = response.data;
     })
   }

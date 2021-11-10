@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -15,7 +16,7 @@ export class CustomerAddComponent implements OnInit {
   modalRef: BsModalRef;
   addCustomerGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private dialogRef: MatDialogRef<CustomerAddComponent>, private modalService: BsModalService, private customerService: CustomerService, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService,private formBuilder: FormBuilder, private dialogRef: MatDialogRef<CustomerAddComponent>, private modalService: BsModalService, private customerService: CustomerService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.createAddCustomerGroup();
@@ -24,16 +25,16 @@ export class CustomerAddComponent implements OnInit {
 
   createAddCustomerGroup() {
     this.addCustomerGroup = this.formBuilder.group({
-      firstName: [''],
+      firstName: ['',Validators.required],
       lastName: [''],
       address: [''],
       phoneNumber: [''],
-      purchaseAmount:['']
+      ownerId : [this.cookieService.get("uid")]
     });
   }
 
   openModal(template: TemplateRef<any>) {
-    if (!this.addCustomerGroup.valid) { return }
+    
     this.modalRef = this.modalService.show(template, { class: 'modal-dialog-centered' })
   }
 

@@ -35,8 +35,7 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   logout() {
-    this.cookieService.delete("jwt")
-    window.location.reload();
+    this.authService.logout()
   }
 
   isAuthenticated() {

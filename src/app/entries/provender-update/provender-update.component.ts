@@ -48,11 +48,11 @@ export class ProvenderUpdateComponent implements OnInit {
   
     createUpdateProvenderForm() {
       this.updateProvenderGroup = this.formBuilder.group({
-        id: [''],
-        provenderName: [''],
-        weight: [''],
-        price: [''],
-        boughtDate: ['']
+        id: ['', Validators.required],
+        provenderName: ['', Validators.required],
+        weight: ['', Validators.required],
+        price: ['', Validators.required],
+        boughtDate: ['', Validators.required]
       });
     }
   

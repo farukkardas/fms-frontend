@@ -15,32 +15,32 @@
 <body>
   <div *ngIf="property">
     <form [formGroup]="deleteCowGroup">
-      <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
+      <input class="form-control" formControlName="id" [(ngModel)]="property.id" type="hidden"
         placeholder="{{property.id}}" readonly>
-      <input class="form-control" formControlName="cowId" [ngModel]="property.cowId" type="hidden"
+      <input class="form-control" formControlName="cowId" [(ngModel)]="property.cowId" type="hidden"
         placeholder="{{property.cowId}}" readonly>
       <h1 id="header">Cow Name</h1>
-      <input class="form-control" formControlName="cowName" [ngModel]="property.cowName" type="text"
+      <input class="form-control" formControlName="cowName" [(ngModel)]="property.cowName" type="text"
         placeholder="{{property.cowName}}" readonly>
       <h1 id="header">Age</h1>
-      <input class="form-control" formControlName="age" type="text" [ngModel]="property.age"
+      <input class="form-control" formControlName="age" type="text" [(ngModel)]="property.age"
         placeholder="{{property.age}}" readonly>
       <h1 id="header">Weight</h1>
-      <input class="form-control" formControlName="weight" type="text" [ngModel]="property.weight"
+      <input class="form-control" formControlName="weight" type="text" [(ngModel)]="property.weight"
         placeholder="{{property.weight}}" readonly>
       <h1 id="header">Daily Milk Amount</h1>
-      <input class="form-control" formControlName="dailyMilkAmount" type="text" [ngModel]="property.dailyMilkAmount"
+      <input class="form-control" formControlName="dailyMilkAmount" type="text" [(ngModel)]="property.dailyMilkAmount"
         placeholder="{{property.dailyMilkAmount}}" readonly>
       <h1 id="header">Weekly Milk Amount</h1>
-      <input class="form-control" formControlName="weeklyMilkAmount" type="text" [ngModel]="property.weeklyMilkAmount"
+      <input class="form-control" formControlName="weeklyMilkAmount" type="text" [(ngModel)]="property.weeklyMilkAmount"
         placeholder="{{property.weeklyMilkAmount}}" readonly>
       <h1 id="header">Monthly Milk Amount</h1>
-      <input class="form-control" formControlName="monthlyMilkAmount" type="text" [ngModel]="property.monthlyMilkAmount"
+      <input class="form-control" formControlName="monthlyMilkAmount" type="text" [(ngModel)]="property.monthlyMilkAmount"
         placeholder="{{property.monthlyMilkAmount}}" readonly>
 
     </form>
     <br>
-    <a mat-raised-button (click)="openModal(template)" color="primary">Delete</a>
+    <a mat-raised-button (click)="openModal(template)" *ngIf="property.id" color="primary">Delete</a>
     <ng-template #template>
       <div class="modal-body text-center">
         <p>Do you want to delete?</p>

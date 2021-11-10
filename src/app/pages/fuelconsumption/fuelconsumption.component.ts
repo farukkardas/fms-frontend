@@ -11,6 +11,7 @@ import { FuelUpdateComponent } from 'src/app/entries/fuel-update/fuel-update.com
 import { FuelConsumption } from 'src/app/models/fuelConsumption';
 import { FuelConsumptionService } from 'src/app/services/fuelconsumption.service';
 import {switchMap} from "rxjs/operators"
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-fuelconsumption',
   templateUrl: './fuelconsumption.component.html',
@@ -21,9 +22,10 @@ export class FuelconsumptionComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<FuelConsumption>;
   displayedColumns: string[] = ['id', 'fuelType', 'amount', 'price', 'boughtDate'];
+  emptyData:boolean = false;
 
 
-  constructor(private iterableDiffers: IterableDiffers, private fuelConsumptionService: FuelConsumptionService, private dialog: MatDialog, private toastrService: ToastrService) {
+  constructor(private cookieService:CookieService, private fuelConsumptionService: FuelConsumptionService, private dialog: MatDialog, private toastrService: ToastrService) {
 
   }
 
@@ -34,7 +36,15 @@ export class FuelconsumptionComponent implements OnInit {
 
 
   public getAllFuels() {
-    this.fuelConsumptionService.getAll().subscribe(response => {
+    let uid, securityKey;
+
+    uid = this.cookieService.get("uid");
+    securityKey = this.cookieService.get("sk");
+
+    this.fuelConsumptionService.getUserFuelConsumptions(uid,securityKey).subscribe(response => {
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -55,14 +65,18 @@ export class FuelconsumptionComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(FuelDeleteComponent, dialogConfig);
+    this.dialog.open(FuelDeleteComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
 
   openAddMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(FuelAddComponent, dialogConfig);
+    this.dialog.open(FuelAddComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
 
   }
 
@@ -70,8 +84,13 @@ export class FuelconsumptionComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(FuelUpdateComponent, dialogConfig);
+    this.dialog.open(FuelUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
 
 
+  refresh(){
+    this.getAllFuels();
+  }
 }

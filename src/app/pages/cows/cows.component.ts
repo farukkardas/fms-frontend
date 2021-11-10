@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig, } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { CowAddComponent } from 'src/app/entries/cow-add/cow-add.component';
@@ -22,21 +23,31 @@ export class CowsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Cow>;
   displayedColumns: string[] = ['id','name', 'age', 'weight', 'dailyMilkAmount','weeklyMilkAmount','monthlyMilkAmount'];
+  emptyData:boolean = false;
 
 
-  constructor(private cowService: CowsService, private dialog: MatDialog, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService,private cowService: CowsService, private dialog: MatDialog, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllCows();
   }
 
   getAllCows() {
-    this.cowService.getAllCows().subscribe(response => {
+let userId,securitykey;
+
+userId = this.cookieService.get("uid")
+securitykey = this.cookieService.get("sk")
+
+    this.cowService.getUserCows(userId,securitykey).subscribe(response => {
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, (responseError) => {
-      this.toastrService.error(responseError.message);
+      console.log(responseError.error.message)
+      this.toastrService.error(responseError.error.message,"Error" , {positionClass: 'toast-bottom-right'});
     });
 
   }
@@ -52,14 +63,18 @@ export class CowsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(CowDeleteComponent, dialogConfig);
+    this.dialog.open(CowDeleteComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
   }
 
   openAddMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    this.dialog.open(CowAddComponent, dialogConfig);
+    this.dialog.open(CowAddComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });;
 
   }
 
@@ -67,8 +82,14 @@ export class CowsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "75%";
-    dialogConfig.hasBackdrop = false;
-    this.dialog.open(CowUpdateComponent, dialogConfig);
+
+    this.dialog.open(CowUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });;
+  }
+
+  refresh(){
+    this.getAllCows();
   }
 
 }

@@ -6,4 +6,5 @@ export class Calf{
     calfName:string;
     weight:number;
     birthDate:Date;
+    ownerId:number;
 }

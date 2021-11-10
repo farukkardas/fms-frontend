@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of, Subject } from 'rxjs';
 import { Bull } from 'src/app/models/bull';
@@ -18,7 +19,7 @@ export class BullUpdateComponent implements OnInit {
   property = this.bulls[0];
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private bullsService: BullsService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
+  constructor(private cookieService: CookieService, private bullsService: BullsService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +42,12 @@ export class BullUpdateComponent implements OnInit {
   };
 
   getAllBulls() {
-    this.bullsService.getAllBulls().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.bullsService.getUserBulls(userId, securitykey).subscribe((response) => {
       this.bulls = response.data;
     })
   }
@@ -50,9 +56,10 @@ export class BullUpdateComponent implements OnInit {
     this.updateBullGroup = this.formBuilder.group({
       id: [''],
       bullId: ['', Validators.required],
-      age: [''],
-      bullName: [''],
-      weight: ['']
+      age: ['',Validators.required],
+      bullName: ['',Validators.required],
+      weight: ['',Validators.required], 
+      ownerId: [this.cookieService.get("uid")]
     });
   }
 
@@ -68,12 +75,13 @@ export class BullUpdateComponent implements OnInit {
 
 
   updateBull() {
-    let updateCowModel: Bull = { ...this.updateBullGroup.value };
+    let updateBullModel: Bull = { ...this.updateBullGroup.value };
 
-    this.bullsService.updateBull(updateCowModel).subscribe((response) => {
+    if(!this.updateBullGroup.valid) return;
+    
+    this.bullsService.updateBull(updateBullModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
 
-      //After success load bulls again (Temporary, needs to be async)
       this.getAllBulls();
 
     }, (responseError) => {

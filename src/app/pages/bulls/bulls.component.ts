@@ -1,8 +1,9 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { BullAddComponent } from 'src/app/entries/bull-add/bull-add.component';
@@ -20,9 +21,11 @@ export class BullsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Bull>;
-  displayedColumns: string[] = ['id','age', 'bullName', 'weight'];
+  displayedColumns: string[] = ['bullId','age', 'bullName', 'weight'];
+  emptyData:boolean = false;
 
-  constructor(private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog) { }
+
+  constructor(private cookieService:CookieService,private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getAllBulls();
@@ -37,12 +40,26 @@ export class BullsComponent implements OnInit {
 
 
   getAllBulls() {
-    this.bullsService.getAllBulls().subscribe(response => {
+    let userId,securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+    
+    this.bullsService.getUserBulls(userId,securitykey).subscribe(response => {
+
+      
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
       this.dataSource = new MatTableDataSource(response.data);
+      this.changeDetectorRefs.detectChanges() 
       this.dataSource.sort = this.sort;
+
       this.dataSource.paginator = this.paginator;
+      this.changeDetectorRefs.detectChanges();
     }, (responseError) => {
-      this.toastrService.error(responseError.message);
+      this.toastrService.error(responseError.message,"Error",{positionClass:'toast-bottom-right'});
+      
     });
   }
 
@@ -50,7 +67,9 @@ export class BullsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "70%";
-    this.dialog.open(BullAddComponent, dialogConfig);
+    this.dialog.open(BullAddComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
 
   }
 
@@ -59,13 +78,23 @@ export class BullsComponent implements OnInit {
     dialogConfig.width = "30%";
     dialogConfig.height = "60%";
     
-     this.dialog.open(BullDeleteComponent, dialogConfig);
+     this.dialog.open(BullDeleteComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
+
   }
 
   openUpdateMenu() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "30%";
     dialogConfig.height = "60%";
-    this.dialog.open(BullUpdateComponent, dialogConfig);
+    this.dialog.open(BullUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
+
   }
+
+ refresh(){
+   this.getAllBulls();
+ }
 }

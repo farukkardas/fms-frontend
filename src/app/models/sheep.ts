@@ -4,4 +4,5 @@ export class Sheep{
     age : number;
     race : string;
     weight : number;
+    ownerId : number;
 }

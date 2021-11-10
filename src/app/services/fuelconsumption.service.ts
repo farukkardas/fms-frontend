@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FuelConsumption } from '../models/fuelConsumption';
@@ -27,5 +27,15 @@ export class FuelConsumptionService {
 
   deleteFuel(fuelConsumption:FuelConsumption) : Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "fuelconsumption/delete",fuelConsumption);
+  }
+
+  getUserFuelConsumptions(id:number,securityKey:string) : Observable<ListResponseModel<FuelConsumption>>{
+let allPath = this.apiUrl + "fuelconsumption/getuserfuelconsumption";
+
+let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+
+return this.httpClient.get<ListResponseModel<FuelConsumption>>(allPath, {params:parameters});
+
+
   }
 }

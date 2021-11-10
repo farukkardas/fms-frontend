@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Fertilizer } from 'src/app/models/fertilizer';
@@ -17,7 +18,7 @@ export class FertilizerUpdateComponent implements OnInit {
   updateFertilizerGroup: FormGroup;
   dtTrigger: Subject<any> = new Subject<any>();
   property = this.fertilizers[0];
-  constructor(private modalService: BsModalService, private formBuilder: FormBuilder, private fertilizerService: FertilizersService, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService,private modalService: BsModalService, private formBuilder: FormBuilder, private fertilizerService: FertilizersService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllFertilizers();
@@ -37,10 +38,11 @@ export class FertilizerUpdateComponent implements OnInit {
     this.updateFertilizerGroup = this.formBuilder.group({
       id: [''],
       fertilizerType: ['',Validators.required],
-      fertilizerBrand: [''],
-      weight: [''],
-      price: [''],
-      boughtDate: ['']
+      fertilizerBrand: ['',Validators.required],
+      weight: ['',Validators.required],
+      price: ['',Validators.required],
+      boughtDate: ['',Validators.required],
+      ownerId : [this.cookieService.get("uid")]
     });
   }
 
@@ -59,7 +61,12 @@ export class FertilizerUpdateComponent implements OnInit {
   };
 
   getAllFertilizers() {
-    this.fertilizerService.getAll().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.fertilizerService.getUserFertilizers(userId,securitykey).subscribe((response) => {
       this.fertilizers = response.data;
     })
   }
@@ -74,10 +81,5 @@ export class FertilizerUpdateComponent implements OnInit {
     })
   }
 
-  reloadPage(delay:number) {
-    setTimeout(()=>{
-      window.location.reload(),2000
-    })
 
-  }
 }

@@ -4,4 +4,5 @@ export class FuelConsumption{
     amount:number;
     price:number;
     boughtDate:Date;
+    ownerId: number;
 }

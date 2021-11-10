@@ -4,4 +4,5 @@ export class Provender{
     weight:number;
     price:number;
     boughtDate:Date;
+    ownerId:number;
 }

@@ -5,4 +5,5 @@ export class Fertilizer{
     weight:number;
     price:number;
     boughtDate:Date;
+    ownerId:number;
 }

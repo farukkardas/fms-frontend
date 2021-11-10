@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { FuelConsumption } from 'src/app/models/fuelConsumption';
 import { FuelconsumptionComponent } from 'src/app/pages/fuelconsumption/fuelconsumption.component';
@@ -16,7 +17,7 @@ export class FuelDeleteComponent implements OnInit {
   deleteFuelGroup: FormGroup;
   fuels: FuelConsumption[] = [];
   property = this.fuels[0];
-  constructor(private fuelConsumptionService: FuelConsumptionService, private formBuilder: FormBuilder, private toastrService: ToastrService, private modalService: BsModalService) { }
+  constructor(private cookieService:CookieService,private fuelConsumptionService: FuelConsumptionService, private formBuilder: FormBuilder, private toastrService: ToastrService, private modalService: BsModalService) { }
 
 
   ngOnInit(): void {
@@ -30,14 +31,20 @@ export class FuelDeleteComponent implements OnInit {
       fuelType: [''],
       amount: [''],
       price: [''],
-      boughtDate: ['']
+      boughtDate: [''],
+      ownerId : [this.cookieService.get("uid")]
     });
 
 
   }
 
   getAllFuels() {
-    this.fuelConsumptionService.getAll().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.fuelConsumptionService.getUserFuelConsumptions(userId,securitykey).subscribe((response) => {
       this.fuels = response.data;
     })
   }
@@ -46,7 +53,10 @@ export class FuelDeleteComponent implements OnInit {
     let fuelModel: FuelConsumption = { ...this.deleteFuelGroup.value }
     this.fuelConsumptionService.deleteFuel(fuelModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
+      
       this.getAllFuels();
+      this.deleteFuelGroup.reset() 
+      this.createDeleteForm();
  
     }, (responseError) => {
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });

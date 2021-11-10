@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
@@ -34,4 +34,11 @@ export class SheepsService {
       this.apiUrl + "sheep/update", sheepModel);
   }
 
+  getUserSheeps(id:number,securityKey:string) : Observable<ListResponseModel<Sheep>> {
+    let getAllPath = this.apiUrl + "sheep/getusersheeps";
+    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+
+    return this.httpClient.get<ListResponseModel<Sheep>>(getAllPath, { params: parameters })
+
+  }
 }

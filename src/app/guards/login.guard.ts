@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginGuard implements CanActivate {
 
+  isAuthenticated:boolean;
+
   constructor(private authService: AuthService,
     private toastrService: ToastrService,
     private router: Router) {
@@ -20,8 +22,14 @@ export class LoginGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (this.authService.isAuthenticated()) {
+      this.isAuthenticated = true;
       return true;
     } else {
+
+     if(this.isAuthenticated == true){
+       this.isAuthenticated = false
+       window.location.reload()
+     }
       this.router.navigate(["/login"])
       this.toastrService.info("You must log in to view this page!","Error", { positionClass: 'toast-bottom-right' })
       return false;

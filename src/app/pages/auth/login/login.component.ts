@@ -5,25 +5,26 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginModel } from 'src/app/models/loginModel';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
   rememberMeChecked: boolean = false;
 
   public registerLink = "/register";
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private cookieService: CookieService) { }
+  constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+   
     this.checkIfLogged()
     this.createLoginForm();
     this.checkRememberMeValues();
+
   }
 
   checkIfLogged() {
@@ -53,6 +54,14 @@ export class LoginComponent implements OnInit {
     this.rememberMeChecked = !this.rememberMeChecked;
   }
 
+   getRandomString(length) {
+    var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    for ( var i = 0; i < length; i++ ) {
+        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+    return result;
+}
 
 
   login() {
@@ -62,9 +71,12 @@ export class LoginComponent implements OnInit {
       let loginModel: LoginModel = { ...this.loginForm.value };
 
       this.authService.login(loginModel).subscribe((response) => {
-        console.log(response)
         this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
+        console.log(response)
         this.cookieService.set("jwt", response.data.token)
+        this.cookieService.set("uid", response.data.id)
+        this.cookieService.set("sk",response.data.securityKey)
+        this
         if (this.rememberMeChecked) {
           this.cookieService.set("email", this.loginForm.controls['email'].value, 1)
         }
@@ -73,14 +85,12 @@ export class LoginComponent implements OnInit {
         console.log(responseError)
         let responseString = responseError.statusText
         if (responseString.includes("Unknown Error")) {
-          this.toastrService.error("Cannot connect to server!", "Error", { positionClass: 'toast-bottom-right' })
+          this.toastrService.error("Error connecting to server!", "Error", { positionClass: 'toast-bottom-right' })
         }
 
         else {
           this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
         }
-
-
 
       })
 

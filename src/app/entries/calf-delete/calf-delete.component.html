@@ -15,29 +15,30 @@
 <body>
   <div *ngIf="property">
     <form [formGroup]="deleteCalfGroup">
-      <input class="form-control" formControlName="id" [ngModel]="property.id" type="hidden"
+      <input class="form-control" formControlName="id" [(ngModel)]="property.id" type="hidden"
         placeholder="{{property.id}}" readonly>
-      <input class="form-control" formControlName="calfId" [ngModel]="property.calfId" type="hidden"
+
+      <input class="form-control" formControlName="calfId" [(ngModel)]="property.calfId" type="hidden"
         placeholder="{{property.calfId}}" readonly>
       <h1 id="header">Age</h1>
-      <input class="form-control" formControlName="age" [ngModel]="property.age" type="number"
+      <input class="form-control" formControlName="age" [(ngModel)]="property.age" type="number"
         placeholder="{{property.age}}" readonly>
       <h1 id="header">Gender</h1>
-      <input class="form-control" formControlName="gender" type="number" [ngModel]="property.gender"
+      <input class="form-control" formControlName="gender" type="number" [(ngModel)]="property.gender"
         placeholder="{{property.gender}}" readonly>
       <h1 id="header">Calf Name</h1>
-      <input class="form-control" formControlName="calfName" type="text" [ngModel]="property.calfName"
+      <input class="form-control" formControlName="calfName" type="text" [(ngModel)]="property.calfName"
         placeholder="{{property.calfName}}" readonly>
       <h1 id="header">Weight</h1>
-      <input class="form-control" formControlName="weight" type="number" [ngModel]="property.weight"
+      <input class="form-control" formControlName="weight" type="number" [(ngModel)]="property.weight"
         placeholder="{{property.weight}}" readonly>
       <h1 id="header">Birth Date</h1>
-      <input class="form-control" formControlName="birthDate" type="datetime-local" [ngModel]="property.birthDate"
+      <input class="form-control" formControlName="birthDate" type="datetime-local" [(ngModel)]="property.birthDate"
         placeholder="{{property.birthDate}}" readonly>
  
     </form>
     <br>
-    <a mat-raised-button (click)="openModal(template)" color="primary">Delete</a>
+    <a mat-raised-button (click)="openModal(template)" *ngIf="property.calfId" color="primary">Delete</a>
     <ng-template #template>
       <div class="modal-body text-center">
         <p>Do you want to delete?</p>

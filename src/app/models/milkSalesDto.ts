@@ -1,5 +1,5 @@
 export class MilkSalesDto{
-id:number;
+salesId:number;
 customerId:string;
 firstName:string;
 lastName:number;

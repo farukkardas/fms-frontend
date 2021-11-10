@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminLayoutRoutes } from './admin-layout-routing';
 import { CalvesComponent } from 'src/app/pages/calves/calves.component';
@@ -56,6 +56,7 @@ import { RegisterComponent } from 'src/app/pages/auth/register/register.componen
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { NotfoundfComponent } from 'src/app/pages/notfoundf/notfoundf.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -116,10 +117,14 @@ import { NotfoundfComponent } from 'src/app/pages/notfoundf/notfoundf.component'
     MatSelectModule,
     MatSortModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgxChartsModule,
+    
   ], providers: [
    [CookieService],
-  
+   [CryptoKey],
+   [LoginComponent]
+
   ]
 })
 export class AdminLayoutModule { }

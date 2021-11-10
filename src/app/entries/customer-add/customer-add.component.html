@@ -26,17 +26,13 @@
                 <label for="floatingPassword">Address</label>
             </div>
             <br>
+            <br>
             <div class="form-floating">
                 <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone Number.." />
                 <label for="floatingPassword">Phone Number</label>
             </div>
             <br>
-            <div class="form-floating">
-                <input formControlName="purchaseAmount" type="number" class="form-control" placeholder="Purchase Amount.." />
-                <label for="floatingPassword">Purchase Amount</label>
-            </div>
-
-            <br>
+            
             <button type="button" class="btn btn-primary" [disabled]="!this.addCustomerGroup.valid"
                 (click)="openModal(template)">Add</button>
             <br><br>

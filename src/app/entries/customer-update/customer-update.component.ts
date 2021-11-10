@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Customer } from 'src/app/models/customer';
@@ -18,7 +19,7 @@ export class CustomerUpdateComponent implements OnInit {
   property = this.customers[0];
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private customerService: CustomerService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
+  constructor(private cookieService: CookieService, private customerService: CustomerService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -41,18 +42,24 @@ export class CustomerUpdateComponent implements OnInit {
   };
 
   getAllCustomers() {
-    this.customerService.getAll().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.customerService.getUserCustomer(userId, securitykey).subscribe((response) => {
       this.customers = response.data;
     })
   }
 
   createUpdateCustomerForm() {
     this.updateCustomerGroup = this.formBuilder.group({
-      id: [''],
-      firstName: [''],
-      lastName: [''],
-      address: [''],
-      phoneNumber: ['']
+      id: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      address: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      ownerId: [this.cookieService.get("uid")]
     });
   }
 

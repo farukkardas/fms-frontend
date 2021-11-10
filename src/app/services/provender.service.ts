@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
@@ -27,5 +27,12 @@ export class ProvenderService {
 
   deleteProvender(provender:Provender) : Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "provender/delete",provender);
+  }
+
+  getUserProvenders(id:number,securityKey:string) : Observable<ListResponseModel<Provender>>{
+    let getAllPath = this.apiUrl + "provender/getuserprovenders";
+    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+
+    return this.httpClient.get<ListResponseModel<Provender>>(getAllPath, { params: parameters })
   }
 }

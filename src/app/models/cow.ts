@@ -7,4 +7,5 @@ weight:number;
 dailyMilkAmount:number;
 weeklyMilkAmount:number;
 monthlyMilkAmount:number;
+ownerId:number;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Provender } from 'src/app/models/provender';
 import { ProvenderService } from 'src/app/services/provender.service';
@@ -15,7 +16,7 @@ export class ProvenderDeleteComponent implements OnInit {
   provenders: Provender[] = [];
   deleteProvenderGroup: FormGroup;
   property = this.provenders[6];
-  constructor(private modalService: BsModalService, private provenderService: ProvenderService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
+  constructor(private cookieService:CookieService,private modalService: BsModalService, private provenderService: ProvenderService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllProvenders();
@@ -23,7 +24,12 @@ export class ProvenderDeleteComponent implements OnInit {
   }
 
   getAllProvenders() {
-    this.provenderService.getAll().subscribe((response) => {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.provenderService.getUserProvenders(userId,securitykey).subscribe((response) => {
       this.provenders = response.data;
     })
   }
@@ -31,10 +37,11 @@ export class ProvenderDeleteComponent implements OnInit {
   createDeleteProvenderGroup() {
     this.deleteProvenderGroup = this.formBuilder.group({
       id: [''],
-      provenderName: ['',Validators.required],
+      provenderName: [''],
       weight: [''],
       price: [''],
-      boughtDate: ['']
+      boughtDate: [''],
+      ownerId : [this.cookieService.get("uid")]
     });
 
 
@@ -51,7 +58,9 @@ export class ProvenderDeleteComponent implements OnInit {
     
     this.provenderService.deleteProvender(provenderModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
-    this.getAllProvenders();
+      this.getAllProvenders();
+      this.deleteProvenderGroup.reset() 
+      this.createDeleteProvenderGroup();
     }, (responseError) => {
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
     })
