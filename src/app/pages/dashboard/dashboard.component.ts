@@ -1,7 +1,8 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ChartModel } from 'src/app/models/chartModel';
+import { MilksalesService } from 'src/app/services/milksales.service';
 import { UserService } from 'src/app/services/user.service';
-import { LoginComponent } from '../auth/login/login.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,11 +16,50 @@ export class DashboardComponent implements OnInit {
   sales: number
   customerCount: number
   animalCount: number
+  animals: any[] = [];
+  cowCount: ChartModel;
+  bullCount: ChartModel;
+  sheepCount: ChartModel;
+  calfCount: ChartModel;
+  allAnimals: ChartModel;
+  milkSales: any[] = [];
 
-  constructor(private userService: UserService, private cookieService: CookieService) { }
+  constructor(private milkSaleService: MilksalesService, private userService: UserService, private cookieService: CookieService) {
+  }
 
   ngOnInit(): void {
     this.getUserDetail()
+    this.getMilkSales()
+  }
+
+  getMilkSales() {
+    let userId, securitykey;
+
+    userId = this.cookieService.get("uid")
+    securitykey = this.cookieService.get("sk")
+
+    this.milkSaleService.getUserMilkSales(userId, securitykey).subscribe(response => {
+
+      for (let index = 0; index < response.data.length; index++) {
+        this.milkSales = response.data;
+
+
+        response.data[index].name = response.data[index].firstName
+        response.data[index].value = response.data[index].price
+
+
+        delete response.data[index].amount
+        delete response.data[index].price
+        delete response.data[index].firstName
+        delete response.data[index].lastName
+        delete response.data[index].boughtDate
+        delete response.data[index].customerId
+        delete response.data[index].salesId
+        delete response.data[index].sellerId
+
+
+      }
+    })
   }
 
   getUserDetail() {
@@ -27,12 +67,25 @@ export class DashboardComponent implements OnInit {
     let sk = this.cookieService.get("sk")
 
     this.userService.getUserDetail(uid, sk).subscribe((response) => {
-      console.log(response)
-      this.profit = response.data.profit,
-        this.sales = response.data.totalSales,
-        this.customerCount = response.data.customerCount,
-        this.animalCount = response.data.animalCount  
+      // single values
+      this.animalCount = response.data.animalCount
+      this.sales = response.data.totalSales
+      this.customerCount = response.data.customerCount
+      this.profit = response.data.profit
+
+      // Horizontal bar chart values
+      this.cowCount = { name: "Cow", value: response.data.cowCount }
+      this.sheepCount = { name: "Sheep", value: response.data.sheepCount }
+      this.bullCount = { name: "Bull", value: response.data.bullCount }
+      this.calfCount = { name: "Calf", value: response.data.calfCount }
+      this.allAnimals = { name: "Total", value: response.data.sheepCount + response.data.bullCount + response.data.calfCount + response.data.cowCount }
+
+      this.animals = [this.cowCount, this.sheepCount, this.bullCount, this.calfCount, this.allAnimals]
+
+      console.log(this.animals)
+
     })
+
   }
 
 }

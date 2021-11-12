@@ -6,6 +6,7 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { MilkSales } from '../models/milkSales';
 import { MilkSalesDto } from '../models/milkSalesDto';
 import { ResponseModel } from '../models/responseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +42,5 @@ export class MilksalesService {
 
     return this.httpClient.get<ListResponseModel<MilkSalesDto>>(getAllPath, { params: parameters })
   }
+
 }

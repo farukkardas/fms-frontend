@@ -6,4 +6,7 @@ lastName:number;
 amount:number;
 price:number;
 boughtDate:Date;
+sellerId: number;
+value: number;
+name: string;
 }
