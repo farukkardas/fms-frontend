@@ -51,7 +51,7 @@ export class SheepsComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, (responseError) => {
-      this.toastrService.error(responseError.message);
+      this.toastrService.error(responseError.error.message,"Error",{ positionClass: 'toast-bottom-right' });
     });
   }
 

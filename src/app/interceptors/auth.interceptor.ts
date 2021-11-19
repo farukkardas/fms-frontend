@@ -16,9 +16,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let token = this.cookieService.get("jwt");
+  
     let newRequest: HttpRequest<any>;
     newRequest = request.clone({
-      headers: request.headers.set("Authorization","Bearer " + token)
+      headers: request.headers.set("Authorization","Bearer " + token),
+      params : request.params.set("id",this.cookieService.get("uid")).set("securityKey",this.cookieService.get("sk"))
     })
 
     return next.handle(newRequest);

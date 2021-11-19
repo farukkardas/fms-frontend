@@ -77,7 +77,16 @@ export class FertilizerUpdateComponent implements OnInit {
     this.fertilizerService.updateFertilizer(updateFertilizerModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       }, (responseError) => {
-      this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
+        if (responseError.error.Errors.length > 0) {
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Error", { positionClass: 'toast-bottom-right' }
+            )
+          }
+        }
+  
+        else {
+          this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+        }
     })
   }
 

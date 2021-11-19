@@ -76,11 +76,12 @@ export class LoginComponent implements OnInit {
         this.cookieService.set("jwt", response.data.token)
         this.cookieService.set("uid", response.data.id)
         this.cookieService.set("sk",response.data.securityKey)
+        setTimeout(()=>{window.location.reload()},1500)
         this
         if (this.rememberMeChecked) {
           this.cookieService.set("email", this.loginForm.controls['email'].value, 1)
         }
-        setTimeout(() => window.location.reload(), 1400)
+        
       }, (responseError) => {
         console.log(responseError)
         let responseString = responseError.statusText

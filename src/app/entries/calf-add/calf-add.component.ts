@@ -68,13 +68,16 @@ addNewCalf(){
     this.dialogRef.close();
   //  setTimeout(this.reloadPage, 2000)
   }, responseError=>{
-    console.log(responseError)
-    if(responseError.error.Errors.length>0){
+    if (responseError.error.Errors.length > 0) {
       for (let i = 0; i < responseError.error.Errors.length; i++) {
-        this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Error", {positionClass : 'toast-bottom-right'}
-          )
-      }       
-    } 
+        this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Error", { positionClass: 'toast-bottom-right' }
+        )
+      }
+    }
+
+    else {
+      this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+    }
   })
 }
 

@@ -153,61 +153,39 @@
         <!-- Invoice Example -->
         <div class="col-xl-8 col-lg-7 mb-4">
             <div class="card">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Invoice</h6>
-                    <a class="m-0 float-right btn btn-danger btn-sm" href="#">View More <i
-                            class="fas fa-chevron-right"></i></a>
+                <table mat-table [dataSource]="milkSalesData" matSort>
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.salesId}} </td>
+                    </ng-container>
+            
+            
+                    <ng-container matColumnDef="firstName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}}</td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+                        <td mat-cell *matCellDef="let element"> {{element.amount}} LT </td>
+                    </ng-container>
+            
+            
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Price </th>
+                        <td mat-cell *matCellDef="let element"> {{element.price |currency: "TRY":true}}</td>
+                    </ng-container>
+            
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div>
+                    <p style="text-align: center;margin-top: 30px;font-weight: 400;" *ngIf="emptyData"> No data found!</p>
                 </div>
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Item</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="#">RA0449</a></td>
-                                <td>Udin Wayang</td>
-                                <td>Nasi Padang</td>
-                                <td><span class="badge badge-success">Delivered</span></td>
-                                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">RA5324</a></td>
-                                <td>Jaenab Bajigur</td>
-                                <td>Gundam 90' Edition</td>
-                                <td><span class="badge badge-warning">Shipping</span></td>
-                                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">RA8568</a></td>
-                                <td>Rivat Mahesa</td>
-                                <td>Oblong T-Shirt</td>
-                                <td><span class="badge badge-danger">Pending</span></td>
-                                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">RA1453</a></td>
-                                <td>Indri Junanda</td>
-                                <td>Hat Rounded</td>
-                                <td><span class="badge badge-info">Processing</span></td>
-                                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#">RA1998</a></td>
-                                <td>Udin Cilok</td>
-                                <td>Baby Powder</td>
-                                <td><span class="badge badge-success">Delivered</span></td>
-                                <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons aria-label="Select page of periodic elements">
+                </mat-paginator>
                 <div class="card-footer"></div>
             </div>
         </div>

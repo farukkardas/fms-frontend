@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { ChartModel } from 'src/app/models/chartModel';
+import { MilkSalesDto } from 'src/app/models/milkSalesDto';
 import { MilksalesService } from 'src/app/services/milksales.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +15,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class DashboardComponent implements OnInit {
-
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   profit: number
   sales: number
   customerCount: number
@@ -23,6 +28,10 @@ export class DashboardComponent implements OnInit {
   calfCount: ChartModel;
   allAnimals: ChartModel;
   milkSales: any[] = [];
+  displayedColumns: string[] = ['id', 'firstName', 'amount', 'price'];
+  milkSalesData: MatTableDataSource<MilkSalesDto>;
+  toastrService: any;
+  emptyData:boolean = false;
 
   constructor(private milkSaleService: MilksalesService, private userService: UserService, private cookieService: CookieService) {
   }
@@ -37,6 +46,18 @@ export class DashboardComponent implements OnInit {
 
     userId = this.cookieService.get("uid")
     securitykey = this.cookieService.get("sk")
+
+    this.milkSaleService.getUserMilkSales(userId,securitykey).subscribe(response => {
+      if(response.data.length == 0){
+        this.emptyData = true;
+      }
+      this.milkSalesData = new MatTableDataSource(response.data);
+      this.milkSalesData.sort = this.sort;
+      this.milkSalesData.paginator = this.paginator;
+    }, (responseError) => {
+      this.toastrService.error(responseError.message);
+    });
+     
 
     this.milkSaleService.getUserMilkSales(userId, securitykey).subscribe(response => {
 

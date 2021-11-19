@@ -49,7 +49,7 @@ export class FuelconsumptionComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, (responseError) => {
-      this.toastrService.error(responseError.message);
+      this.toastrService.error(responseError.message,"Error",{ positionClass: 'toast-bottom-right' });
     });
 
   }

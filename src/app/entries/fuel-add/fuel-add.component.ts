@@ -64,6 +64,10 @@ export class FuelAddComponent implements OnInit {
           )
         }
       }
+
+      else {
+        this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+      }
     })
   }
 

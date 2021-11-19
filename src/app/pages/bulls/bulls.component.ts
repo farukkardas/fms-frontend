@@ -40,12 +40,8 @@ export class BullsComponent implements OnInit {
 
 
   getAllBulls() {
-    let userId,securitykey;
-
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-    
-    this.bullsService.getUserBulls(userId,securitykey).subscribe(response => {
+  
+    this.bullsService.getUserBulls().subscribe(response => {
 
       
       if(response.data.length == 0){
@@ -58,7 +54,7 @@ export class BullsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.changeDetectorRefs.detectChanges();
     }, (responseError) => {
-      this.toastrService.error(responseError.message,"Error",{positionClass:'toast-bottom-right'});
+      this.toastrService.error(responseError.error.message,"Error",{ positionClass: 'toast-bottom-right' });
       
     });
   }

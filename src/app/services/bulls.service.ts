@@ -18,7 +18,7 @@ export class BullsService {
   }
 
   addBull(bullModel: Bull): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "bull/add", bullModel);
+    return this.httpClient.post<ResponseModel>(this.apiUrl + "bull/add",bullModel);
   }
 
   updateBull(bullModel:Bull) : Observable<ResponseModel>  {
@@ -29,11 +29,10 @@ export class BullsService {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "bull/delete",bullModel);
   }
 
-  getUserBulls(id: number, securityKey: string): Observable<ListResponseModel<Bull>> {
-    let getAllPath = this.apiUrl + "bull/getuserbulls";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
-
-    return this.httpClient.get<ListResponseModel<Bull>>(getAllPath, { params: parameters })
+  getUserBulls(): Observable<ListResponseModel<Bull>> {
+     let getAllPath = this.apiUrl + "bull/getuserbulls";
+  
+    return this.httpClient.get<ListResponseModel<Bull>>(getAllPath)
 
   }
 }

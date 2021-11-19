@@ -54,20 +54,23 @@ export class BullAddComponent implements OnInit {
 
   addNewBull() {
     if (!this.addBullGroup.valid) return;
+    
 
     let bullModel: Bull = { ...this.addBullGroup.value };
 
     this.bulService.addBull(bullModel).subscribe((response) => {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       this.dialogRef.close();
-    }, responseError => {
-      console.log(this.addBullGroup)
-      console.log(responseError)
+    }, responseError => {  
       if (responseError.error.Errors.length > 0) {
         for (let i = 0; i < responseError.error.Errors.length; i++) {
           this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Error", { positionClass: 'toast-bottom-right' }
           )
         }
+      }
+
+      else {
+        this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
       }
     })
   }

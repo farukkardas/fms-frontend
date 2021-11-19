@@ -42,12 +42,8 @@ export class BullUpdateComponent implements OnInit {
   };
 
   getAllBulls() {
-    let userId, securitykey;
-
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.bullsService.getUserBulls(userId, securitykey).subscribe((response) => {
+  
+    this.bullsService.getUserBulls().subscribe((response) => {
       this.bulls = response.data;
     })
   }
@@ -85,7 +81,16 @@ export class BullUpdateComponent implements OnInit {
       this.getAllBulls();
 
     }, (responseError) => {
-      this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
+      if (responseError.error.Errors.length > 0) {
+        for (let i = 0; i < responseError.error.Errors.length; i++) {
+          this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Error", { positionClass: 'toast-bottom-right' }
+          )
+        }
+      }
+
+      else {
+        this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+      }
     })
   }
 
