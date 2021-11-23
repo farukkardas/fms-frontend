@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -22,9 +23,10 @@ export class AdminLayoutComponent implements OnInit {
   public customerLinkVariable = "/customers";
   public loginPage = "/login";
   public registerPage = "/register";
+public profilePage = "/profile"
 
   public isAuth: boolean;
-
+  isShowing: boolean = true;
   displayedImage: string;
   public isCollapsed = true;
 
@@ -45,6 +47,10 @@ export class AdminLayoutComponent implements OnInit {
     else {
       this.isAuth = false;
     }
+  }
+
+  toggleSidenav() {
+    this.isShowing = !this.isShowing;
   }
 
 }

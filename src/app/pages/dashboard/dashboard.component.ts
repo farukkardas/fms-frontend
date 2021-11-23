@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { ChartModel } from 'src/app/models/chartModel';
 import { MilkSalesDto } from 'src/app/models/milkSalesDto';
+import { AuthService } from 'src/app/services/auth.service';
 import { MilksalesService } from 'src/app/services/milksales.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,6 +18,7 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  userTestId :string;
   profit: number
   sales: number
   customerCount: number
@@ -37,6 +39,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getUserDetail()
     this.getMilkSales()
   }

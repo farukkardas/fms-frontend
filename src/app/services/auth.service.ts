@@ -13,6 +13,8 @@ export class AuthService {
   apiUrl = "http://localhost:5000/api/auth/";
   constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
 
+
+
   login(loginModel: LoginModel) {
     return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "login", loginModel);
   }

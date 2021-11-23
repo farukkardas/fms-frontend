@@ -57,6 +57,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { NotfoundfComponent } from 'src/app/pages/notfoundf/notfoundf.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ProfileComponent } from 'src/app/pages/profile/profile.component';
+import { MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -74,6 +76,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     RegisterComponent,
     DashboardComponent,
     NotfoundfComponent,
+    ProfileComponent,
     CowAddComponent,
     CowDeleteComponent,
     CowUpdateComponent,
@@ -113,12 +116,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatSortModule,
     MatPaginatorModule,
     MatCheckboxModule,
     NgxChartsModule,
+    
     
   ], providers: [
    [CookieService],

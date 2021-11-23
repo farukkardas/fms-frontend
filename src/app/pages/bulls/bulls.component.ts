@@ -3,9 +3,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CookieService } from 'ngx-cookie-service';
+import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject } from 'rxjs';
 import { BullAddComponent } from 'src/app/entries/bull-add/bull-add.component';
 import { BullDeleteComponent } from 'src/app/entries/bull-delete/bull-delete.component';
 import { BullUpdateComponent } from 'src/app/entries/bull-update/bull-update.component';
@@ -25,10 +24,11 @@ export class BullsComponent implements OnInit {
   emptyData:boolean = false;
 
 
-  constructor(private cookieService:CookieService,private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) { }
+  constructor(private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getAllBulls();
+    
   }
 
   applyFilter(filterValue: string) {

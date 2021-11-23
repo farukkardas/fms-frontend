@@ -1,6 +1,6 @@
 <div class="mat-elevation-z8">
 
-    <div style="margin-bottom: 2%; margin-top: 1%; margin-left: 1%; padding-top: 1%;">
+    <div style="position:relative;margin-bottom: 2%; margin-top: 1%; margin-left: 1%; padding-top: 1%;">
         <a mat-raised-button (click)="openAddMenu()" style="background-color: red;" color="primary">Add</a>
         <button mat-raised-button (click)="openUpdateMenu()" style="background-color: white; color: red;"
             color="accent">Update</button>
@@ -12,7 +12,7 @@
 
    
 
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="bullId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>

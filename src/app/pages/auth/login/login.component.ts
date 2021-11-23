@@ -14,7 +14,6 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   rememberMeChecked: boolean = false;
-
   public registerLink = "/register";
 
   constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private cookieService: CookieService) { }
@@ -72,10 +71,11 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginModel).subscribe((response) => {
         this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
-        console.log(response)
+    
         this.cookieService.set("jwt", response.data.token)
         this.cookieService.set("uid", response.data.id)
         this.cookieService.set("sk",response.data.securityKey)
+       
         setTimeout(()=>{window.location.reload()},1500)
         this
         if (this.rememberMeChecked) {

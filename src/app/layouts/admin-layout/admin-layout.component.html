@@ -22,7 +22,7 @@
       <button class="btn profile-button" id="dropdownBasic1" ngbDropdownToggle style="background-color:white"> <i
           class="fas fa-user-circle" style="color: black;"></i></button>
       <div style="position:fixed;margin-left:-80px;margin-top:-30px" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button  ngbDropdownItem>Profile</button>
+        <button [routerLink]="profilePage" ngbDropdownItem>Profile</button>
         <button ngbDropdownItem (click)="logout()">Logout</button>
       </div>
     </div>
@@ -34,12 +34,13 @@
 </mat-toolbar>
 
 <mat-sidenav-container  >
-  <mat-sidenav #sidenav [disableClose]="true" mode="side" opened *ngIf="isAuth">
+  <mat-sidenav #sidenav [disableClose]="true" mode="side" [opened]="isShowing" *ngIf="isAuth">
 
     <a style="display:block; height: 90px; width: 150px; top: 15px;margin-bottom: -15px;" [routerLink]="routerLinkVariable">
       <img id="hicon" src="assets/icons/lely.png" />
     </a>
-      
+    
+    
 
     <br>
     <br>
@@ -147,13 +148,14 @@
         <img  src='assets/icons/menu/milk-bottle.png'>
         Milk Sales
       </button>
-
+      
     </mat-expansion-panel>
 
-
+  
   </mat-sidenav>
   <!-- //Content -->
   <mat-sidenav-content>
+    <!-- <button style="position: fixed; width: 1px;" mat-button (click)="toggleSidenav()">></button> -->
     <div class="content">
       <router-outlet></router-outlet>
     </div>
