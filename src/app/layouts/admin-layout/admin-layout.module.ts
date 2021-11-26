@@ -59,6 +59,7 @@ import { NotfoundfComponent } from 'src/app/pages/notfoundf/notfoundf.component'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -123,6 +124,7 @@ import { MatCardModule} from '@angular/material/card';
     MatPaginatorModule,
     MatCheckboxModule,
     NgxChartsModule,
+    MatProgressBarModule
     
     
   ], providers: [

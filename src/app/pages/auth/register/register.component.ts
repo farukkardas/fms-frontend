@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required,Validators.minLength(8)]],
       firstName: ["", Validators.required],
-      lastName: ["", Validators.required]
+      lastName: ["", Validators.required,]
     })
   }
 
@@ -46,9 +46,17 @@ get password() {
   return this.registerForm.get('password');
 } 
 
+get firstName() {
+  return this.registerForm.get('firstName');
+} 
+
+get lastName() {
+  return this.registerForm.get('lastName');
+} 
+
 
   register() {
-    if (!this.registerForm.valid) return;
+    //if (!this.registerForm.valid) return;
 
     //şifrelerin eşleşip eşleşmediğini kontrol et
     if (this.registerForm.controls['password'].value != this.rePassword.nativeElement.value) {

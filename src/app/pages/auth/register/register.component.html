@@ -47,16 +47,18 @@
                     <div class="form-outline mb-3">
                         <label class="form-label" for="form3Example4">First Name</label>
                         <div class="form">
-                            <input formControlName="firstName" type="text" class="form-control"
+                            <input formControlName="firstName" pattern="'[a-zA-Z ]*" type="text" class="form-control"
                                 placeholder="First Name.." />
                         </div>
+
+                    
                     </div>
 
 
                     <div class="form-outline mb-3">
                         <label class="form-label" for="form3Example4">Last Name</label>
                         <div class="form">
-                            <input formControlName="lastName" type="text" class="form-control"
+                            <input formControlName="lastName" pattern="'[a-zA-Z ]*" type="text" class="form-control"
                                 placeholder="Last Name.." />
                         </div>
                     </div>
