@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
+import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { UserDetail } from '../models/userDetail';
+import { UserEdit } from '../models/userEdit';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +19,14 @@ export class UserService {
 
   getUserDetail(id: string,securitykey:string): Observable<SingleResponseModel<UserDetail>> {
     let getAllPath = this.apiUrl + "getuserdetails?"
-    let parameters = new HttpParams().set('id', id).set('securitykey',securitykey)
 
-    return this.httpClient.get<SingleResponseModel<UserDetail>>(getAllPath, { params: parameters });
+    return this.httpClient.get<SingleResponseModel<UserDetail>>(getAllPath);
   }
 
+  updateUser(userModel:UserEdit) : Observable<ResponseModel>{
+    let getAllPath = this.apiUrl + "updateuser"
+    return this.httpClient.put<ResponseModel>(getAllPath,userModel)
+  }
 
+ 
 }

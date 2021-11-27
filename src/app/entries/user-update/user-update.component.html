@@ -1,0 +1,126 @@
+<h1 style="font-size: 24px;" id="header"> Edit User Profile</h1>
+<br>
+<br>
+
+
+<body>
+
+    <div>
+
+        <form [formGroup]="editUserGroup">
+
+
+            <input class="form-control" formControlName="id" type="hidden" readonly>
+
+
+            <h1 id="header">First Name</h1>
+            <input formControlName="firstName" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control"
+                placeholder="First Name.." />
+
+            <div *ngIf="!editUserGroup.controls['firstName'].valid" class="alert">
+
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['firstName'].errors?.['required']">
+                    * Name is required.
+                </div>
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['firstName'].errors?.['pattern']">
+                    * Name must be only letters.
+                </div>
+            </div>
+
+
+            <h1 id="header">Last Name</h1>
+            <input formControlName="lastName" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control" placeholder="Last Name.." />
+
+            <div *ngIf="!editUserGroup.controls['lastName'].valid" class="alert">
+
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['lastName'].errors?.['required']">
+                    * Last name is required.
+                </div>
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['lastName'].errors?.['pattern']">
+                    * Last name must be only letters.
+                </div>
+            </div>
+
+
+            <h1 id="header">Phone Number</h1>
+            <input formControlName="phoneNumber" type="string" pattern="[0-9 ]*" class="form-control" placeholder="Phone Number.." />
+
+            <div *ngIf="!editUserGroup.controls['phoneNumber'].valid" class="alert">
+
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['phoneNumber'].errors?.['required']">
+                    * Phone number is required.
+                </div>
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['phoneNumber'].errors?.['pattern']">
+                    * Phone number must be only numbers.
+                </div>
+            </div>
+
+            <h1 id="header">City</h1>
+            <input formControlName="city" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control" placeholder="City.." />
+
+            <div *ngIf="!editUserGroup.controls['city'].valid" class="alert">
+
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['city'].errors?.['required']">
+                    * City name is required.
+                </div>
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['city'].errors?.['pattern']">
+                    * City name must be only letters.
+                </div>
+            </div>
+
+            <h1 id="header">District</h1>
+            <input formControlName="district" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control" placeholder="District.." />
+
+            <div *ngIf="!editUserGroup.controls['district'].valid" class="alert">
+
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['district'].errors?.['required']">
+                    * District  is required.
+                </div>
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['district'].errors?.['pattern']">
+                    * District  must be only letters.
+                </div>
+            </div>
+
+            <h1 id="header">Address</h1>
+            <input formControlName="address" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ.: ]*" class="form-control" placeholder="Address.." />
+
+            <div *ngIf="!editUserGroup.controls['address'].valid" class="alert">
+
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['address'].errors?.['required']">
+                    * Address is required.
+                </div>
+                <div style="color: red;text-align: center;"
+                    *ngIf="editUserGroup.controls['address'].errors?.['pattern']">
+                    * Address must be only letters.
+                </div>
+            </div>
+
+
+
+        </form>
+        <br>
+        <button mat-raised-button (click)="openModal(template)" [disabled]="!this.editUserGroup.valid"
+            color="primary">Update</button>
+        <br>
+        <br>
+        <ng-template #template>
+            <div class="modal-body text-center">
+                <p>Do you want to update?</p>
+                <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+            </div>
+        </ng-template>
+
+    </div>
+</body>

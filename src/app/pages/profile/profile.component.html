@@ -11,7 +11,7 @@
                 <div class="mt-3">
                   <h4>{{firstName | titlecase }} {{lastName | titlecase }}</h4>
                   <p class="text-secondary mb-1">Full Stack Developer</p>
-                  <p class="text-muted font-size-sm">{{city}} {{district}}</p>
+                  <p class="text-muted font-size-sm">{{cityAndDistrict}}</p>
                   <label class="form-label" for="customFile">Upload Image</label>
 
                   <form [formGroup]="addImageGroup" novalidate (ngSubmit)="changePhoto()">
@@ -118,7 +118,7 @@
                   <h3 class="mb-0">City / District</h3>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{city | titlecase}} {{district | titlecase}}
+                  {{cityAndDistrict}}
                 </div>
               </div>
               <hr>
@@ -133,8 +133,8 @@
               <hr>
               <div class="row">
                 <div class="col-sm-12">
-                  <a class="btn btn-info " target="__blank"
-                    href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                  <button (click)="openUpdateMenu()" class="btn btn-info " target="__blank"
+                      >Edit</button>
                 </div>
               </div>
             </div>

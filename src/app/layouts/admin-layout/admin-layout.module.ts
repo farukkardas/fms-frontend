@@ -53,13 +53,14 @@ import { CustomerUpdateComponent } from 'src/app/entries/customer-update/custome
 import { CookieService } from 'ngx-cookie-service';
 import { LoginComponent } from 'src/app/pages/auth/login/login.component';
 import { RegisterComponent } from 'src/app/pages/auth/register/register.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
 import { NotfoundfComponent } from 'src/app/pages/notfoundf/notfoundf.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
-import { MatCardModule} from '@angular/material/card';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { UserUpdateComponent } from 'src/app/entries/user-update/user-update.component';
 
 
 @NgModule({
@@ -105,7 +106,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     CustomerAddComponent,
     CustomerDeleteComponent,
     CustomerUpdateComponent,
-    SearchFilterPipe],
+    SearchFilterPipe,
+    UserUpdateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -125,12 +127,12 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatCheckboxModule,
     NgxChartsModule,
     MatProgressBarModule
-    
-    
+
+
   ], providers: [
-   [CookieService],
-   [CryptoKey],
-   [LoginComponent]
+    [CookieService],
+    [CryptoKey],
+    [LoginComponent]
 
   ]
 })

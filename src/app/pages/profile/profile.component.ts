@@ -1,8 +1,11 @@
 import { HttpEventType } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { UserUpdateComponent } from 'src/app/entries/user-update/user-update.component';
+import { UserDetail } from 'src/app/models/userDetail';
 import { UserImageService } from 'src/app/services/user-image.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,24 +16,24 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit {
   progress: boolean = false;
-  userDetailArray : any = []
   addImageGroup: FormGroup;
   fileName: string;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  city: string;
+  cityAndDistrict: string;
   district: string;
   address: string;
   imagePath: string;
-  
-  constructor(private userService: UserService, private cookieService: CookieService, private formBuilder: FormBuilder, private userImageService: UserImageService, private toastrService: ToastrService) {
-    this.userDetailArray =  [this.firstName, this.lastName, this.email, this.phoneNumber, this.city, this.address, this.district, this.imagePath]
-   }
+
+
+  constructor(private matDialog:MatDialog,private userService: UserService, private cookieService: CookieService, private formBuilder: FormBuilder, private userImageService: UserImageService, private toastrService: ToastrService) {
+
+  }
 
   ngOnInit(): void {
-    
+
     this.getUserDetails()
     this.createAddImageGroup()
   }
@@ -94,32 +97,37 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  openUpdateMenu() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "30%";
+    dialogConfig.height = "80%";
+    this.matDialog.open(UserUpdateComponent, dialogConfig).afterClosed().subscribe(result=>{
+      this.refresh();
+    });
+  }
+
+  refresh(){
+    this.getUserDetails();
+  }
+
   getUserDetails() {
     let uid = this.cookieService.get("uid")
     let sk = this.cookieService.get("sk")
 
     this.userService.getUserDetail(uid, sk).subscribe((response) => {
 
-      this.firstName = response.data.firstName;
-      this.lastName = response.data.lastName;
-      this.email = response.data.email;
-      this.phoneNumber = response.data.phoneNumber;
-      this.city = response.data.city;
-      this.address = response.data.address;
-      this.district = response.data.district;
-      this.imagePath = response.data.imagePath;
-
-
+      let city : string = response.data.city ?? " Empty ";
+      let district : string = response.data.district ?? " Empty ";
      
 
-      for (let index = 0; index < this.userDetailArray.length; index++) {
-        if (this.userDetailArray[index] == null)
-          this.userDetailArray[index] = "Veri bulunamadı!"
-      }
-
-      if (this.imagePath == null) {
-        this.imagePath = "images/default.png"
-      }
+      this.firstName = response.data.firstName ?? 'Empty !';
+      this.lastName = response.data.lastName ?? 'Empty!';
+      this.email = response.data.email ?? 'Empty !';
+      this.phoneNumber = response.data.phoneNumber ?? 'Empty !';
+      this.cityAndDistrict = city ? city.concat(" / " + district) : 'Empty !' 
+      this.address = response.data.address ?? 'Empty !';
+      this.imagePath = response.data.imagePath ?? 'images/default.png';
     })
   }
+
 }

@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { UserUpdateComponent } from './entries/user-update/user-update.component';
 
 
 
@@ -30,6 +31,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    
     
     
     
