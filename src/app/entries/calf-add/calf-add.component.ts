@@ -76,6 +76,7 @@ addNewCalf(){
     }
 
     else {
+      console.log(responseError)
       this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
     }
   })

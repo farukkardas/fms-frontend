@@ -1,5 +1,5 @@
 <body>
-    <div>       
+    <div>
         <div style="text-align: center;"> <img src="assets/icons/user.png"></div>
         <br>
         <h1 style="font-size: 24px;" id="header"> Edit User Profile</h1>
@@ -12,8 +12,8 @@
 
                 <h1 id="header">First Name</h1>
                 <img id="icon" src="assets/icons/idcard.png">
-                <input formControlName="firstName" type="string"
-                    pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control" placeholder="First Name.." />
+                <input formControlName="firstName" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control"
+                    placeholder="First Name.." />
             </div>
 
             <div *ngIf="!editUserGroup.controls['firstName'].valid" class="alert">
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div id="city">
+            <!-- <div id="city">
                 <h1 id="header">City</h1>
                 <img id="icon" src="assets/icons/city.png">
                 <input formControlName="city" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control"
@@ -83,16 +83,107 @@
                         * City name must be only letters.
                     </div>
                 </div>
+            </div> -->
+
+            <div id="city">
+                <h1 id="header">City</h1>
+                <mat-form-field  appearance="fill" style="margin-left: 20%; width: 300px;">
+                    <mat-label >Select a city</mat-label>
+                    <mat-select [(value)]="modalRef" formControlName="city" matNativeControl>
+                        <mat-option value="1">Adana</mat-option>
+                        <mat-option value="2">Adıyaman</mat-option>
+                        <mat-option value="3">Afyonkarahisar</mat-option>
+                        <mat-option value="4">Ağrı</mat-option>
+                        <mat-option value="5">Amasya</mat-option>
+                        <mat-option value="6">Ankara</mat-option>
+                        <mat-option value="7">Antalya</mat-option>
+                        <mat-option value="8">Artvin</mat-option>
+                        <mat-option value="9">Aydın</mat-option>
+                        <mat-option value="10">Balıkesir</mat-option>
+                        <mat-option value="11">Bilecik</mat-option>
+                        <mat-option value="12">Bingöl</mat-option>
+                        <mat-option value="13">Bitlis</mat-option>
+                        <mat-option value="14">Bolu</mat-option>
+                        <mat-option value="15">Burdur</mat-option>
+                        <mat-option value="16">Bursa</mat-option>
+                        <mat-option value="17">Çanakkale</mat-option>
+                        <mat-option value="18">Çankırı</mat-option>
+                        <mat-option value="19">Çorum</mat-option>
+                        <mat-option value="20">Denizli</mat-option>
+                        <mat-option value="21">Diyarbakır</mat-option>
+                        <mat-option value="22">Edirne</mat-option>
+                        <mat-option value="23">Elazığ</mat-option>
+                        <mat-option value="24">Erzincan</mat-option>
+                        <mat-option value="25">Erzurum</mat-option>
+                        <mat-option value="26">Eskişehir</mat-option>
+                        <mat-option value="27">Gaziantep</mat-option>
+                        <mat-option value="28">Giresun</mat-option>
+                        <mat-option value="29">Gümüşhane</mat-option>
+                        <mat-option value="30">Hakkâri</mat-option>
+                        <mat-option value="31">Hatay</mat-option>
+                        <mat-option value="32">Isparta</mat-option>
+                        <mat-option value="33">Mersin</mat-option>
+                        <mat-option value="34">İstanbul</mat-option>
+                        <mat-option value="35">İzmir</mat-option>
+                        <mat-option value="36">Kars</mat-option>
+                        <mat-option value="37">Kastamonu</mat-option>
+                        <mat-option value="38">Kayseri</mat-option>
+                        <mat-option value="39">Kırklareli</mat-option>
+                        <mat-option value="40">Kırşehir</mat-option>
+                        <mat-option value="41">Kocaeli</mat-option>
+                        <mat-option value="42">Konya</mat-option>
+                        <mat-option value="43">Kütahya</mat-option>
+                        <mat-option value="44">Malatya</mat-option>
+                        <mat-option value="45">Manisa</mat-option>
+                        <mat-option value="46">Kahramanmaraş</mat-option>
+                        <mat-option value="47">Mardin</mat-option>
+                        <mat-option value="48">Muğla</mat-option>
+                        <mat-option value="49">Muş</mat-option>
+                        <mat-option value="50">Nevşehir</mat-option>
+                        <mat-option value="51">Niğde</mat-option>
+                        <mat-option value="52">Ordu</mat-option>
+                        <mat-option value="53">Rize</mat-option>
+                        <mat-option value="54">Sakarya</mat-option>
+                        <mat-option value="55">Samsun</mat-option>
+                        <mat-option value="56">Siirt</mat-option>
+                        <mat-option value="57">Sinop</mat-option>
+                        <mat-option value="58">Sivas</mat-option>
+                        <mat-option value="59">Tekirdağ</mat-option>
+                        <mat-option value="60">Tokat</mat-option>
+                        <mat-option value="61">Trabzon</mat-option>
+                        <mat-option value="62">Tunceli</mat-option>
+                        <mat-option value="63">Şanlıurfa</mat-option>
+                        <mat-option value="64">Uşak</mat-option>
+                        <mat-option value="65">Van</mat-option>
+                        <mat-option value="66">Yozgat</mat-option>
+                        <mat-option value="67">Zonguldak</mat-option>
+                        <mat-option value="68">Aksaray</mat-option>
+                        <mat-option value="69">Bayburt</mat-option>
+                        <mat-option value="70">Karaman</mat-option>
+                        <mat-option value="71">Kırıkkale</mat-option>
+                        <mat-option value="72">Batman</mat-option>
+                        <mat-option value="73">Şırnak</mat-option>
+                        <mat-option value="74">Bartın</mat-option>
+                        <mat-option value="75">Ardahan</mat-option>
+                        <mat-option value="76">Iğdır</mat-option>
+                        <mat-option value="77">Yalova</mat-option>
+                        <mat-option value="78">Karabük</mat-option>
+                        <mat-option value="79">Kilis</mat-option>
+                        <mat-option value="80">Osmaniye</mat-option>
+                        <mat-option value="81">Düzce</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
+
 
             <div id="district">
                 <h1 id="header">District</h1>
                 <img id="icon" src="assets/icons/district.png">
                 <input formControlName="district" type="string" pattern="[A-Za-z-_ğüşıöçĞÜŞİÖÇ ]*" class="form-control"
                     placeholder="District.." />
-    
+
                 <div *ngIf="!editUserGroup.controls['district'].valid" class="alert">
-    
+
                     <div style="color: red;text-align: center;"
                         *ngIf="editUserGroup.controls['district'].errors?.['required']">
                         * District is required.
@@ -103,16 +194,16 @@
                     </div>
                 </div>
             </div>
-            
+
 
             <div id="address">
                 <h1 id="header">Address</h1>
                 <img id="icon" src="assets/icons/address.png">
-                <input formControlName="address" type="string" pattern="[A-Za-z-_0-9ğüşıöçĞÜŞİÖÇ.: ]*" class="form-control"
-                    placeholder="Address.." />
-    
+                <input formControlName="address" type="string" pattern="[A-Za-z-_0-9ğüşıöçĞÜŞİÖÇ.: ]*"
+                    class="form-control" placeholder="Address.." />
+
                 <div *ngIf="!editUserGroup.controls['address'].valid" class="alert">
-    
+
                     <div style="color: red;text-align: center;"
                         *ngIf="editUserGroup.controls['address'].errors?.['required']">
                         * Address is required.
@@ -123,7 +214,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
 
 

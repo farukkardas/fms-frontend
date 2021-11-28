@@ -106,7 +106,6 @@ export class DashboardComponent implements OnInit {
 
       this.animals = [this.cowCount, this.sheepCount, this.bullCount, this.calfCount, this.allAnimals]
 
-      console.log(this.animals)
 
     })
 

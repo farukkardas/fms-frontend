@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UserUpdateComponent implements OnInit {
   modalRef: BsModalRef;
   editUserGroup: FormGroup;
+  
   constructor(private toastrService: ToastrService, private formBuilder: FormBuilder, private userService: UserService, private cookieService: CookieService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
