@@ -35,11 +35,11 @@ export class DashboardComponent implements OnInit {
   toastrService: any;
   emptyData:boolean = false;
 
-  constructor(private milkSaleService: MilksalesService, private userService: UserService, private cookieService: CookieService) {
+  constructor(private authService:AuthService,private milkSaleService: MilksalesService, private userService: UserService, private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
-
+    this.authService.checkSkOutdated()
     this.getUserDetail()
     this.getMilkSales()
   }

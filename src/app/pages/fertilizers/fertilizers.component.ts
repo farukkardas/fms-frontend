@@ -9,6 +9,7 @@ import { FertilizerAddComponent } from 'src/app/entries/fertilizer-add/fertilize
 import { FertilizerDeleteComponent } from 'src/app/entries/fertilizer-delete/fertilizer-delete.component';
 import { FertilizerUpdateComponent } from 'src/app/entries/fertilizer-update/fertilizer-update.component';
 import { Fertilizer } from 'src/app/models/fertilizer';
+import { AuthService } from 'src/app/services/auth.service';
 import { FertilizersService } from 'src/app/services/fertilizers.service';
 
 @Component({
@@ -23,9 +24,10 @@ export class FertilizersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fertilizerType', 'fertilizerBrand', 'weight', 'price', 'boughtDate'];
   emptyData:boolean = false;
 
-  constructor(private cookieService: CookieService, private fertilizerService: FertilizersService, private dialog: MatDialog, private toastrService: ToastrService) { }
+  constructor(private authService:AuthService,private cookieService: CookieService, private fertilizerService: FertilizersService, private dialog: MatDialog, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllFertilizers();
   }
 

@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserUpdateComponent } from 'src/app/entries/user-update/user-update.component';
 import { UserDetail } from 'src/app/models/userDetail';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserImageService } from 'src/app/services/user-image.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -28,12 +29,12 @@ export class ProfileComponent implements OnInit {
   imagePath: string;
 
 
-  constructor(private matDialog:MatDialog,private userService: UserService, private cookieService: CookieService, private formBuilder: FormBuilder, private userImageService: UserImageService, private toastrService: ToastrService) {
+  constructor(private authService:AuthService,private matDialog:MatDialog,private userService: UserService, private cookieService: CookieService, private formBuilder: FormBuilder, private userImageService: UserImageService, private toastrService: ToastrService) {
 
   }
 
   ngOnInit(): void {
-
+    this.authService.checkSkOutdated()
     this.getUserDetails()
     this.createAddImageGroup()
   }

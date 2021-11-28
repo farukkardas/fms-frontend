@@ -10,6 +10,7 @@ import { SheepAddComponent } from 'src/app/entries/sheep-add/sheep-add.component
 import { SheepDeleteComponent } from 'src/app/entries/sheep-delete/sheep-delete.component';
 import { SheepUpdateComponent } from 'src/app/entries/sheep-update/sheep-update.component';
 import { Sheep } from 'src/app/models/sheep';
+import { AuthService } from 'src/app/services/auth.service';
 import { SheepsService } from 'src/app/services/sheeps.service';
 
 @Component({
@@ -23,10 +24,11 @@ export class SheepsComponent implements OnInit {
   dataSource: MatTableDataSource<Sheep>;
   displayedColumns: string[] = ['id', 'age', 'race', 'weight'];
   emptyData:boolean = false;
-  constructor(private cookieService:CookieService,private sheepsService: SheepsService, private toastrService: ToastrService,
+  constructor(private authService:AuthService,private cookieService:CookieService,private sheepsService: SheepsService, private toastrService: ToastrService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllSheeps();
   }
 

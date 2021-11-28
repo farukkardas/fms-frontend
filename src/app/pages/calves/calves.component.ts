@@ -9,6 +9,7 @@ import { CalfAddComponent } from 'src/app/entries/calf-add/calf-add.component';
 import { CalfDeleteComponent } from 'src/app/entries/calf-delete/calf-delete.component';
 import { CalfUpdateComponent } from 'src/app/entries/calf-update/calf-update.component';
 import { Calf } from 'src/app/models/calf';
+import { AuthService } from 'src/app/services/auth.service';
 import { CalvesService } from 'src/app/services/calves.service';
 
 
@@ -25,9 +26,10 @@ export class CalvesComponent implements OnInit {
   displayedColumns: string[] = ['id','age', 'gender', 'calfName', 'weight','birthDate'];
   emptyData:boolean = false;
 
-  constructor(private cookieService:CookieService,private calfService:CalvesService,private dialog:MatDialog,private toastrService:ToastrService) { }
+  constructor(private authService:AuthService,private cookieService:CookieService,private calfService:CalvesService,private dialog:MatDialog,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllCalves();
     
   }

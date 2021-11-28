@@ -10,6 +10,7 @@ import { CowAddComponent } from 'src/app/entries/cow-add/cow-add.component';
 import { CowDeleteComponent } from 'src/app/entries/cow-delete/cow-delete.component';
 import { CowUpdateComponent } from 'src/app/entries/cow-update/cow-update.component';
 import { Cow } from 'src/app/models/cow';
+import { AuthService } from 'src/app/services/auth.service';
 import { CowsService } from 'src/app/services/cows.service';
 
 declare var $;
@@ -26,9 +27,10 @@ export class CowsComponent implements OnInit {
   emptyData:boolean = false;
 
 
-  constructor(private cookieService:CookieService,private cowService: CowsService, private dialog: MatDialog, private toastrService: ToastrService) { }
+  constructor(private authService:AuthService,private cookieService:CookieService,private cowService: CowsService, private dialog: MatDialog, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllCows();
   }
 

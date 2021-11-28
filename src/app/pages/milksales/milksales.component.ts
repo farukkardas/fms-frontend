@@ -9,6 +9,7 @@ import { MilksaleAddComponent } from 'src/app/entries/milksale-add/milksale-add.
 import { MilksaleDeleteComponent } from 'src/app/entries/milksale-delete/milksale-delete.component';
 import { MilksaleUpdateComponent } from 'src/app/entries/milksale-update/milksale-update.component';
 import { MilkSalesDto } from 'src/app/models/milkSalesDto';
+import { AuthService } from 'src/app/services/auth.service';
 import { MilksalesService } from 'src/app/services/milksales.service';
 
 @Component({
@@ -22,9 +23,10 @@ export class MilksalesComponent implements OnInit {
   dataSource: MatTableDataSource<MilkSalesDto>;
   displayedColumns: string[] = ['salesId','customerName','amount','price','boughtDate'];
   emptyData:boolean = false;
-  constructor(private cookieService:CookieService,private milkSalesService: MilksalesService, private toastrService: ToastrService, private dialog: MatDialog) { }
+  constructor(private authService:AuthService,private cookieService:CookieService,private milkSalesService: MilksalesService, private toastrService: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllSales();
   }
 

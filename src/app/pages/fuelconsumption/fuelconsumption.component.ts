@@ -12,6 +12,7 @@ import { FuelConsumption } from 'src/app/models/fuelConsumption';
 import { FuelConsumptionService } from 'src/app/services/fuelconsumption.service';
 import {switchMap} from "rxjs/operators"
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-fuelconsumption',
   templateUrl: './fuelconsumption.component.html',
@@ -25,11 +26,12 @@ export class FuelconsumptionComponent implements OnInit {
   emptyData:boolean = false;
 
 
-  constructor(private cookieService:CookieService, private fuelConsumptionService: FuelConsumptionService, private dialog: MatDialog, private toastrService: ToastrService) {
+  constructor(private authService:AuthService,private cookieService:CookieService, private fuelConsumptionService: FuelConsumptionService, private dialog: MatDialog, private toastrService: ToastrService) {
 
   }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllFuels();
     
   }

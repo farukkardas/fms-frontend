@@ -9,7 +9,7 @@
     width: 50%;
     height: 25%;
     margin-left: 25%;
-    margin-top: 2%;
+    margin-top: 0px;
 }
 
 .body {
@@ -17,10 +17,11 @@
 }
 
 #header {
-    margin-top: 2%;
+    margin-bottom: 5px;
     text-align: center;
     font-size: 100%;
-   font-weight: 550; 
+    font-weight: 550; 
+    font-style: italic;
   
 }
 
@@ -41,3 +42,7 @@
     background-color: white;
 }
 
+#icon{
+    float: left;
+    margin-left: 15%;
+}

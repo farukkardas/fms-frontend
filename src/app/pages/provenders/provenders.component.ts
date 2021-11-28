@@ -9,6 +9,7 @@ import { ProvenderAddComponent } from 'src/app/entries/provender-add/provender-a
 import { ProvenderDeleteComponent } from 'src/app/entries/provender-delete/provender-delete.component';
 import { ProvenderUpdateComponent } from 'src/app/entries/provender-update/provender-update.component';
 import { Provender } from 'src/app/models/provender';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProvenderService } from 'src/app/services/provender.service';
 
 @Component({
@@ -22,11 +23,11 @@ export class ProvendersComponent implements OnInit {
   dataSource: MatTableDataSource<Provender>;
   displayedColumns: string[] = ['id', 'provenderName', 'weight', 'price', 'boughtDate'];
   emptyData:boolean = false;
-  constructor(private cookieService:CookieService,private provendersService: ProvenderService, private toastrService: ToastrService, private dialog: MatDialog,) {
+  constructor(private authService:AuthService,private cookieService:CookieService,private provendersService: ProvenderService, private toastrService: ToastrService, private dialog: MatDialog,) {
   }
 
   ngOnInit(): void {
-
+    this.authService.checkSkOutdated()
     this.getAllProvenders();
   }
 

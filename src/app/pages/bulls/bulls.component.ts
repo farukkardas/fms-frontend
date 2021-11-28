@@ -13,6 +13,7 @@ import { BullsService } from 'src/app/services/bulls.service';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/auth.service';
 
 declare var $;
 @Component({
@@ -28,9 +29,10 @@ export class BullsComponent implements OnInit {
   emptyData: boolean = false;
 
 
-  constructor(private cookieService:CookieService,private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) { }
+  constructor(private authService: AuthService, private cookieService: CookieService, private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllBulls();
   }
 
@@ -40,6 +42,7 @@ export class BullsComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
+ 
 
 
 

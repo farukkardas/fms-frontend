@@ -9,6 +9,7 @@ import { CustomerAddComponent } from 'src/app/entries/customer-add/customer-add.
 import { CustomerDeleteComponent } from 'src/app/entries/customer-delete/customer-delete.component';
 import { CustomerUpdateComponent } from 'src/app/entries/customer-update/customer-update.component';
 import { Customer } from 'src/app/models/customer';
+import { AuthService } from 'src/app/services/auth.service';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -23,9 +24,10 @@ export class CustomersComponent implements OnInit {
   displayedColumns: string[] = ['id','firstName', 'lastName', 'address','phoneNumber','totalSalesAmount'];
   emptyData:boolean = false;
 
-  constructor(private cookieService:CookieService,private customerService: CustomerService, private toastrService: ToastrService, private dialog: MatDialog) { }
+  constructor(private authService:AuthService,private cookieService:CookieService,private customerService: CustomerService, private toastrService: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.authService.checkSkOutdated()
     this.getAllCustomers();
   }
 

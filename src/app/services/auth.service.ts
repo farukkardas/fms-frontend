@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { LoginModel } from '../models/loginModel';
 import { RegisterModel } from '../models/registerModel';
+import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { TokenModel } from '../models/tokenModel';
 
@@ -11,7 +14,7 @@ import { TokenModel } from '../models/tokenModel';
 })
 export class AuthService {
   apiUrl = "http://localhost:5000/api/auth/";
-  constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
+  constructor(private httpClient: HttpClient, private cookieService: CookieService, private toastrService: ToastrService) { }
 
 
 
@@ -21,6 +24,11 @@ export class AuthService {
 
   register(registerModel: RegisterModel) {
     return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "register", registerModel);
+  }
+
+
+  checkSecurityKeyOutdated(id: string): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(this.apiUrl + "checkskoutdated", id);
   }
 
   logout() {
@@ -37,6 +45,22 @@ export class AuthService {
     else {
       return false;
     }
+  }
+
+
+  checkSkOutdated() {
+    let uid = this.cookieService.get("uid");
+
+    if (uid == null) {
+      this.logout()
+    }
+
+    this.checkSecurityKeyOutdated(this.cookieService.get("uid")).subscribe(response => {
+      //
+    }, (responseError) => {
+      this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+      setTimeout(() => this.logout(), 1500)
+    })
   }
 
 }
