@@ -39,12 +39,7 @@ export class MilksalesComponent implements OnInit {
 
 
   getAllSales() {
-    let userId, securitykey;
-
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.milkSalesService.getUserMilkSales(userId,securitykey).subscribe(response => {
+    this.milkSalesService.getUserMilkSales().subscribe(response => {
       if(response.data.length == 0){
         this.emptyData = true;
       }

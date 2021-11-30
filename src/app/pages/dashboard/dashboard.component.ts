@@ -42,15 +42,13 @@ export class DashboardComponent implements OnInit {
     this.authService.checkSkOutdated()
     this.getUserDetail()
     this.getMilkSales()
+    
   }
 
   getMilkSales() {
-    let userId, securitykey;
+  
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.milkSaleService.getUserMilkSales(userId,securitykey).subscribe(response => {
+    this.milkSaleService.getUserMilkSales().subscribe(response => {
       if(response.data.length == 0){
         this.emptyData = true;
       }
@@ -62,7 +60,7 @@ export class DashboardComponent implements OnInit {
     });
      
 
-    this.milkSaleService.getUserMilkSales(userId, securitykey).subscribe(response => {
+    this.milkSaleService.getUserMilkSales().subscribe(response => {
 
       for (let index = 0; index < response.data.length; index++) {
         this.milkSales = response.data;

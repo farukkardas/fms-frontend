@@ -19,8 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   
     let newRequest: HttpRequest<any>;
     newRequest = request.clone({
-      headers: request.headers.set("Authorization","Bearer " + token),
-      params : request.params.set("id",this.cookieService.get("uid")).set("securityKey",this.cookieService.get("sk"))
+      headers: request.headers.set("Authorization","Bearer " + token).set("id",this.cookieService.get("uid")).set("securityKey",this.cookieService.get("sk")),
     })
 
     return next.handle(newRequest);

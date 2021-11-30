@@ -36,11 +36,10 @@ export class MilksalesService {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "milksales/delete",milkSales);
   }
 
-  getUserMilkSales(id:number,securityKey:string) : Observable<ListResponseModel<MilkSalesDto>>{
+  getUserMilkSales() : Observable<ListResponseModel<MilkSalesDto>>{
     let getAllPath = this.apiUrl + "milksales/getusermilksales";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
 
-    return this.httpClient.get<ListResponseModel<MilkSalesDto>>(getAllPath, { params: parameters })
+    return this.httpClient.get<ListResponseModel<MilkSalesDto>>(getAllPath)
   }
 
 }

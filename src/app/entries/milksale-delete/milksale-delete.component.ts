@@ -26,12 +26,9 @@ export class MilksaleDeleteComponent implements OnInit {
   }
 
   getAllSales() {
-    let userId, securitykey;
+   
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.milkSalesService.getUserMilkSales(userId,securitykey).subscribe((response) => {
+    this.milkSalesService.getUserMilkSales().subscribe((response) => {
       this.milkSales = response.data;
     })
   }

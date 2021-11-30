@@ -62,12 +62,9 @@ export class MilksaleUpdateComponent implements OnInit {
 
   getAllSales() {
 
-    let userId, securitykey;
+  
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.milkSaleService.getUserMilkSales(userId,securitykey).subscribe((response) => {
+    this.milkSaleService.getUserMilkSales().subscribe((response) => {
       console.log(response.data)
       this.milkSales = response.data;
     })

@@ -11,7 +11,7 @@
                 <div class="mt-3">
                   <h4>{{firstName | titlecase }} {{lastName | titlecase }}</h4>
                   <p class="text-secondary mb-1">Full Stack Developer</p>
-                  <p class="text-muted font-size-sm">{{cityAndDistrict}}</p>
+                  <p class="text-muted font-size-sm">{{this.cities[cityAndDistrict]}}</p>
                   <label class="form-label" for="customFile">Upload Image</label>
 
                   <form [formGroup]="addImageGroup" novalidate (ngSubmit)="changePhoto()">

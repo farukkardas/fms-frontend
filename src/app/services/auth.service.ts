@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -28,8 +28,27 @@ export class AuthService {
 
 
   checkSecurityKeyOutdated(id: string): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "checkskoutdated", id);
+    const formData = new FormData();
+    formData.append("id",id);
+    return this.httpClient.post<ResponseModel>(this.apiUrl + "checkskoutdated", formData);
   }
+
+  checkSkOutdated() {
+    let uid = this.cookieService.get("uid");
+
+    if (uid == null) {
+      this.logout()
+    }
+
+    this.checkSecurityKeyOutdated(uid).subscribe(response => {
+      //
+    }, (responseError) => {
+      console.log(responseError)
+      this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+      setTimeout(() => this.logout(), 1500)
+    })
+  }
+
 
   logout() {
     this.cookieService.delete("jwt")
@@ -45,22 +64,6 @@ export class AuthService {
     else {
       return false;
     }
-  }
-
-
-  checkSkOutdated() {
-    let uid = this.cookieService.get("uid");
-
-    if (uid == null) {
-      this.logout()
-    }
-
-    this.checkSecurityKeyOutdated(this.cookieService.get("uid")).subscribe(response => {
-      //
-    }, (responseError) => {
-      this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
-      setTimeout(() => this.logout(), 1500)
-    })
   }
 
 }
