@@ -72,7 +72,6 @@ get lastName() {
       this.cookieService.set("uid", response.data.id)
       setTimeout(()=>window.location.reload(),1400)
     }, (responseError) => {
-      console.log(responseError)
       if(responseError.error.Errors.length>0){
         for(let i=0; i < responseError.error.Errors.length;i++){
           this.toastrService.error(responseError.error.Errors[i].ErrorMessage , "Error", { positionClass: 'toast-bottom-right' })

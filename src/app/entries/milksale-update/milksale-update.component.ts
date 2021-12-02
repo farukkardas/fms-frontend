@@ -33,12 +33,8 @@ export class MilksaleUpdateComponent implements OnInit {
   }
 
   getAllCustomers(){
-    let userId, securitykey;
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.customerService.getUserCustomer(userId,securitykey).subscribe((response)=>{
+    this.customerService.getUserCustomer().subscribe((response)=>{
       this.customers = response.data
     },(responseError)=>{
       responseError.message
@@ -62,10 +58,7 @@ export class MilksaleUpdateComponent implements OnInit {
 
   getAllSales() {
 
-  
-
     this.milkSaleService.getUserMilkSales().subscribe((response) => {
-      console.log(response.data)
       this.milkSales = response.data;
     })
   }
