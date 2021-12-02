@@ -43,9 +43,7 @@ export class AuthService {
     this.checkSecurityKeyOutdated(uid).subscribe(response => {
       //
     }, (responseError) => {
-      console.log(responseError)
-      this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
-      setTimeout(() => this.logout(), 1500)
+      setTimeout(() => this.logout(), 200)
     })
   }
 

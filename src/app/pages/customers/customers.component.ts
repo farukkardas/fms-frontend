@@ -40,12 +40,9 @@ export class CustomersComponent implements OnInit {
 
 
   getAllCustomers() {
-    let userId,securitykey;
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
 
-    this.customerService.getUserCustomer(userId,securitykey).subscribe(response => {
+    this.customerService.getUserCustomer().subscribe(response => {
       if(response.data.length == 0){
         this.emptyData = true;
       }

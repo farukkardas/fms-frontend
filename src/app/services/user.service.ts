@@ -17,8 +17,8 @@ export class UserService {
   }
 
 
-  getUserDetail(id: string,securitykey:string): Observable<SingleResponseModel<UserDetail>> {
-    let getAllPath = this.apiUrl + "getuserdetails?"
+  getUserDetail(): Observable<SingleResponseModel<UserDetail>> {
+    let getAllPath = this.apiUrl + "getuserdetails"
 
     return this.httpClient.get<SingleResponseModel<UserDetail>>(getAllPath);
   }

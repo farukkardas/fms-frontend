@@ -85,10 +85,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getUserDetail() {
-    let uid = this.cookieService.get("uid")
-    let sk = this.cookieService.get("sk")
 
-    this.userService.getUserDetail(uid, sk).subscribe((response) => {
+
+    this.userService.getUserDetail().subscribe((response) => {
       // single values
       this.animalCount = response.data.animalCount
       this.sales = response.data.totalSales

@@ -21,17 +21,14 @@ export class MilksaleAddComponent implements OnInit {
   constructor(private cookieService:CookieService ,private formBuilder: FormBuilder,private customerService:CustomerService, private dialogRef: MatDialogRef<MilksaleAddComponent>, private modalService: BsModalService, private milkSaleService: MilksalesService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
-    this.createAddBullGroup();
+    this.createMilkSaleAddGroup();
     this.getAllCustomers();
   }
 
   getAllCustomers(){
-    let userId, securitykey;
+ 
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.customerService.getUserCustomer(userId,securitykey).subscribe((response)=>{
+    this.customerService.getUserCustomer().subscribe((response)=>{
       this.customers = response.data
     },(responseError)=>{
       responseError.message
@@ -39,7 +36,7 @@ export class MilksaleAddComponent implements OnInit {
   }
 
 
-  createAddBullGroup() {
+  createMilkSaleAddGroup() {
     this.addMilkSaleGroup = this.formBuilder.group({
       amount: ['',Validators.required],
       salePrice: ['',Validators.required],

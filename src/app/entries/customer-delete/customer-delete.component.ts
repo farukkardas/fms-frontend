@@ -38,11 +38,8 @@ export class CustomerDeleteComponent implements OnInit {
   }
 
   getAllCustomers() {
-    let userId, securitykey;
-
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-    this.customerService.getUserCustomer(userId, securitykey).subscribe((response) => {
+  -
+    this.customerService.getUserCustomer().subscribe((response) => {
       this.customers = response.data;
     })
   }

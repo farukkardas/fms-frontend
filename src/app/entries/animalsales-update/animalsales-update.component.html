@@ -1,0 +1,76 @@
+<img src='assets/icons/menu/cow-sale.png' style="margin-left: 47%; width: 24px; height: 24px;">
+<br>
+<br>
+<div style="padding-left: 30%;">
+
+    <mat-form-field appearance="fill">
+        <mat-label>Select Animal Sale ID</mat-label>
+        <mat-select style="margin-left: 4%;" [(ngModel)]="property">
+            <mat-option *ngFor="let animalSale of animalSales" [value]="animalSale">
+                <p>{{animalSale.salesId}}</p>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<body>
+
+    <div *ngIf="property">
+
+        <form [formGroup]="updateAnimalSaleGroup">
+
+            <input class="form-control" formControlName="id" [ngModel]="property.salesId" type="hidden"
+                placeholder="{{property.salesId}}" readonly>
+
+
+            <h1 id="header">Amount</h1>
+            <input formControlName="amount" type="number" class="form-control" [ngModel]="property.amount"
+                placeholder="Amount.." />
+
+
+            <h1 id="header" style="margin-top: 0%;">Price</h1>
+            <input formControlName="salePrice" type="text" class="form-control" [ngModel]="property.price"
+                placeholder="Sale Price.." />
+            <br>
+
+            <div class=form-floating>
+                <mat-form-field style="margin-left:  30%;" appearance="fill">
+                    <mat-label>Animal Type</mat-label>
+                    <mat-select formControlName="animalType" matNativeControl>
+                        <mat-option *ngFor="let animal of animals" [value]="animal.id">{{animal.animalType}}
+                           </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+            <div class=form-floating>
+                <mat-form-field style="margin-left:  30%;" appearance="fill">
+                    <mat-label>Customer Name</mat-label>
+                    <mat-select formControlName="customerId" matNativeControl>
+                        <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.firstName}}
+                            {{customer.lastName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <h1 id="header">Phone Number</h1>
+            <input formControlName="boughtDate" type="datetime-local" class="form-control"
+                [ngModel]="property.boughtDate" placeholder="Phone Number.." />
+
+
+
+        </form>
+        <br>
+        <a mat-raised-button (click)="openModal(template)" [disabled]="!this.updateAnimalSaleGroup.valid"
+            color="primary">Update</a>
+        <ng-template #template>
+            <div class="modal-body text-center">
+                <p>Do you want to update?</p>
+                <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+            </div>
+        </ng-template>
+    </div>
+</body>

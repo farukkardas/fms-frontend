@@ -3,7 +3,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MilksaleAddComponent } from 'src/app/entries/milksale-add/milksale-add.component';
 import { MilksaleDeleteComponent } from 'src/app/entries/milksale-delete/milksale-delete.component';
@@ -23,7 +22,7 @@ export class MilksalesComponent implements OnInit {
   dataSource: MatTableDataSource<MilkSalesDto>;
   displayedColumns: string[] = ['salesId','customerName','amount','price','boughtDate'];
   emptyData:boolean = false;
-  constructor(private authService:AuthService,private cookieService:CookieService,private milkSalesService: MilksalesService, private toastrService: ToastrService, private dialog: MatDialog) { }
+  constructor(private authService:AuthService,private milkSalesService: MilksalesService, private toastrService: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authService.checkSkOutdated()

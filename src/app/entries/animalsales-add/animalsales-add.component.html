@@ -1,0 +1,60 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addAnimalSalesGroup">
+            <img src='assets/icons/menu/cow-sale.png' style="width: 24px; height: 24px;">
+            <h1 class="h3 mb-3 fw-normal">Add a new Animal Sale </h1>
+
+            <div class="form-floating">
+                <input formControlName="amount" type="number" class="form-control" placeholder="Amount.." />
+                <label for="floatingPassword">Amount (Piece)</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <input formControlName="salePrice" type="number" class="form-control" placeholder="Sale Price.." />
+                <label for="floatingPassword">Sale Price (TL)</label>
+            </div>
+
+            <div class=form-floating>
+                <mat-form-field appearance="fill">
+                    <mat-label>Animal Type</mat-label>
+                    <mat-select formControlName="animalType" matNativeControl>
+                        <mat-option *ngFor="let animal of animals" [value]="animal.id">{{animal.animalType}}
+                            </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <br>
+            <div class=form-floating>
+                <mat-form-field appearance="fill">
+                    <mat-label>Müşteri İsmi</mat-label>
+                    <mat-select formControlName="customerId" matNativeControl>
+                        <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.firstName}}
+                            {{customer.lastName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-floating">
+                <h1 id="header">Bought Date</h1>
+                <input formControlName="boughtDate" type="datetime-local" class="form-control"
+                    placeholder="Bought Date" />
+            </div>
+
+            <br>
+
+
+            <br>
+            <button type="button" class="btn btn-primary" [disabled]="!this.addAnimalSalesGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

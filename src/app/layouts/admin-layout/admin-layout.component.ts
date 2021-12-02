@@ -23,7 +23,8 @@ export class AdminLayoutComponent implements OnInit {
   public customerLinkVariable = "/customers";
   public loginPage = "/login";
   public registerPage = "/register";
-public profilePage = "/profile"
+  public profilePage = "/profile"
+  public animalsSalePage = "/animalsales";
 
   public isAuth: boolean;
   isShowing: boolean = true;

@@ -61,6 +61,10 @@ import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserUpdateComponent } from 'src/app/entries/user-update/user-update.component';
+import { AnimalsalesComponent } from 'src/app/pages/animalsales/animalsales.component';
+import { AnimalsalesAddComponent } from 'src/app/entries/animalsales-add/animalsales-add.component';
+import { AnimalsalesDeleteComponent } from 'src/app/entries/animalsales-delete/animalsales-delete.component';
+import { AnimalsalesUpdateComponent } from 'src/app/entries/animalsales-update/animalsales-update.component';
 
 
 @NgModule({
@@ -107,7 +111,11 @@ import { UserUpdateComponent } from 'src/app/entries/user-update/user-update.com
     CustomerDeleteComponent,
     CustomerUpdateComponent,
     SearchFilterPipe,
-    UserUpdateComponent],
+    UserUpdateComponent,
+    AnimalsalesComponent,
+    AnimalsalesAddComponent,
+    AnimalsalesDeleteComponent,
+    AnimalsalesUpdateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),

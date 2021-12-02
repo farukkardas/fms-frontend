@@ -28,10 +28,9 @@ export class CustomerService {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "customer/delete",customer);
   }
 
-  getUserCustomer(id:number,securityKey:string) : Observable<ListResponseModel<Customer>>{
+  getUserCustomer() : Observable<ListResponseModel<Customer>>{
     let getAllPath = this.apiUrl + "customer/getusercustomers";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
 
-    return this.httpClient.get<ListResponseModel<Customer>>(getAllPath, { params: parameters })
+    return this.httpClient.get<ListResponseModel<Customer>>(getAllPath)
   }
 }

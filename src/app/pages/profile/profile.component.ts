@@ -198,10 +198,8 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserDetails() {
-    let uid = this.cookieService.get("uid")
-    let sk = this.cookieService.get("sk")
 
-    this.userService.getUserDetail(uid, sk).subscribe((response) => {
+    this.userService.getUserDetail().subscribe((response) => {
 
       let city: string = response.data.city ?? " Empty ";
       let district: string = response.data.district ?? " Empty ";

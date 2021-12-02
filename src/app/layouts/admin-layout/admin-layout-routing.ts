@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginGuard } from 'src/app/guards/login.guard';
+import { AnimalsalesComponent } from 'src/app/pages/animalsales/animalsales.component';
 import { LoginComponent } from 'src/app/pages/auth/login/login.component';
 import { RegisterComponent } from 'src/app/pages/auth/register/register.component';
 import { BullsComponent } from 'src/app/pages/bulls/bulls.component';
@@ -28,6 +29,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'fuelconsumption', component: FuelconsumptionComponent, canActivate: [LoginGuard] },
     { path: 'milksales', component: MilksalesComponent, canActivate: [LoginGuard] },
     { path: 'customers', component: CustomersComponent, canActivate: [LoginGuard] },
+    {path : 'animalsales', component:AnimalsalesComponent,canActivate:[LoginGuard]},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {path:  'profile',component: ProfileComponent, canActivate:[LoginGuard]}
