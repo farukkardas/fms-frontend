@@ -1,4 +1,4 @@
-# FmsFrontend
+# Farm Management System Frontend
 
 Merhaba, Farm Management System benim çiftlik sahipleri için geliştirdiğim kayıt ve takip uygulamasıdır. Bu kısım projenin front-end kısmını oluşturmakta. Angular ve Nodejs kullanarak geliştirilmiştir.
 
@@ -9,3 +9,4 @@ Projeyi indirip klasöre çıkardıktan sonra terminali açıp  ng serve --open 
 ## Back-end Side
 
 Projenin back-end geliştirme kısmına buradan erişebilirsiniz -> [FMS Backend](https://github.com/farukkardas/FarmManagementSystem).
+
