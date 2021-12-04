@@ -1,0 +1,66 @@
+<div class="mat-elevation-z8">
+
+    <div style="margin-bottom: 2%; margin-top: 1%; margin-left: 1%; padding-top: 1%;">
+     
+    </div>
+   
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sellerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Seller Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.sellerName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.customerName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.productName}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryCity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery City </th>
+            <td mat-cell *matCellDef="let element"> {{this.cities[element.deliveryCity]}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryDistrict">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery District </th>
+            <td mat-cell *matCellDef="let element"> {{element.deliveryDistrict}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryAddress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.deliveryAddress}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="boughtDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Bought Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.boughtDate}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element"> <img src="assets/icons/pending.png" title="Pending">  </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div>
+        <p style="text-align: center;margin-top: 30px;font-weight: 400;" *ngIf="emptyData"> No data found!</p>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>

@@ -13,6 +13,7 @@ import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component'
 import { FertilizersComponent } from 'src/app/pages/fertilizers/fertilizers.component';
 import { FuelconsumptionComponent } from 'src/app/pages/fuelconsumption/fuelconsumption.component';
 import { MilksalesComponent } from 'src/app/pages/milksales/milksales.component';
+import { OrdersComponent } from 'src/app/pages/orders/orders.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { ProvendersComponent } from 'src/app/pages/provenders/provenders.component';
 import { SheepsComponent } from 'src/app/pages/sheeps/sheeps.component';
@@ -29,7 +30,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'fuelconsumption', component: FuelconsumptionComponent, canActivate: [LoginGuard] },
     { path: 'milksales', component: MilksalesComponent, canActivate: [LoginGuard] },
     { path: 'customers', component: CustomersComponent, canActivate: [LoginGuard] },
-    {path : 'animalsales', component:AnimalsalesComponent,canActivate:[LoginGuard]},
+    { path : 'animalsales', component:AnimalsalesComponent,canActivate:[LoginGuard]},
+    { path: 'orders',component:OrdersComponent,canActivate:[LoginGuard]},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {path:  'profile',component: ProfileComponent, canActivate:[LoginGuard]}

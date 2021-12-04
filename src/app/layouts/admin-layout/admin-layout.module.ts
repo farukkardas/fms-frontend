@@ -65,6 +65,7 @@ import { AnimalsalesComponent } from 'src/app/pages/animalsales/animalsales.comp
 import { AnimalsalesAddComponent } from 'src/app/entries/animalsales-add/animalsales-add.component';
 import { AnimalsalesDeleteComponent } from 'src/app/entries/animalsales-delete/animalsales-delete.component';
 import { AnimalsalesUpdateComponent } from 'src/app/entries/animalsales-update/animalsales-update.component';
+import { OrdersComponent } from 'src/app/pages/orders/orders.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { AnimalsalesUpdateComponent } from 'src/app/entries/animalsales-update/a
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
+    OrdersComponent,
     NotfoundfComponent,
     ProfileComponent,
     CowAddComponent,

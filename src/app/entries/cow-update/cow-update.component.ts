@@ -53,12 +53,9 @@ export class CowUpdateComponent implements OnInit {
   };
 
   getAllCows() {
-    let userId, securitykey;
+ 
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.cowService.getUserCows(userId, securitykey).subscribe((response) => {
+    this.cowService.getUserCows().subscribe((response) => {
       this.cows = response.data;
     })
   }

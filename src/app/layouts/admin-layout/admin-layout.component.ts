@@ -12,20 +12,20 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AdminLayoutComponent implements OnInit {
   panelOpenState = false;
   public routerLinkVariable = "";
-  public cowsLink = "/cows";
-  public calvesLink = "/calves";
-  public bullsLink = "/bulls";
-  public sheepsLink = "/sheeps";
-  public provendersLink = "/provenders";
-  public fertilizerLink = "/fertilizers";
-  public fuelConsumptionLink = "/fuelconsumption";
-  public milkSalesLink = "/milksales";
-  public customerLinkVariable = "/customers";
+  public cowsPage = "/cows";
+  public calvesPage = "/calves";
+  public bullsPage = "/bulls";
+  public sheepsPage = "/sheeps";
+  public provendersPage = "/provenders";
+  public fertilizerPage = "/fertilizers";
+  public fuelConsumptionPage = "/fuelconsumption";
+  public milkSalesPage = "/milksales";
+  public customerPage = "/customers";
   public loginPage = "/login";
   public registerPage = "/register";
   public profilePage = "/profile"
   public animalsSalePage = "/animalsales";
-
+  public ordersPage = "/orders";
   public isAuth: boolean;
   isShowing: boolean = true;
   displayedImage: string;

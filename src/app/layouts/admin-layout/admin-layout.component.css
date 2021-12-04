@@ -42,11 +42,13 @@ mat-sidenav-container {
     height: 48px;
     color: black;
     font-weight: 500;
-    margin-top: 5%;
+    margin-top: 0%;
 }
 
 .mat-expansion-panel {
     width: 180px;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .mat-expansion-panel-header {
@@ -123,6 +125,7 @@ mat-sidenav-container {
 #bottombutton {
     left: -15px;
     width: 160px;
+    margin-bottom: 5%;
 }
 
 .dropdown-menu {

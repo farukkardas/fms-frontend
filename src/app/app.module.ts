@@ -31,6 +31,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     AppComponent,
     AdminLayoutComponent,
     
+    
   ],
   imports: [
     BrowserModule,

@@ -45,7 +45,7 @@
     <br>
     <br>
 
-    <button mat-raised-button style="margin-bottom: 5%;" [routerLink]="routerLinkVariable">
+    <button mat-raised-button style="margin-bottom: 10%;" [routerLink]="routerLinkVariable">
       <div style="margin-right: 40px;">
         <img src='assets/icons/menu/wheat.png' />
         Dashboard
@@ -53,7 +53,8 @@
 
     </button>
 
-    <button mat-raised-button [routerLink]="customerLinkVariable">
+  
+    <button mat-raised-button [routerLink]="customerLinkPage">
       <div style="margin-right: 40px;"> 
         <img src='assets/icons/menu/customer.png' />
         Customers
@@ -62,8 +63,7 @@
     </button>
     <br>
     <br>
-    <!-- 
-    animals -->
+ 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -72,28 +72,28 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="cowsLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="cowsPage" style="margin-right: 30%;">
         <img src='assets/icons/menu/cow.png'>
         Cows
       </button>
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="calvesLink" style="margin-right: 50%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="calvesPage" style="margin-right: 50%;">
         <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
         Calves
       </button>
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="bullsLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="bullsPage" style="margin-right: 30%;">
         <img src='assets/icons/menu/bull.png'>
         Bulls
       </button>
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="sheepsLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="sheepsPage" style="margin-right: 30%;">
         <img src='assets/icons/menu/sheep.png'>
         Sheeps
       </button>
@@ -111,21 +111,21 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="provendersLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="provendersPage" style="margin-right: 30%;">
         <img src='assets/icons/menu/provender.png'>
         Provenders
       </button>
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="fertilizerLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="fertilizerPage" style="margin-right: 30%;">
         <img src='assets/icons/menu/fertilizer.png' style="width: 24px; height: 24px;">
         Fertilizers
       </button>
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="fuelConsumptionLink" style="margin-right: 30%;">
+      <button mat-raised-button id="bottombutton" [routerLink]="fuelConsumptionPage" style="margin-right: 30%;">
         <img src='assets/icons/menu/oil.png'>
         Fuel Consump.
       </button>
@@ -156,6 +156,14 @@
       
     </mat-expansion-panel>
 
+    <br>
+
+    <button mat-raised-button [routerLink]="ordersPage">
+      <div style="margin-right: 40px;margin-top: 0%;"> 
+        <img src='assets/icons/menu/order-delivery.png' />
+        Orders
+      </div>
+    </button>
   
   </mat-sidenav>
   <!-- //Content -->

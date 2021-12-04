@@ -39,11 +39,11 @@ export class CowsService {
     return this.httpClient.post<ResponseModel>(this.apiUrl + "cow/update", cowModel);
   }
 
-  getUserCows(id: number, securityKey: string): Observable<ListResponseModel<Cow>> {
+  getUserCows(): Observable<ListResponseModel<Cow>> {
     let getAllPath = this.apiUrl + "cow/getusercows";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
 
-    return this.httpClient.get<ListResponseModel<Cow>>(getAllPath, { params: parameters })
+
+    return this.httpClient.get<ListResponseModel<Cow>>(getAllPath)
 
   }
 
