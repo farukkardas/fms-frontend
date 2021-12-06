@@ -66,6 +66,8 @@ import { AnimalsalesAddComponent } from 'src/app/entries/animalsales-add/animals
 import { AnimalsalesDeleteComponent } from 'src/app/entries/animalsales-delete/animalsales-delete.component';
 import { AnimalsalesUpdateComponent } from 'src/app/entries/animalsales-update/animalsales-update.component';
 import { OrdersComponent } from 'src/app/pages/orders/orders.component';
+import { ProductsComponent } from 'src/app/pages/products/products.component';
+import { ProductAddComponent } from 'src/app/entries/product-add/product-add.component';
 
 
 @NgModule({
@@ -97,6 +99,8 @@ import { OrdersComponent } from 'src/app/pages/orders/orders.component';
     SheepAddComponent,
     SheepUpdateComponent,
     SheepDeleteComponent,
+    ProductsComponent,
+    ProductAddComponent,
     ProvenderAddComponent,
     ProvenderDeleteComponent,
     ProvenderUpdateComponent,

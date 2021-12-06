@@ -40,12 +40,8 @@ export class SheepsComponent implements OnInit {
 
   getAllSheeps() {
 
-    let userId,securitykey;
-
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-     this.sheepsService.getUserSheeps(userId,securitykey).subscribe(response => {
+  
+     this.sheepsService.getUserSheeps().subscribe(response => {
       if(response.data.length == 0){
         this.emptyData = true;
       }

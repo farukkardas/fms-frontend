@@ -24,12 +24,9 @@ export class ProvenderDeleteComponent implements OnInit {
   }
 
   getAllProvenders() {
-    let userId, securitykey;
+ 
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.provenderService.getUserProvenders(userId,securitykey).subscribe((response) => {
+    this.provenderService.getUserProvenders().subscribe((response) => {
       this.provenders = response.data;
     })
   }

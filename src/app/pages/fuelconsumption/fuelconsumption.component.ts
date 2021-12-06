@@ -38,12 +38,8 @@ export class FuelconsumptionComponent implements OnInit {
 
 
   public getAllFuels() {
-    let uid, securityKey;
 
-    uid = this.cookieService.get("uid");
-    securityKey = this.cookieService.get("sk");
-
-    this.fuelConsumptionService.getUserFuelConsumptions(uid,securityKey).subscribe(response => {
+    this.fuelConsumptionService.getUserFuelConsumptions().subscribe(response => {
       if(response.data.length == 0){
         this.emptyData = true;
       }

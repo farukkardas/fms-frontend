@@ -19,11 +19,13 @@ export class AuthService {
 
 
   login(loginModel: LoginModel) {
-    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "login", loginModel);
+    let allPath = this.apiUrl + "login";
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(allPath, loginModel);
   }
 
   register(registerModel: RegisterModel) {
-    return this.httpClient.post<SingleResponseModel<TokenModel>>(this.apiUrl + "register", registerModel);
+    let allPath = this.apiUrl + "register";
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(allPath, registerModel);
   }
 
 

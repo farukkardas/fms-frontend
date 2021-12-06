@@ -39,12 +39,9 @@ export class FuelDeleteComponent implements OnInit {
   }
 
   getAllFuels() {
-    let userId, securitykey;
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
 
-    this.fuelConsumptionService.getUserFuelConsumptions(userId,securitykey).subscribe((response) => {
+    this.fuelConsumptionService.getUserFuelConsumptions().subscribe((response) => {
       this.fuels = response.data;
     })
   }

@@ -10,39 +10,43 @@ import { SingleResponseModel } from '../models/singleResponseModel';
   providedIn: 'root'
 })
 export class CowsService {
-  apiUrl = "http://localhost:5000/api/";
+  apiUrl = "http://localhost:5000/api/cow/";
   constructor(private httpClient: HttpClient) { }
 
   getAllCows(): Observable<ListResponseModel<Cow>> {
-    let getAllPath = this.apiUrl + "cow/getall";
+    let getAllPath = this.apiUrl + "getall";
     return this.httpClient.get<ListResponseModel<Cow>>(getAllPath)
       ;
   }
 
   addCow(cowModel: Cow): Observable<ResponseModel> {
+    let getAllPath = this.apiUrl + "add";
+
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "cow/add", cowModel
+      getAllPath, cowModel
     );
   }
 
   deleteCow(cowModel: Cow): Observable<ResponseModel> {
+    let getAllPath = this.apiUrl + "delete";
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "cow/delete", cowModel
+      getAllPath, cowModel
     );
   }
 
   getCow(cowId: string): Observable<SingleResponseModel<Cow>> {
-    return this.httpClient.get<SingleResponseModel<Cow>>(this.apiUrl + "cow/getbyid" + cowId);
+    let getAllPath = this.apiUrl + "getbyid";
+    return this.httpClient.get<SingleResponseModel<Cow>>(getAllPath + cowId);
   }
 
   updateCow(cowModel: Cow): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "cow/update", cowModel);
+    let getAllPath = this.apiUrl + "update";
+
+    return this.httpClient.post<ResponseModel>(getAllPath, cowModel);
   }
 
   getUserCows(): Observable<ListResponseModel<Cow>> {
-    let getAllPath = this.apiUrl + "cow/getusercows";
-
-
+    let getAllPath = this.apiUrl + "getusercows";
     return this.httpClient.get<ListResponseModel<Cow>>(getAllPath)
 
   }

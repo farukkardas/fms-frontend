@@ -84,7 +84,8 @@ export class ProfileComponent implements OnInit {
 
       setTimeout(() => window.location.reload(), 1500)
     }, (responseError) => {
-      this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
+     
+      this.toastrService.error("Invalid image type! Only accepts JPEG,PNG,BMP!", "Error", { positionClass: 'toast-bottom-right' });
     })
   }
 
@@ -98,7 +99,8 @@ export class ProfileComponent implements OnInit {
       this.toastrService.success(response.message, "Succes", { positionClass: 'toast-bottom-right' });
       setTimeout(() => window.location.reload(), 1500)
     }, (responseError) => {
-      this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' });
+      console.log(responseError)
+      this.toastrService.error("Invalid image type! Only accepts JPEG,PNG,BMP!", "Error", { positionClass: 'toast-bottom-right' });
     })
 
   }
@@ -134,5 +136,6 @@ export class ProfileComponent implements OnInit {
       this.imagePath = response.data.imagePath ?? 'images/default.png';
     })
   }
+
 
 }

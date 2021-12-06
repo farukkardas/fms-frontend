@@ -30,6 +30,7 @@ export class AnimalsalesService {
   }
 
   getUserAnimalSales(): Observable<ListResponseModel<AnimalSalesDto>> {
-    return this.httpClient.get<ListResponseModel<AnimalSalesDto>>(this.apiUrl + "getuseranimalsales")
+    let allPath = this.apiUrl + "getuseranimalsales";
+    return this.httpClient.get<ListResponseModel<AnimalSalesDto>>(allPath)
   }
 }

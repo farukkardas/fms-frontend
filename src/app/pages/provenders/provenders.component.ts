@@ -34,12 +34,9 @@ export class ProvendersComponent implements OnInit {
 
 
   getAllProvenders() {
-    let userId,securitykey;
+  
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-
-    this.provendersService.getUserProvenders(userId,securitykey).subscribe(response => {
+    this.provendersService.getUserProvenders().subscribe(response => {
       if(response.data.length == 0){
         this.emptyData = true;
       }

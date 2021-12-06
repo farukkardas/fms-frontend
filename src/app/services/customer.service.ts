@@ -9,28 +9,30 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class CustomerService {
-  apiUrl = "http://localhost:5000/api/";
+  apiUrl = "http://localhost:5000/api/customer/";
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<Customer>> {
-    let getAllPath = this.apiUrl + "customer/getcustomersummary";
+    let getAllPath = this.apiUrl + "getcustomersummary";
     return this.httpClient.get<ListResponseModel<Customer>>(getAllPath);
   }
   addCustomer(customer: Customer): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "customer/add", customer);
+    let getAllPath = this.apiUrl + "add";
+    return this.httpClient.post<ResponseModel>(getAllPath, customer);
   }
 
   updateCustomer(customer:Customer) : Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "customer/update",customer);
+    let getAllPath = this.apiUrl + "update";
+    return this.httpClient.post<ResponseModel>(getAllPath,customer);
   }
 
   deleteCustomer(customer:Customer) : Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "customer/delete",customer);
+    let getAllPath = this.apiUrl + "delete";
+    return this.httpClient.post<ResponseModel>(getAllPath,customer);
   }
 
   getUserCustomer() : Observable<ListResponseModel<Customer>>{
-    let getAllPath = this.apiUrl + "customer/getusercustomers";
-
+    let getAllPath = this.apiUrl + "getusercustomers";
     return this.httpClient.get<ListResponseModel<Customer>>(getAllPath)
   }
 }

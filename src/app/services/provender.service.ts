@@ -9,30 +9,31 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class ProvenderService {
-  apiUrl: string = "http://localhost:5000/api/"
+  apiUrl: string = "http://localhost:5000/api/provender/"
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<Provender>> {
-    let allPath = this.apiUrl + "provender/getall";
+    let allPath = this.apiUrl + "getall";
     return this.httpClient.get<ListResponseModel<Provender>>(allPath);
   }
 
   addProvender(provender: Provender): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "provender/add", provender);
+    let allPath = this.apiUrl + "add";
+    return this.httpClient.post<ResponseModel>(allPath, provender);
   }
 
   updateProvender(provender:Provender) : Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "provender/update",provender);
+    let allPath = this.apiUrl + "update";
+    return this.httpClient.post<ResponseModel>(allPath,provender);
   }
 
   deleteProvender(provender:Provender) : Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "provender/delete",provender);
+    let allPath = this.apiUrl + "delete";
+    return this.httpClient.post<ResponseModel>(allPath,provender);
   }
 
-  getUserProvenders(id:number,securityKey:string) : Observable<ListResponseModel<Provender>>{
-    let getAllPath = this.apiUrl + "provender/getuserprovenders";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
-
-    return this.httpClient.get<ListResponseModel<Provender>>(getAllPath, { params: parameters })
+  getUserProvenders() : Observable<ListResponseModel<Provender>>{
+    let getAllPath = this.apiUrl + "getuserprovenders";
+    return this.httpClient.get<ListResponseModel<Provender>>(getAllPath)
   }
 }

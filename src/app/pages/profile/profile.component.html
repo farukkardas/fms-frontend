@@ -15,7 +15,7 @@
                   <label class="form-label" for="customFile">Upload Image</label>
 
                   <form [formGroup]="addImageGroup" novalidate (ngSubmit)="changePhoto()">
-                    <input type="file" class="form-control" formControlName="file" (change)="onFileSelect($event)" />
+                    <input type="file" class="form-control" formControlName="file" accept="image/*" (change)="onFileSelect($event)" />
                     <button type="submit" mat-raised-button
                       [disabled]="addImageGroup.invalid || addImageGroup.pristine">Upload</button>
                   </form>

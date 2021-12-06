@@ -10,30 +10,33 @@ import { ResponseModel } from '../models/responseModel';
 })
 export class FertilizersService {
 
-  apiUrl: string = "http://localhost:5000/api/"
+  apiUrl: string = "http://localhost:5000/api/fertilizer/"
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<ListResponseModel<Fertilizer>> {
-    let allPath = this.apiUrl + "fertilizer/getall";
+    let allPath = this.apiUrl + "getall";
     return this.httpClient.get<ListResponseModel<Fertilizer>>(allPath);
   }
 
   addFertilizer(fertilizer: Fertilizer): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "fertilizer/add", fertilizer);
+    let getAllPath = this.apiUrl + "add";
+
+    return this.httpClient.post<ResponseModel>(getAllPath, fertilizer);
   }
 
   updateFertilizer(fertilizer:Fertilizer) : Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "fertilizer/update",fertilizer);
+    let getAllPath = this.apiUrl + "update";
+    return this.httpClient.post<ResponseModel>(getAllPath,fertilizer);
   }
 
   deleteProvender(fertilizer:Fertilizer) : Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "fertilizer/delete",fertilizer);
+    let getAllPath = this.apiUrl + "delete";
+    return this.httpClient.post<ResponseModel>(getAllPath,fertilizer);
   }
   
   getUserFertilizers(id:number,securityKey:string) : Observable<ListResponseModel<Fertilizer>> {
-    let getAllPath = this.apiUrl + "fertilizer/getuserfertilizers";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+    let getAllPath = this.apiUrl + "getuserfertilizers";
 
-    return this.httpClient.get<ListResponseModel<Fertilizer>>(getAllPath, { params: parameters })
+    return this.httpClient.get<ListResponseModel<Fertilizer>>(getAllPath)
   }
 }

@@ -42,11 +42,8 @@ export class SheepUpdateComponent implements OnInit {
   };
 
   getAllSheeps() {
-    let userId, securitykey;
 
-    userId = this.cookieService.get("uid")
-    securitykey = this.cookieService.get("sk")
-    this.sheepsService.getUserSheeps(userId,securitykey).subscribe((response) => {
+    this.sheepsService.getUserSheeps().subscribe((response) => {
       this.sheeps = response.data;
     })
   }

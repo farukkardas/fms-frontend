@@ -1,0 +1,42 @@
+<body class="text-center">
+    <main class="form-signin">
+        <form [formGroup]="addProductGroup">
+            <img src='assets/icons/menu/listed-products.png' style="width: 24px; height: 24px;margin-bottom: 2%;">
+            <h1 class="h3 mb-3 fw-normal">Add a new Product </h1>
+
+
+            <div class="form-floating">
+                <input formControlName="name" type="text" class="form-control" placeholder="Product Name.." />
+                <label for="floatingPassword">Product Name</label>
+            </div>
+
+            <br>
+
+            <br>
+            <div class="form-floating">
+                <input formControlName="price" type="number" class="form-control" placeholder="Price.." />
+                <label for="floatingPassword">Price (₺)</label>
+            </div>
+
+            <br>
+
+            <div class="form-floating" >
+                <input type="file" class="form-control" formControlName="file" (change)="onFileSelect($event)" />
+            </div>
+
+            <br>
+
+            <br>
+            <button type="button" class="btn btn-primary" [disabled]="!this.addProductGroup.valid"
+                (click)="openModal(template)">Add</button>
+            <br><br>
+            <ng-template #template>
+                <div class="modal-body text-center">
+                    <p>Do you want to add?</p>
+                    <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+                </div>
+            </ng-template>
+        </form>
+    </main>
+</body>

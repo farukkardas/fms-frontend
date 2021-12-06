@@ -9,36 +9,41 @@ import { Sheep } from '../models/sheep';
   providedIn: 'root'
 })
 export class SheepsService {
-  apiUrl = "http://localhost:5000/api/";
+  apiUrl = "http://localhost:5000/api/sheep/";
   constructor(private httpClient: HttpClient) { }
 
   getAllSheeps(): Observable<ListResponseModel<Sheep>> {
-    let getAllPath = this.apiUrl + "sheep/getall";
+    let getAllPath = this.apiUrl + "getall";
     return this.httpClient.get<ListResponseModel<Sheep>>(getAllPath);
   }
 
   addSheep(sheepModel: Sheep): Observable<ResponseModel> {
+    let allPath = this.apiUrl + "add";
+
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "sheep/add", sheepModel
+      allPath, sheepModel
     );
   }
 
   deleteSheep(sheepModel: Sheep): Observable<ResponseModel> {
+    let allPath = this.apiUrl + "delete";
+
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "sheep/delete", sheepModel
+     allPath, sheepModel
     );
   }
 
   updateSheep(sheepModel: Sheep): Observable<ResponseModel> {
+    let allPath = this.apiUrl + "update";
+
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "sheep/update", sheepModel);
+      allPath, sheepModel);
   }
 
-  getUserSheeps(id:number,securityKey:string) : Observable<ListResponseModel<Sheep>> {
-    let getAllPath = this.apiUrl + "sheep/getusersheeps";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
+  getUserSheeps() : Observable<ListResponseModel<Sheep>> {
+    let getAllPath = this.apiUrl + "getusersheeps";
 
-    return this.httpClient.get<ListResponseModel<Sheep>>(getAllPath, { params: parameters })
+    return this.httpClient.get<ListResponseModel<Sheep>>(getAllPath)
 
   }
 }

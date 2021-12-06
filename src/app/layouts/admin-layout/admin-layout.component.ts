@@ -26,6 +26,7 @@ export class AdminLayoutComponent implements OnInit {
   public profilePage = "/profile"
   public animalsSalePage = "/animalsales";
   public ordersPage = "/orders";
+  public listedProductsPage = "/listedproducts";
   public isAuth: boolean;
   isShowing: boolean = true;
   displayedImage: string;

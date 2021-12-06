@@ -9,35 +9,36 @@ import { ResponseModel } from '../models/responseModel';
   providedIn: 'root'
 })
 export class CalvesService {
-  apiUrl = "http://localhost:5000/api/";
+  apiUrl = "http://localhost:5000/api/calves";
   constructor(private httpClient: HttpClient) { }
 
   getAllCalves(): Observable<ListResponseModel<Calf>> {
-    let getAllPath = this.apiUrl + "calves/getall";
+    let getAllPath = this.apiUrl + "getall";
     return this.httpClient.get<ListResponseModel<Calf>>(getAllPath);
   }
 
   addCalf(calfModel: Calf): Observable<ResponseModel> {
+    let getAllPath = this.apiUrl + "add";
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "calves/add", calfModel
+      getAllPath, calfModel
     );
   }
 
   deleteCalf(calfModel: Calf): Observable<ResponseModel> {
+    let getAllPath = this.apiUrl + "delete";
     return this.httpClient.post<ResponseModel>(
-      this.apiUrl + "calves/delete", calfModel
+      getAllPath, calfModel
     );
   }
 
   updateCalf(calfModel: Calf): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "calves/update", calfModel);
+    let getAllPath = this.apiUrl + "update";
+    return this.httpClient.post<ResponseModel>(getAllPath, calfModel);
   }
 
   getUserCalves(id: number, securityKey: string): Observable<ListResponseModel<Calf>> {
-    let getAllPath = this.apiUrl + "calves/getusercalves";
-    let parameters = new HttpParams().set('id', id).set('securitykey', securityKey)
-
-    return this.httpClient.get<ListResponseModel<Calf>>(getAllPath, { params: parameters })
+    let getAllPath = this.apiUrl + "getusercalves";
+    return this.httpClient.get<ListResponseModel<Calf>>(getAllPath)
 
   }
 

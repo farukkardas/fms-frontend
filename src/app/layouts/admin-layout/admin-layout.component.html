@@ -9,14 +9,15 @@
       </form>
 
     </div>
-    
+
     <button mat-button [routerLink]="routerLinkVariable">
       <img style="height: 54px; width: 58px; top: 5px;position: fixed;left: 20px;" src="assets/icons/leftfarm.png" />
-      <div class="maintitlediv" >
-        <span style="position:relative ;margin-left: 10px; margin-right: 10px;font-size: 16px;top: 0px;">Farm Management System</span>
+      <div class="maintitlediv">
+        <span style="position:relative ;margin-left: 10px; margin-right: 10px;font-size: 16px;top: 0px;">Farm Management
+          System</span>
       </div>
     </button>
-    
+
 
     <div ngbDropdown>
       <button class="btn profile-button" id="dropdownBasic1" ngbDropdownToggle style="background-color:white"> <i
@@ -33,14 +34,15 @@
 
 </mat-toolbar>
 
-<mat-sidenav-container  >
+<mat-sidenav-container>
   <mat-sidenav #sidenav [disableClose]="true" mode="side" [opened]="isShowing" *ngIf="isAuth">
 
-    <a style="display:block; height: 90px; width: 150px; top: 15px;margin-bottom: -15px;" [routerLink]="routerLinkVariable">
+    <a style="display:block; height: 90px; width: 150px; top: 15px;margin-bottom: -15px;"
+      [routerLink]="routerLinkVariable">
       <img id="hicon" src="assets/icons/lely.png" />
     </a>
-    
-    
+
+
 
     <br>
     <br>
@@ -53,9 +55,9 @@
 
     </button>
 
-  
+
     <button mat-raised-button [routerLink]="customerLinkPage">
-      <div style="margin-right: 40px;"> 
+      <div style="margin-right: 40px;">
         <img src='assets/icons/menu/customer.png' />
         Customers
       </div>
@@ -63,7 +65,7 @@
     </button>
     <br>
     <br>
- 
+
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -145,26 +147,36 @@
       </mat-expansion-panel-header>
 
       <button id="bottombutton" mat-raised-button [routerLink]="milkSalesLink">
-        <img  src='assets/icons/menu/milk-bottle.png'>
+        <img src='assets/icons/menu/milk-bottle.png'>
         Milk Sales
       </button>
 
       <button id="bottombutton" mat-raised-button [routerLink]="animalsSalePage">
-        <img  src='assets/icons/menu/cow-sale.png'>
+        <img src='assets/icons/menu/cow-sale.png'>
         Animal Sales
       </button>
-      
+
     </mat-expansion-panel>
 
     <br>
 
     <button mat-raised-button [routerLink]="ordersPage">
-      <div style="margin-right: 40px;margin-top: 0%;"> 
+      <div style="margin-right: 40px;margin-top: 0%;">
         <img src='assets/icons/menu/order-delivery.png' />
-        Orders
+        Pending Orders
       </div>
     </button>
-  
+
+    <br>
+    <br>
+
+    <button mat-raised-button [routerLink]="listedProductsPage">
+      <div style="margin-right: 40px;margin-top: 0%;">
+        <img src='assets/icons/menu/listed-products.png' />
+        Listed Products
+      </div>
+    </button>
+
   </mat-sidenav>
   <!-- //Content -->
   <mat-sidenav-content>
