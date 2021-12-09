@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
@@ -15,7 +15,7 @@ export class ProductsonsaleService {
   constructor(private httpClient: HttpClient) { }
 
 
-  addProduct(productsonsale: ProductsOnSale,file:File,userId:string): Observable<ResponseModel> {
+  addProduct(productsonsale: ProductsOnSale, file: File, userId: string): Observable<ResponseModel> {
     let getAllPath = this.apiUrl + "addproduct";
 
     const headers = new HttpHeaders();
@@ -31,6 +31,15 @@ export class ProductsonsaleService {
 
 
     return this.httpClient.post<ResponseModel>(getAllPath, formData, { headers: headers })
+  }
+
+  deleteProduct(productId: string): Observable<ResponseModel> {
+    let getAllPath = this.apiUrl + "deleteproduct";
+
+    const formData = new FormData();
+    formData.append("productId", productId);
+
+    return this.httpClient.post<ResponseModel>(getAllPath, formData)
   }
 
   getUserProducts(): Observable<ListResponseModel<ProductsOnSale>> {

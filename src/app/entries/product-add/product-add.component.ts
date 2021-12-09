@@ -62,8 +62,7 @@ export class ProductAddComponent implements OnInit {
     this.productOnSaleService.addProduct(productModel,file,userId).subscribe((response)=>{
       this.toastrService.success(response.message,"Success",{positionClass:'toast-bottom-right'})
     },(responseError)=>{
-      console.log(responseError)
-      this.toastrService.error(responseError.message,"Success",{positionClass:'toast-bottom-right'})
+      this.toastrService.error("Invalid image type! Only accepts JPEG,PNG,BMP!", "Error", { positionClass: 'toast-bottom-right' });
     })
 
    console.log(this.addProductGroup.value)

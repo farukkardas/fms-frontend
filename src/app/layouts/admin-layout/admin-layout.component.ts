@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
+import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -10,7 +10,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit {
-  panelOpenState = false;
+  @ViewChild("panel2") panel;
+  activeRole: string;
+  isAuth: boolean = false;
+  isAdmin: boolean = false;
+  isUser: boolean = false;
+  isCustomer: boolean = false;
   public routerLinkVariable = "";
   public cowsPage = "/cows";
   public calvesPage = "/calves";
@@ -27,7 +32,6 @@ export class AdminLayoutComponent implements OnInit {
   public animalsSalePage = "/animalsales";
   public ordersPage = "/orders";
   public listedProductsPage = "/listedproducts";
-  public isAuth: boolean;
   isShowing: boolean = true;
   displayedImage: string;
   public isCollapsed = true;
@@ -36,10 +40,32 @@ export class AdminLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthenticated()
+    this.checkUserRole()
+
   }
 
   logout() {
     this.authService.logout()
+  }
+
+  checkUserRole() {
+    let getRole = localStorage.getItem('xx')
+    if (getRole == null) { return; }
+
+    let bytes = CryptoJS.AES.decrypt(getRole, 'superkey');
+    let decryptedRole = bytes.toString(CryptoJS.enc.Utf8);
+
+    this.activeRole = decryptedRole;
+
+    if (this.activeRole.includes('admin')) {
+      this.isAdmin = true;
+    }
+    else if (this.activeRole.includes('user')) {
+      this.isUser = true;
+    }
+    else {
+      this.isCustomer = true;
+    }
   }
 
   isAuthenticated() {

@@ -8,6 +8,7 @@ import { MilkSalesDto } from 'src/app/models/milkSalesDto';
 import { AuthService } from 'src/app/services/auth.service';
 import { MilksalesService } from 'src/app/services/milksales.service';
 import { UserService } from 'src/app/services/user.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  userTestId :string;
+  userTestId: string;
   profit: number
   sales: number
   customerCount: number
@@ -33,23 +34,24 @@ export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['id', 'firstName', 'amount', 'price'];
   milkSalesData: MatTableDataSource<MilkSalesDto>;
   toastrService: any;
-  emptyData:boolean = false;
+  emptyData: boolean = false;
 
-  constructor(private authService:AuthService,private milkSaleService: MilksalesService, private userService: UserService, private cookieService: CookieService) {
+  constructor(private authService: AuthService, private milkSaleService: MilksalesService, private userService: UserService, private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
     this.authService.checkSkOutdated()
     this.getUserDetail()
     this.getMilkSales()
+
     
+  
   }
 
-  getMilkSales() {
-  
 
+  getMilkSales() {
     this.milkSaleService.getUserMilkSales().subscribe(response => {
-      if(response.data.length == 0){
+      if (response.data.length == 0) {
         this.emptyData = true;
       }
       this.milkSalesData = new MatTableDataSource(response.data);
@@ -58,7 +60,6 @@ export class DashboardComponent implements OnInit {
     }, (responseError) => {
       this.toastrService.error(responseError.message);
     });
-     
 
     this.milkSaleService.getUserMilkSales().subscribe(response => {
 

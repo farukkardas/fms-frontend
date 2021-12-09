@@ -1,5 +1,4 @@
 <mat-toolbar *ngIf="isAuth">
-
   <div *ngIf="isAuth" style="display: inline-flex;">
     <div style="display: inline-flex;">
       <form mdbWavesEffect>
@@ -29,9 +28,6 @@
     </div>
 
   </div>
-
-
-
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -42,8 +38,6 @@
       <img id="hicon" src="assets/icons/lely.png" />
     </a>
 
-
-
     <br>
     <br>
 
@@ -52,115 +46,115 @@
         <img src='assets/icons/menu/wheat.png' />
         Dashboard
       </div>
-
     </button>
 
-
-    <button mat-raised-button [routerLink]="customerLinkPage">
+    <button mat-raised-button [routerLink]="customerPage" *ngIf="isAdmin || isUser">
       <div style="margin-right: 40px;">
         <img src='assets/icons/menu/customer.png' />
         Customers
       </div>
-
     </button>
-    <br>
-    <br>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <img src='assets/icons/menu/animals.png'>
-          Animals
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <button mat-raised-button id="bottombutton" [routerLink]="cowsPage" style="margin-right: 30%;">
-        <img src='assets/icons/menu/cow.png'>
-        Cows
-      </button>
-
-      <br>
-
-      <button mat-raised-button id="bottombutton" [routerLink]="calvesPage" style="margin-right: 50%;">
-        <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
-        Calves
-      </button>
-
-      <br>
-
-      <button mat-raised-button id="bottombutton" [routerLink]="bullsPage" style="margin-right: 30%;">
-        <img src='assets/icons/menu/bull.png'>
-        Bulls
-      </button>
-
-      <br>
-
-      <button mat-raised-button id="bottombutton" [routerLink]="sheepsPage" style="margin-right: 30%;">
-        <img src='assets/icons/menu/sheep.png'>
-        Sheeps
-      </button>
-    </mat-expansion-panel>
-
 
     <br>
+    <br>
+    <mat-accordion *ngIf="isAdmin || isUser">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <img src='assets/icons/menu/animals.png'>
+            Animals
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
+        <button mat-raised-button id="bottombutton" [routerLink]="cowsPage" style="margin-right: 30%;">
+          <img src='assets/icons/menu/cow.png'>
+          Cows
+        </button>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <img src='assets/icons/menu/consumables.png'>
-          Consumables
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+        <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="provendersPage" style="margin-right: 30%;">
-        <img src='assets/icons/menu/provender.png'>
-        Provenders
-      </button>
+        <button mat-raised-button id="bottombutton" [routerLink]="calvesPage" style="margin-right: 50%;">
+          <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
+          Calves
+        </button>
+
+        <br>
+
+        <button mat-raised-button id="bottombutton" [routerLink]="bullsPage" style="margin-right: 30%;">
+          <img src='assets/icons/menu/bull.png'>
+          Bulls
+        </button>
+
+        <br>
+
+        <button mat-raised-button id="bottombutton" [routerLink]="sheepsPage" style="margin-right: 30%;">
+          <img src='assets/icons/menu/sheep.png'>
+          Sheeps
+        </button>
+      </mat-expansion-panel>
+
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="fertilizerPage" style="margin-right: 30%;">
-        <img src='assets/icons/menu/fertilizer.png' style="width: 24px; height: 24px;">
-        Fertilizers
-      </button>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <img src='assets/icons/menu/consumables.png'>
+            Consumables
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <button mat-raised-button id="bottombutton" [routerLink]="provendersPage" style="margin-right: 30%;">
+          <img src='assets/icons/menu/provender.png'>
+          Provenders
+        </button>
+
+        <br>
+
+        <button mat-raised-button id="bottombutton" [routerLink]="fertilizerPage" style="margin-right: 30%;">
+          <img src='assets/icons/menu/fertilizer.png' style="width: 24px; height: 24px;">
+          Fertilizers
+        </button>
+
+        <br>
+
+        <button mat-raised-button id="bottombutton" [routerLink]="fuelConsumptionPage" style="margin-right: 30%;">
+          <img src='assets/icons/menu/oil.png'>
+          Fuel Consump.
+        </button>
+
+        <br>
+      </mat-expansion-panel>
+
 
       <br>
 
-      <button mat-raised-button id="bottombutton" [routerLink]="fuelConsumptionPage" style="margin-right: 30%;">
-        <img src='assets/icons/menu/oil.png'>
-        Fuel Consump.
-      </button>
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <img src='assets/icons/menu/data.png'>
+            Sales Data
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <br>
-    </mat-expansion-panel>
+        <button id="bottombutton" mat-raised-button [routerLink]="milkSalesPage">
+          <img src='assets/icons/menu/milk-bottle.png'>
+          Milk Sales
+        </button>
+
+        <button id="bottombutton" mat-raised-button [routerLink]="animalsSalePage">
+          <img src='assets/icons/menu/cow-sale.png'>
+          Animal Sales
+        </button>
+
+      </mat-expansion-panel>
+    </mat-accordion>
 
 
     <br>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <img src='assets/icons/menu/data.png'>
-          Sales Data
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <button id="bottombutton" mat-raised-button [routerLink]="milkSalesLink">
-        <img src='assets/icons/menu/milk-bottle.png'>
-        Milk Sales
-      </button>
-
-      <button id="bottombutton" mat-raised-button [routerLink]="animalsSalePage">
-        <img src='assets/icons/menu/cow-sale.png'>
-        Animal Sales
-      </button>
-
-    </mat-expansion-panel>
-
-    <br>
-
-    <button mat-raised-button [routerLink]="ordersPage">
+    <button mat-raised-button [routerLink]="ordersPage" *ngIf="isAdmin || isUser">
       <div style="margin-right: 40px;margin-top: 0%;">
         <img src='assets/icons/menu/order-delivery.png' />
         Pending Orders
@@ -170,7 +164,7 @@
     <br>
     <br>
 
-    <button mat-raised-button [routerLink]="listedProductsPage">
+    <button mat-raised-button [routerLink]="listedProductsPage" *ngIf="isAdmin || isUser">
       <div style="margin-right: 40px;margin-top: 0%;">
         <img src='assets/icons/menu/listed-products.png' />
         Listed Products

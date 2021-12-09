@@ -10,8 +10,6 @@ import { BullDeleteComponent } from 'src/app/entries/bull-delete/bull-delete.com
 import { BullUpdateComponent } from 'src/app/entries/bull-update/bull-update.component';
 import { Bull } from 'src/app/models/bull';
 import { BullsService } from 'src/app/services/bulls.service';
-import { map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -28,7 +26,7 @@ export class BullsComponent implements OnInit {
   displayedColumns: string[] = ['bullId', 'age', 'bullName', 'weight'];
   emptyData: boolean = false;
 
-
+ 
   constructor(private authService: AuthService, private cookieService: CookieService, private bullsService: BullsService, private toastrService: ToastrService, private dialog: MatDialog, private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -99,4 +97,7 @@ export class BullsComponent implements OnInit {
   refresh() {
     this.getAllBulls();
   }
+
 }
+
+

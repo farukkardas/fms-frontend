@@ -5,11 +5,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginModel } from 'src/app/models/loginModel';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
+import * as CryptoJS from 'crypto-js';
+import { OperationClaim } from 'src/app/models/operationClaim';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+
 })
 export class LoginComponent implements OnInit {
   buttonEnabled: boolean = true;
@@ -17,7 +20,7 @@ export class LoginComponent implements OnInit {
   rememberMeChecked: boolean = false;
   public registerLink = "/register";
 
-  constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private cookieService: CookieService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastrService: ToastrService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
 
@@ -54,15 +57,6 @@ export class LoginComponent implements OnInit {
     this.rememberMeChecked = !this.rememberMeChecked;
   }
 
-  getRandomString(length) {
-    var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var result = '';
-    for (var i = 0; i < length; i++) {
-      result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-    }
-    return result;
-  }
-
   enableButton() {
     this.buttonEnabled = true;
   }
@@ -74,7 +68,7 @@ export class LoginComponent implements OnInit {
       // Disable button and see what happened. Prevent to spam login button.
       this.buttonEnabled = false;
       setTimeout(() => this.enableButton(), 2000)
-      
+
       let loginModel: LoginModel = { ...this.loginForm.value };
 
       this.authService.login(loginModel).subscribe((response) => {
@@ -84,7 +78,19 @@ export class LoginComponent implements OnInit {
         this.cookieService.set("uid", response.data.id)
         this.cookieService.set("sk", response.data.securityKey)
 
-        setTimeout(() => { window.location.reload() }, 1500)
+        let role: any;
+
+        for (let i = 0; i < response.data.operationClaims.length; i++) {
+          role = response.data.operationClaims[i].name;
+        }
+     
+
+
+        // encrypt the role and set localstorage
+        var userRole = CryptoJS.AES.encrypt(role, 'superkey').toString();
+        localStorage.setItem("xx", userRole)
+
+           setTimeout(() => { window.location.reload() }, 1500)
         this
         if (this.rememberMeChecked) {
           this.cookieService.set("email", this.loginForm.controls['email'].value, 1)

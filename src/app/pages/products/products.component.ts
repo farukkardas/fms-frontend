@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<ProductsOnSale>;
-  displayedColumns: string[] = ['id', 'name', 'price', 'imagePath'];
+  displayedColumns: string[] = ['id', 'name', 'price', 'imagePath','delete'];
   emptyData: boolean = false;
   constructor(private productOnSaleService: ProductsonsaleService, private toastrService: ToastrService, private authService: AuthService, private dialog: MatDialog) { }
 
@@ -52,6 +52,15 @@ export class ProductsComponent implements OnInit {
     })
   }
 
+  deleteProducts(userId:any){
+    this.productOnSaleService.deleteProduct(userId).subscribe((response)=>{
+      this.toastrService.info(response.message, "Success", { positionClass: 'toast-bottom-right' })
+      this.getProducts()
+    },(responseError)=>{
+     
+      this.toastrService.error(responseError.error.message, "Error", { positionClass: 'toast-bottom-right' })
+    })
+  }
 
 
   openAddMenu() {
@@ -60,6 +69,7 @@ export class ProductsComponent implements OnInit {
     dialogConfig.height = "50%";
     this.dialog.open(ProductAddComponent, dialogConfig).afterClosed().subscribe(result => {
       this.refresh();
+      this.emptyData = false;
     });;
 
   }

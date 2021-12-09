@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminGuard } from 'src/app/guards/admin.guard';
 import { LoginGuard } from 'src/app/guards/login.guard';
 import { AnimalsalesComponent } from 'src/app/pages/animalsales/animalsales.component';
 import { LoginComponent } from 'src/app/pages/auth/login/login.component';
@@ -22,18 +23,18 @@ import { SheepsComponent } from 'src/app/pages/sheeps/sheeps.component';
 export const AdminLayoutRoutes: Routes = [
 
     { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
-    { path: 'cows', component: CowsComponent, canActivate: [LoginGuard] },
-    { path: 'calves', component: CalvesComponent, canActivate: [LoginGuard] },
-    { path: 'bulls', component: BullsComponent, canActivate: [LoginGuard] },
-    { path: 'sheeps', component: SheepsComponent, canActivate: [LoginGuard] },
-    { path: 'provenders', component: ProvendersComponent, canActivate: [LoginGuard] },
-    { path: 'fertilizers', component: FertilizersComponent, canActivate: [LoginGuard] },
-    { path: 'fuelconsumption', component: FuelconsumptionComponent, canActivate: [LoginGuard] },
-    { path: 'milksales', component: MilksalesComponent, canActivate: [LoginGuard] },
-    { path: 'customers', component: CustomersComponent, canActivate: [LoginGuard] },
-    { path : 'animalsales', component:AnimalsalesComponent,canActivate:[LoginGuard]},
-    { path: 'orders',component:OrdersComponent,canActivate:[LoginGuard]},
-    { path: 'listedproducts',component:ProductsComponent,canActivate:[LoginGuard]},
+    { path: 'cows', component: CowsComponent, canActivate: [AdminGuard] },
+    { path: 'calves', component: CalvesComponent, canActivate: [AdminGuard] },
+    { path: 'bulls', component: BullsComponent, canActivate: [AdminGuard] },
+    { path: 'sheeps', component: SheepsComponent, canActivate: [AdminGuard] },
+    { path: 'provenders', component: ProvendersComponent, canActivate: [AdminGuard] },
+    { path: 'fertilizers', component: FertilizersComponent, canActivate: [AdminGuard] },
+    { path: 'fuelconsumption', component: FuelconsumptionComponent, canActivate: [AdminGuard] },
+    { path: 'milksales', component: MilksalesComponent, canActivate: [AdminGuard] },
+    { path: 'customers', component: CustomersComponent, canActivate: [AdminGuard] },
+    { path : 'animalsales', component:AnimalsalesComponent,canActivate:[AdminGuard]},
+    { path: 'orders',component:OrdersComponent,canActivate:[AdminGuard]},
+    { path: 'listedproducts',component:ProductsComponent,canActivate:[AdminGuard]},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {path:  'profile',component: ProfileComponent, canActivate:[LoginGuard]}

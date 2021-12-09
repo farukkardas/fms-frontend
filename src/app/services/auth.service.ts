@@ -8,6 +8,7 @@ import { RegisterModel } from '../models/registerModel';
 import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { TokenModel } from '../models/tokenModel';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class AuthService {
 
   checkSecurityKeyOutdated(id: string): Observable<ResponseModel> {
     const formData = new FormData();
-    formData.append("id",id);
+    formData.append("id", id);
     return this.httpClient.post<ResponseModel>(this.apiUrl + "checkskoutdated", formData);
   }
 
@@ -41,7 +42,6 @@ export class AuthService {
     if (uid == null) {
       this.logout()
     }
-
     this.checkSecurityKeyOutdated(uid).subscribe(response => {
       //
     }, (responseError) => {
@@ -51,16 +51,36 @@ export class AuthService {
 
 
   logout() {
+    window.location.reload()
     this.cookieService.delete("jwt")
     this.cookieService.delete("uid")
     this.cookieService.delete("sk")
-    window.location.reload()
+    localStorage.clear()
+    
   }
 
   isAuthenticated() {
-    if (this.cookieService.get("jwt")) {
+    if (this.cookieService.get("jwt") && this.cookieService.get("sk")) {
       return true;
     }
+
+    else {
+      return false;
+    }
+  }
+
+  isAdminOrUser(){
+
+    let getRole = localStorage.getItem('xx')
+    if (getRole == null) { return false; }
+
+    let bytes = CryptoJS.AES.decrypt(getRole, 'superkey');
+    let decryptedRole = bytes.toString(CryptoJS.enc.Utf8);
+
+    if (this.cookieService.get("jwt") && this.cookieService.get("sk") && decryptedRole.includes("admin") || decryptedRole.includes("user")) {
+      return true;
+    }
+
     else {
       return false;
     }

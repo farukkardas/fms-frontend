@@ -7,9 +7,8 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
-  
   constructor(private authService: AuthService,
     private toastrService: ToastrService,
     private router: Router) {
@@ -20,15 +19,12 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (this.authService.isAuthenticated()) {
-      return true;
-    } 
-    else {
-      this.router.navigate(["/login"])
+    if (this.authService.isAdminOrUser()) { return true; }
+
+    this.router.navigate(["/login"])
      
-      this.toastrService.info("You must log in to view this page!", "Error", { positionClass: 'toast-bottom-right' })
-      return false;
-    }
+    this.toastrService.error("You dont have permission to see this page!", "Error", { positionClass: 'toast-bottom-right' })
+    return false;
   }
 
 
