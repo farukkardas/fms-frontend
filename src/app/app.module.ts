@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { ProductAddComponent } from './entries/product-add/product-add.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -31,6 +31,8 @@ import { ProductAddComponent } from './entries/product-add/product-add.component
   declarations: [
     AppComponent,
     AdminLayoutComponent
+    
+  
     
     
   ],
@@ -50,6 +52,7 @@ import { ProductAddComponent } from './entries/product-add/product-add.component
     MatDividerModule,
     MatButtonModule,
     MatSelectModule,
+    NgxPaginationModule,
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
     NgxEchartsModule.forRoot({

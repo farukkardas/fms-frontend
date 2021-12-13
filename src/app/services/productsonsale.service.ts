@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
+import { Product } from '../models/product';
+import { ProductDetail } from '../models/productDetail';
 import { ProductsOnSale } from '../models/productsOnSale';
 import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
@@ -33,6 +35,11 @@ export class ProductsonsaleService {
     return this.httpClient.post<ResponseModel>(getAllPath, formData, { headers: headers })
   }
 
+  getAllProducts(): Observable<ListResponseModel<Product>> {
+    let getAllPath = this.apiUrl + "getall"
+    return this.httpClient.get<ListResponseModel<Product>>(getAllPath)
+  }
+
   deleteProduct(productId: string): Observable<ResponseModel> {
     let getAllPath = this.apiUrl + "deleteproduct";
 
@@ -46,5 +53,11 @@ export class ProductsonsaleService {
     let getAllPath = this.apiUrl + "getuserproducts";
 
     return this.httpClient.get<ListResponseModel<ProductsOnSale>>(getAllPath)
+  }
+
+  getProductDetails(id: number): Observable<SingleResponseModel<ProductDetail>> {
+    let getAllPath = this.apiUrl + "getbyid?id=" + id;
+
+    return this.httpClient.get<SingleResponseModel<ProductDetail>>(getAllPath)
   }
 }

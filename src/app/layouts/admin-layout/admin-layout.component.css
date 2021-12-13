@@ -13,12 +13,20 @@ mat-sidenav {
     border-radius: 10px;
     padding-left: 15px;
     font-size: 16px;
+    position: fixed;
+    margin-top: 70px;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-left: 0px;
 }
 
 mat-form-field {
     height: 40px;
     background-color: white;
 }
+
+
 
 .content {
     margin: 16px;
@@ -86,8 +94,9 @@ mat-sidenav-container {
 .profile-button {
     background-color: white;
     position: fixed;
-    top: 15px;
-    width: 50px;
+    top: 10px;
+    width: 60px;
+    height: 45px;
     right: 15px;
     box-shadow: none;
     border-color: grey;
@@ -100,14 +109,23 @@ mat-sidenav-container {
 
 .profile-button:hover {
     transform: scale(1.05);
-    color: grey;
+    border: 2px solid grey;
 }
+
 
 .mr-sm-2 {
     position: fixed;
     right: 75px;
-    width: 200px;
-    top: 15px;
+    width: 60px;
+    height: 45px;
+    margin-right: 20px;
+    top: 10px;
+
+}
+
+.mr-sm-2:hover {
+    transform: scale(1.05);
+    border: 2px solid grey;
 }
 
 .maintitlediv {
@@ -129,5 +147,19 @@ mat-sidenav-container {
 }
 
 .dropdown-menu {
-    margin: -10px;      
+    margin: -10px;
+}
+
+.hide-toggle {
+    background-color: red;
+    color: white;
+    width: 10px !important;
+    min-width: unset !important;
+    position: fixed;
+    height: 30px;
+    margin-top: 6px;
+    margin-left: -10px;
+    display: inline-flex;
+    align-items: center;
+    z-index: 1;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import * as CryptoJS from 'crypto-js';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,11 +33,13 @@ export class AdminLayoutComponent implements OnInit {
   public animalsSalePage = "/animalsales";
   public ordersPage = "/orders";
   public listedProductsPage = "/listedproducts";
+  public buyProductPage = "/buyproduct";
+  public basketPage = "/basket";
   isShowing: boolean = true;
   displayedImage: string;
   public isCollapsed = true;
 
-  constructor(private authService: AuthService, private cookieService: CookieService) { }
+  constructor(private router: Router, private authService: AuthService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.isAuthenticated()
@@ -79,6 +82,12 @@ export class AdminLayoutComponent implements OnInit {
 
   toggleSidenav() {
     this.isShowing = !this.isShowing;
+  }
+
+  navigateTo(value) {
+    console.log(value);
+    this.router.navigate([value]);
+
   }
 
 }

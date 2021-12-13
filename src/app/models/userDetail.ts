@@ -18,4 +18,5 @@ export class UserDetail {
   bullCount: number;
   calfCount: number;
   name: number;
+  role: string;
 }

@@ -24,6 +24,7 @@ export class ProductAddComponent implements OnInit {
     this.addProductGroup = this.formBuilder.group({
       name: ['', Validators.required],
       price: [''],
+      description: [''],
       sellerId : [this.cookieService.get("uid")],
       file: [''],
       userId: [this.cookieService.get("uid")]
@@ -62,10 +63,15 @@ export class ProductAddComponent implements OnInit {
     this.productOnSaleService.addProduct(productModel,file,userId).subscribe((response)=>{
       this.toastrService.success(response.message,"Success",{positionClass:'toast-bottom-right'})
     },(responseError)=>{
-      this.toastrService.error("Invalid image type! Only accepts JPEG,PNG,BMP!", "Error", { positionClass: 'toast-bottom-right' });
+      console.log(responseError)
+      if (responseError.error.errors.length > 0) {
+        for (let i = 0; i < responseError.error.errors.length; i++) {
+          this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Error", { positionClass: 'toast-bottom-right' }
+          )
+        }
+      }
     })
 
-   console.log(this.addProductGroup.value)
   }
 
 

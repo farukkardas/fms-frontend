@@ -1,0 +1,51 @@
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Products on Sale</h1>
+    </div>
+</section>
+<div class="mat-elevation-z8">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div *ngFor="let product of products |paginate: { 
+                    itemsPerPage: pageSize,
+                    currentPage: p,totalItems: products.length
+                    }" class="col-12 col-md-6 col-lg-4">
+                        <div class="card" style="margin-top: 5%;">
+                            <img class="card-img-top" src="http://localhost:5000/uploads/{{product.imagePath}}"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <h2 title="View Product">{{product.name}}</h2>
+                                </h4>
+                                <p class="card-text">{{product.description}}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <button mat-button>{{product.price}} TL</button>
+                                    </div>
+                                    <div class="col">
+                                        <button mat-raised-button (click)="routeProductDetail(product.id)"
+                                            style="margin-left: 70px;background-color: cadetblue;">Product
+                                            Details</button>
+                                        <button mat-raised-button (click)="addProductToBasket(product.id)"
+                                            style="margin-left: 70px;margin-top: 10px;">Add to
+                                            cart</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" style="margin-top: 70px;  padding-left: 40%; padding-bottom: 2%;">
+            <nav aria-label="...">
+                <pagination-controls class="clearfix" (pageChange)="p = $event" previousLabel="<" nextLabel=">">
+                </pagination-controls>
+            </nav>
+        </div>
+    </div>
+
+</div>

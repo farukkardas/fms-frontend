@@ -17,12 +17,12 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-// Şimdilik şehirleri sabit olarak tutuyorum. Bir şehir apisinden veriler çekilip de yapılabilir.
+  // Şimdilik şehirleri sabit olarak tutuyorum. Bir şehir apisinden veriler çekilip de yapılabilir.
   cities = CityConstants.cities;
 
 
-  profit : number;
-  totalSale : number;
+  profit: number;
+  totalSale: number;
   progress: boolean = false;
   addImageGroup: FormGroup;
   fileName: string;
@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   district: string;
   address: string;
   imagePath: string;
-
+  role: string;
 
   constructor(private authService: AuthService, private matDialog: MatDialog, private userService: UserService, private cookieService: CookieService, private formBuilder: FormBuilder, private userImageService: UserImageService, private toastrService: ToastrService) {
 
@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit {
 
       setTimeout(() => window.location.reload(), 1500)
     }, (responseError) => {
-     
+
       this.toastrService.error("Invalid image type! Only accepts JPEG,PNG,BMP!", "Error", { positionClass: 'toast-bottom-right' });
     })
   }
@@ -134,6 +134,7 @@ export class ProfileComponent implements OnInit {
       this.cityAndDistrict = city, district ?? 'Empty !';
       this.address = response.data.address ?? 'Empty !';
       this.imagePath = response.data.imagePath ?? 'images/default.png';
+      this.role = response.data.role ?? 'Role not found';
     })
   }
 

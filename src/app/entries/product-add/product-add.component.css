@@ -5,3 +5,13 @@
     border-color: red;
     width: 100px;
 }
+
+textarea{ 
+    width: 505.891px; 
+    min-width:505.891px; 
+    max-width:505.891px; 
+  
+    height:100px; 
+    min-height:100px;  
+    max-height:100px;
+  }

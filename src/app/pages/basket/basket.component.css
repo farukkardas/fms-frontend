@@ -1,0 +1,25 @@
+.remove-button {
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 40px!important;
+    min-width: unset!important;
+    line-height: 10px;
+    font-family: sans-serif;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    text-shadow: 0px -1px 0px rgba(30, 30, 30, 0.6);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: rgb(255, 0, 0);
+}
+
+.checkout-button{
+    background-color: rgb(7, 204, 83);
+}
+
+.continue-shopping{
+    background-color: rgb(238, 255, 0);
+}

@@ -68,6 +68,10 @@ import { AnimalsalesUpdateComponent } from 'src/app/entries/animalsales-update/a
 import { OrdersComponent } from 'src/app/pages/orders/orders.component';
 import { ProductsComponent } from 'src/app/pages/products/products.component';
 import { ProductAddComponent } from 'src/app/entries/product-add/product-add.component';
+import { BuyproductComponent } from 'src/app/pages/buyproduct/buyproduct.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ProductDetailComponent } from 'src/app/pages/product-detail/product-detail.component';
+import { BasketComponent } from 'src/app/pages/basket/basket.component';
 
 
 @NgModule({
@@ -99,6 +103,7 @@ import { ProductAddComponent } from 'src/app/entries/product-add/product-add.com
     SheepAddComponent,
     SheepUpdateComponent,
     SheepDeleteComponent,
+    BuyproductComponent,
     ProductsComponent,
     ProductAddComponent,
     ProvenderAddComponent,
@@ -121,7 +126,9 @@ import { ProductAddComponent } from 'src/app/entries/product-add/product-add.com
     AnimalsalesComponent,
     AnimalsalesAddComponent,
     AnimalsalesDeleteComponent,
-    AnimalsalesUpdateComponent],
+    AnimalsalesUpdateComponent,
+    ProductDetailComponent,
+    BasketComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -140,7 +147,8 @@ import { ProductAddComponent } from 'src/app/entries/product-add/product-add.com
     MatPaginatorModule,
     MatCheckboxModule,
     NgxChartsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxPaginationModule
 
 
   ], providers: [

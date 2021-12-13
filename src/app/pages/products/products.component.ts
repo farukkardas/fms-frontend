@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { ProductAddComponent } from 'src/app/entries/product-add/product-add.component';
 import { ProductsOnSale } from 'src/app/models/productsOnSale';
@@ -20,9 +21,10 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<ProductsOnSale>;
-  displayedColumns: string[] = ['id', 'name', 'price', 'imagePath','delete'];
+  displayedColumns: string[] = ['id', 'name', 'price','description' ,'imagePath','delete'];
+  modalRef: BsModalRef;
   emptyData: boolean = false;
-  constructor(private productOnSaleService: ProductsonsaleService, private toastrService: ToastrService, private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private productOnSaleService: ProductsonsaleService,private modalService:BsModalService ,private toastrService: ToastrService, private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authService.checkSkOutdated()
@@ -61,6 +63,22 @@ export class ProductsComponent implements OnInit {
       this.toastrService.error(responseError.error.message, "Error", { positionClass: 'toast-bottom-right' })
     })
   }
+
+  
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-dialog-centered' })
+  }
+
+
+  confirm(userId:any): void {
+    this.deleteProducts(userId);
+    this.modalRef.hide();
+  }
+
+  decline(): void {
+    this.modalRef.hide();
+  }
+
 
 
   openAddMenu() {
