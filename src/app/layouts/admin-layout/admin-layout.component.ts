@@ -59,7 +59,6 @@ export class AdminLayoutComponent implements OnInit {
     let decryptedRole = bytes.toString(CryptoJS.enc.Utf8);
 
     this.activeRole = decryptedRole;
-
     if (this.activeRole.includes('admin')) {
       this.isAdmin = true;
     }

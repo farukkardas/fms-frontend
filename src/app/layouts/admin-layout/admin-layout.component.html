@@ -32,25 +32,25 @@
       [routerLink]="routerLinkVariable">
       <img id="hicon" src="assets/icons/lely.png" />
     </a>
-    <br>
-    <br>
-    <button mat-raised-button style="margin-bottom: 10%;" [routerLink]="routerLinkVariable">
+    
+    
+    <button mat-raised-button style="margin-top: 20%;" *ngIf="isAdmin || isUser"  [routerLink]="routerLinkVariable">
       <div style="margin-right: 40px;">
         <img src='assets/icons/menu/wheat.png' />
         Dashboard
       </div>
     </button>
-    <br>
+    
     <button mat-raised-button [routerLink]="customerPage" *ngIf="isAdmin || isUser">
       <div style="margin-right: 40px;">
         <img src='assets/icons/menu/customer.png' />
         Customers
       </div>
     </button>
-    <br>
-    <br>
-    <mat-accordion *ngIf="isAdmin || isUser">
-      <mat-expansion-panel>
+    
+    
+    <mat-accordion  *ngIf="isAdmin || isUser">
+      <mat-expansion-panel >
         <mat-expansion-panel-header>
           <mat-panel-title>
             <img src='assets/icons/menu/animals.png'>
@@ -61,23 +61,23 @@
           <img src='assets/icons/menu/cow.png'>
           Cows
         </button>
-        <br>
+        
         <button mat-raised-button id="bottombutton" [routerLink]="calvesPage" style="margin-right: 50%;">
           <img src='assets/icons/menu/calf.png' style="width: 24px; height: 24px;">
           Calves
         </button>
-        <br>
+        
         <button mat-raised-button id="bottombutton" [routerLink]="bullsPage" style="margin-right: 30%;">
           <img src='assets/icons/menu/bull.png'>
           Bulls
         </button>
-        <br>
+        
         <button mat-raised-button id="bottombutton" [routerLink]="sheepsPage" style="margin-right: 30%;">
           <img src='assets/icons/menu/sheep.png'>
           Sheeps
         </button>
       </mat-expansion-panel>
-      <br>
+      
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -89,20 +89,20 @@
           <img src='assets/icons/menu/provender.png'>
           Provenders
         </button>
-        <br>
+        
         <button mat-raised-button id="bottombutton" [routerLink]="fertilizerPage" style="margin-right: 30%;">
           <img src='assets/icons/menu/fertilizer.png' style="width: 24px; height: 24px;">
           Fertilizers
         </button>
-        <br>
+        
         <button mat-raised-button id="bottombutton" [routerLink]="fuelConsumptionPage" style="margin-right: 30%;">
           <img src='assets/icons/menu/oil.png'>
           Fuel Consump.
         </button>
-        <br>
+        
       </mat-expansion-panel>
-      <br>
-      <mat-expansion-panel>
+      
+      <mat-expansion-panel style="margin-bottom: 10%;">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <img src='assets/icons/menu/data.png'>
@@ -119,33 +119,33 @@
         </button>
       </mat-expansion-panel>
     </mat-accordion>
-    <br>
+    
     <button mat-raised-button [routerLink]="ordersPage" *ngIf="isAdmin || isUser">
       <div style="margin-right: 40px;margin-top: 0%;">
         <img src='assets/icons/menu/order-delivery.png' />
         Pending Orders
       </div>
     </button>
-    <br>
-    <br>
+    
+    
     <button mat-raised-button [routerLink]="listedProductsPage" *ngIf="isAdmin || isUser">
       <div style="margin-right: 40px;margin-top: 0%;">
         <img src='assets/icons/menu/listed-products.png' />
         Listed Products
       </div>
     </button>
-    <br>
-    <br>
-    <button mat-raised-button [routerLink]="buyProductPage" *ngIf="isAdmin || isUser">
+    
+    <!-- This is a just buy a product test page (removed here / now this section in mobile) -->
+    <!-- <button mat-raised-button style="margin-top: 20%;" [routerLink]="buyProductPage" *ngIf="isAdmin || isCustomer">
       <div style="margin-right: 40px;margin-top: 0%;">
         <img src='assets/icons/menu/buy-button.png' />
         Buy a Product
       </div>
-    </button>
+    </button> -->
   </mat-sidenav>
   <!-- //Content -->
   <mat-sidenav-content>
-    <button mat-button class="hide-toggle" title="Hide sidenav.." (click)="toggleSidenav()">≡</button>
+    <button *ngIf="isAuth" mat-button class="hide-toggle" title="Hide sidenav.." (click)="toggleSidenav()">≡</button>
     <div class="content">
       <router-outlet></router-outlet>
     </div>

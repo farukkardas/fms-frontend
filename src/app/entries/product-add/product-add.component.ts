@@ -24,6 +24,7 @@ export class ProductAddComponent implements OnInit {
     this.addProductGroup = this.formBuilder.group({
       name: ['', Validators.required],
       price: [''],
+      categoryId: [''],
       description: [''],
       sellerId : [this.cookieService.get("uid")],
       file: [''],

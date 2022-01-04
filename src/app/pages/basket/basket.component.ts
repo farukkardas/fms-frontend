@@ -12,6 +12,7 @@ import { BasketService } from 'src/app/services/basket.service';
 })
 export class BasketComponent implements OnInit {
   basketProducts: BasketProduct[] = []
+  emptyData: boolean;
   productsLink: string = "/buyproduct"
   constructor(private cookieService: CookieService, private toastrService: ToastrService, private basketService: BasketService) { }
 
@@ -22,7 +23,12 @@ export class BasketComponent implements OnInit {
   getProducts() {
     this.basketService.getBasketProducts().subscribe((response) => {
       this.basketProducts = response.data
-      console.log(this.basketProducts)
+      if (response.data.length < 1) {
+        this.emptyData = true;
+      }
+      else {
+        this.emptyData = false;
+      }
     })
   }
 
@@ -61,11 +67,11 @@ export class BasketComponent implements OnInit {
     product.productId = productId;
     product.userId = uid;
 
-     this.basketService.deleteToBasket(product).subscribe(response=>{
-      this.toastrService.success(response.message,"Success",{positionClass:'toast-bottom-right'})
+    this.basketService.deleteToBasket(product).subscribe(response => {
+      this.toastrService.info("Product successfully deleted in basket!", "Success", { positionClass: 'toast-bottom-right' })
       this.getProducts()
-     },(responseError)=>{
-      this.toastrService.error(responseError.message,"Error",{positionClass:'toast-bottom-right'})
-     })
+    }, (responseError) => {
+      this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' })
+    })
   }
 }

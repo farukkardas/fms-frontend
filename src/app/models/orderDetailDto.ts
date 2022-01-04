@@ -1,6 +1,7 @@
 export class OrderDetailDto{
     id: number;
     sellerId: number;
+    productId : number;
     sellerName: string;
     customerName: string;
     productType: number;

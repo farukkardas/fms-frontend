@@ -5,7 +5,29 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <table class="table table-hover">
+            <div *ngIf="emptyData" class="container-fluid mt-100">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body cart">
+                                <div class="col-sm-12 empty-cart-cls text-center"> <img
+                                        src="https://i.imgur.com/dCdflKN.png" style="margin-right: 4%;" width="130" height="130"
+                                        class="img-fluid mb-4 mr-3">
+                                    <h3><strong>Your Cart is Empty</strong></h3>
+                                    <h4>You can view the products by clicking the button below to fill your cart.</h4> 
+                                    <button mat-raised-button [routerLink]="productsLink"
+                                        class="btn btn-primary cart-btn-transform m-3" >Continue
+                                        Shopping</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table *ngIf="!emptyData" class="table table-hover">
+                <div style="align-items: center;" *ngIf="emptyData">
+                    <p class="no-data">No data available in basket!</p>
+                </div>
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -32,11 +54,15 @@
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                             <input type="email" readonly class="form-control" id="exampleInputEmail1" value="1">
                         </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>{{product.productPrice | number : '1.0-2'}} TL</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>{{addTax(product.productPrice,1) | number : '1.0-2'}} TL</strong>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{product.productPrice | number : '1.0-2'}}
+                                TL</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{addTax(product.productPrice,1) | number :
+                                '1.0-2'}}
+                                TL</strong>
                         </td>
                         <td class="col-sm-1 col-md-1">
-                            <button (click)="deleteBasket(product.id,product.productId)" mat-raised-button class="remove-button" color="warn">X</button> 
+                            <button (click)="deleteBasket(product.id,product.productId)" mat-raised-button
+                                class="remove-button" color="warn">X</button>
                         </td>
                     </tr>
                     <tr>

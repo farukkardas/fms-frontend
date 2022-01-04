@@ -19,6 +19,20 @@
             </div>
 
             <br>
+            <div class=form-floating>
+                <mat-form-field style="width: 100%;" appearance="fill">
+                    <mat-label >Category</mat-label>
+                    <mat-select formControlName="categoryId" matNativeControl>
+                        <mat-option value="1">Cow</mat-option>
+                        <mat-option value="2">Sheep</mat-option>
+                        <mat-option value="3">Calf</mat-option>
+                        <mat-option value="4">Bull</mat-option>
+                        <mat-option value="5">Consumables</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <br>
             <div class="form-floating">
                 <input formControlName="description" type="text" class="form-control" placeholder="Description.." />
                 <label for="floatingPassword">Description</label>

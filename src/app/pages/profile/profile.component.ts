@@ -122,8 +122,8 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUserDetail().subscribe((response) => {
 
-      let city: string = response.data.city ?? " Empty ";
-      let district: string = response.data.district ?? " Empty ";
+      let city = response.data.city ??  "0";
+      let district = response.data.district ??  "0";
 
       this.profit = response.data.profit;
       this.totalSale = response.data.totalSales;

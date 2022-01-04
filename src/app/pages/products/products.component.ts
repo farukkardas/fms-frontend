@@ -46,10 +46,12 @@ export class ProductsComponent implements OnInit {
       if (response.data.length == 0) {
         this.emptyData = true;
       }
+    
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }, (responseError) => {
+      console.log(responseError)
       this.toastrService.error(responseError.message, "Error", { positionClass: 'toast-bottom-right' })
     })
   }

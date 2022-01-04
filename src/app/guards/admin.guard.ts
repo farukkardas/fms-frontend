@@ -21,9 +21,8 @@ export class AdminGuard implements CanActivate {
 
     if (this.authService.isAdminOrUser()) { return true; }
 
-    this.router.navigate(["/login"])
+    this.router.navigate(["/buyproduct"])
      
-    this.toastrService.error("You dont have permission to see this page!", "Error", { positionClass: 'toast-bottom-right' })
     return false;
   }
 

@@ -25,7 +25,7 @@ import { SheepsComponent } from 'src/app/pages/sheeps/sheeps.component';
 
 export const AdminLayoutRoutes: Routes = [
 
-    { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
+    { path: '', component: DashboardComponent, canActivate: [AdminGuard] },
     { path: 'cows', component: CowsComponent, canActivate: [AdminGuard] },
     { path: 'calves', component: CalvesComponent, canActivate: [AdminGuard] },
     { path: 'bulls', component: BullsComponent, canActivate: [AdminGuard] },

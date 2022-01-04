@@ -22,7 +22,7 @@
                                 <p class="card-text">{{product.description}}</p>
                                 <div class="row">
                                     <div class="col">
-                                        <button mat-button>{{product.price}} TL</button>
+                                        <button mat-button>{{product.price | number : '1.0-2'}} TL</button>
                                     </div>
                                     <div class="col">
                                         <button mat-raised-button (click)="routeProductDetail(product.id)"

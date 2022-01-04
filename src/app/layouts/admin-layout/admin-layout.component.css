@@ -50,14 +50,16 @@ mat-sidenav-container {
     height: 48px;
     color: black;
     font-weight: 500;
-    margin-top: 0%;
+    margin-bottom: 10%;
 }
 
 .mat-expansion-panel {
     width: 180px;
     margin-top: 0%;
-    margin-bottom: 0%;
+    margin-bottom: 10%;
 }
+
+
 
 .mat-expansion-panel-header {
     color: black;
