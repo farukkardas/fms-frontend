@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,13 +9,14 @@ import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { TokenModel } from '../models/tokenModel';
 import * as CryptoJS from 'crypto-js';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   apiUrl = "http://localhost:5000/api/auth/";
-  constructor(private httpClient: HttpClient, private cookieService: CookieService, private toastrService: ToastrService) { }
+  constructor(private router:Router,private httpClient: HttpClient, private cookieService: CookieService, private toastrService: ToastrService) { }
 
 
 
@@ -56,6 +57,7 @@ export class AuthService {
     this.cookieService.delete("uid")
     this.cookieService.delete("sk")
     localStorage.clear()
+    this.router.navigate(["/login"])
     
   }
 

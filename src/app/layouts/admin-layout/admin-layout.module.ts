@@ -72,6 +72,7 @@ import { BuyproductComponent } from 'src/app/pages/buyproduct/buyproduct.compone
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductDetailComponent } from 'src/app/pages/product-detail/product-detail.component';
 import { BasketComponent } from 'src/app/pages/basket/basket.component';
+import { CargoAddNoComponent } from 'src/app/entries/cargo-add-no/cargo-add-no.component';
 
 
 @NgModule({
@@ -128,6 +129,7 @@ import { BasketComponent } from 'src/app/pages/basket/basket.component';
     AnimalsalesDeleteComponent,
     AnimalsalesUpdateComponent,
     ProductDetailComponent,
+    CargoAddNoComponent,
     BasketComponent],
   imports: [
     CommonModule,

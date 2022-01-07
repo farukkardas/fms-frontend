@@ -20,6 +20,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CargoInfoComponent } from './entries/cargo-info/cargo-info.component';
 
 
 
@@ -30,7 +31,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    CargoInfoComponent
     
   
     

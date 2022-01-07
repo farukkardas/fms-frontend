@@ -10,5 +10,6 @@ export class OrderDetailDto{
     deliveryDistrict: string;
     deliveryAddress: string;
     boughtDate: Date;
-    status: boolean
+    status: number;
+    deliveryNo : number;
 }

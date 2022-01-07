@@ -6,8 +6,38 @@ table {
     color: black;
   }
   
-  .mat-raised-button {
-    margin-right: 1%;
-    width: 5%;
-  }
+.delivery-button{
+  background-color: orange;
+  color: black;
+
+}
+
+
+.approved-button{
+  background-color: greenyellow;
+  color: black;
+
+}
+
+.completed-button{
+  background-color: green;
+  color: black;
+
+}
+
+.pending-button{
+  background-color: yellow;
+  color: black;
+
+
+}
+
+.canceled-button{
+  background-color: red;
+  color: black;
+}
+
+
+
+
   

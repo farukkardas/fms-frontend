@@ -97,13 +97,14 @@ export class LoginComponent implements OnInit {
         }
 
       }, (responseError) => {
+        console.log(responseError)
         let responseString = responseError.statusText
         if (responseString.includes("Unknown Error")) {
           this.toastrService.error("Error connecting to server!", "Error", { positionClass: 'toast-bottom-right' })
         }
 
         else {
-          this.toastrService.error(responseError.error, "Error", { positionClass: 'toast-bottom-right' })
+          this.toastrService.error(responseError.error.message, "Error", { positionClass: 'toast-bottom-right' })
         }
 
       })
