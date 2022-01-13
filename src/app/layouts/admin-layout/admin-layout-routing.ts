@@ -40,9 +40,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listedproducts', component: ProductsComponent, canActivate: [AdminGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'profile', component: ProfileComponent, canActivate: [LoginGuard] },
-    { path: 'buyproduct', component: BuyproductComponent, canActivate: [LoginGuard] },
-    { path: 'product-detail/:id', component: ProductDetailComponent, canActivate: [LoginGuard] },
-    { path: 'basket', component: BasketComponent, canActivate: [LoginGuard] }
+    { path: 'profile', component: ProfileComponent, canActivate: [AdminGuard] },
+    { path: 'buyproduct', component: BuyproductComponent, canActivate: [AdminGuard] },
+    { path: 'product-detail/:id', component: ProductDetailComponent, canActivate: [AdminGuard] },
+    { path: 'basket', component: BasketComponent, canActivate: [AdminGuard] }
 
 ];

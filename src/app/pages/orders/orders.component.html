@@ -67,7 +67,7 @@
 
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-            <td mat-cell *matCellDef="let element"> <button mat-raised-button [disabled]="element.status == 6"
+            <td mat-cell *matCellDef="let element"> <button mat-raised-button [disabled]="element.status == 6 || element.status == 1    "
                     [ngClass]="setButtonClass(element.status)" (click)="orderAction(element.status,element.id,element.deliveryNo)"
                     [name]="setActionButtonName(element.status)" style="width: 120px;">{{buttonName}}</button></td>
         </ng-container>

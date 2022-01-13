@@ -19,10 +19,10 @@ export class OrdersService {
   }
 
   approveOrder(orderId:any) : Observable<ResponseModel> {
-    let getAllPath = this.apiUrl + "approveorder?order="
-    let setParams = new HttpParams();
-    setParams.set("order",orderId)
-    return this.httpClient.put<ResponseModel>(getAllPath + orderId,{params:setParams});
+    let getAllPath = this.apiUrl + "approveorder"
+    var formData: any = new FormData();
+    formData.append("order",orderId);
+    return this.httpClient.put<ResponseModel>(getAllPath,formData);
   }
 
 

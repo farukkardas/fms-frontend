@@ -150,6 +150,7 @@ export class OrdersComponent implements OnInit {
   confirmApprove(){
     console.log(this.orderId)
     this.ordersService.approveOrder(this.orderId).subscribe((response)=>{
+    this.toastrService.success(response.message,"Success",{positionClass:'toast-bottom-right'})
     this.refresh()
     },(responseError)=>{
     });

@@ -72,30 +72,35 @@ export class LoginComponent implements OnInit {
       let loginModel: LoginModel = { ...this.loginForm.value };
 
       this.authService.login(loginModel).subscribe((response) => {
-        this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
-
-        this.cookieService.set("jwt", response.data.token)
-        this.cookieService.set("uid", response.data.id)
-        this.cookieService.set("sk", response.data.securityKey)
 
         let role: any;
 
         for (let i = 0; i < response.data.operationClaims.length; i++) {
           role = response.data.operationClaims[i].name;
+          if (role.includes("customer")) {
+            this.toastrService.error("You don't have to permission to login admin panel!", "Error", { positionClass: 'toast-bottom-right' })
+            return false;
+          }
+
         }
-     
+
+        this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
+        this.cookieService.set("jwt", response.data.token)
+        this.cookieService.set("uid", response.data.id)
+        this.cookieService.set("sk", response.data.securityKey)
 
 
         // encrypt the role and set localstorage
         var userRole = CryptoJS.AES.encrypt(role, 'superkey').toString();
         localStorage.setItem("xx", userRole)
 
-           setTimeout(() => { window.location.reload() }, 1500)
+        setTimeout(() => { window.location.reload() }, 1500)
         this
         if (this.rememberMeChecked) {
           this.cookieService.set("email", this.loginForm.controls['email'].value, 1)
         }
 
+        return true;
       }, (responseError) => {
         console.log(responseError)
         let responseString = responseError.statusText

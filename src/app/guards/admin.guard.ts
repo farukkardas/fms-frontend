@@ -10,7 +10,6 @@ import { AuthService } from '../services/auth.service';
 export class AdminGuard implements CanActivate {
 
   constructor(private authService: AuthService,
-    private toastrService: ToastrService,
     private router: Router) {
 
   }
@@ -19,11 +18,16 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (this.authService.isAdminOrUser()) { return true; }
+    if (this.authService.isAdminOrUser() && this.authService.isAuthenticated()) { 
+      return true; }
 
-    //this.authService.logout()
-     
-    return false;
+    else {
+      this.authService.logout();
+      this.router.navigate(["/login"])
+      return false;
+    }
+
+
   }
 
 

@@ -52,20 +52,17 @@ export class AuthService {
 
 
   logout() {
-    window.location.reload()
     this.cookieService.delete("jwt")
     this.cookieService.delete("uid")
     this.cookieService.delete("sk")
     localStorage.clear()
-    this.router.navigate(["/login"])
-    
+    setTimeout(()=> window.location.reload(),1000)
   }
 
   isAuthenticated() {
     if (this.cookieService.get("jwt") && this.cookieService.get("sk")) {
       return true;
     }
-
     else {
       return false;
     }

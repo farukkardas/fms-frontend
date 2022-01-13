@@ -86,12 +86,5 @@ property = this.calves[6];
     })
   }
 
-  reloadPage(delay:number) {
-    setTimeout(()=>{
-      window.location.reload(),2000
-    })
-
-  }
-
  
 }
