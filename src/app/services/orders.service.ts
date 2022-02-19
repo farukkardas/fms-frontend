@@ -26,11 +26,11 @@ export class OrdersService {
   }
 
 
-  addCargoNo(orderId:number,deliveryNo:number) : Observable<ResponseModel> {
-    let getAllPath = this.apiUrl + "addcargono?order="
-    const httpParams = new HttpParams();
-    httpParams.append('order', orderId)
-    httpParams.append('deliveryNo',deliveryNo)
-    return this.httpClient.put<ResponseModel>(getAllPath + orderId + "&" + "deliveryNo="+deliveryNo,{params:httpParams});
+  addCargoNo(orderId:string,deliveryNo:string) : Observable<ResponseModel> {
+    let getAllPath = this.apiUrl + "addcargono"
+    var formData = new FormData();
+    formData.append('order', orderId)
+    formData.append('deliveryNo',deliveryNo)
+    return this.httpClient.put<ResponseModel>(getAllPath ,formData);
   }
 }

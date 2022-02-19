@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   apiUrl = "http://localhost:5000/api/auth/";
-  constructor(private router:Router,private httpClient: HttpClient, private cookieService: CookieService, private toastrService: ToastrService) { }
+  constructor(private router: Router, private httpClient: HttpClient, private cookieService: CookieService, private toastrService: ToastrService) { }
 
 
 
@@ -56,7 +56,8 @@ export class AuthService {
     this.cookieService.delete("uid")
     this.cookieService.delete("sk")
     localStorage.clear()
-    setTimeout(()=> window.location.reload(),1000)
+  setTimeout(()=>{  window.location.reload() },250) 
+    this.router.navigate(["/login"])
   }
 
   isAuthenticated() {
@@ -68,7 +69,7 @@ export class AuthService {
     }
   }
 
-  isAdminOrUser(){
+  isAdminOrUser() {
 
     let getRole = localStorage.getItem('xx')
     if (getRole == null) { return false; }

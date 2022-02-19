@@ -159,9 +159,7 @@ mat-sidenav-container {
     min-width: unset !important;
     position: fixed;
     height: 30px;
-    margin-top: 6px;
-    margin-left: -10px;
-    display: inline-flex;
-    align-items: center;
+    margin-top: -10px;
+    margin-left: -40px;
     z-index: 1;
 }

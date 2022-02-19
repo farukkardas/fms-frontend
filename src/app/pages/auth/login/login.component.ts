@@ -6,7 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginModel } from 'src/app/models/loginModel';
 import { AuthService } from 'src/app/services/auth.service';
 import * as CryptoJS from 'crypto-js';
+import jwt_decode from 'jwt-decode';
 import { OperationClaim } from 'src/app/models/operationClaim';
+import { TokenModel } from 'src/app/models/tokenModel';
+import { DecodedJwt } from 'src/app/models/decodedJwt';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +19,7 @@ import { OperationClaim } from 'src/app/models/operationClaim';
 })
 export class LoginComponent implements OnInit {
   buttonEnabled: boolean = true;
+  decodedJwt: DecodedJwt;
   loginForm: FormGroup;
   rememberMeChecked: boolean = false;
   public registerLink = "/register";
@@ -73,29 +77,37 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginModel).subscribe((response) => {
 
-        let role: any;
+        this.decodedJwt = jwt_decode(response.data.token)
 
-        for (let i = 0; i < response.data.operationClaims.length; i++) {
-          role = response.data.operationClaims[i].name;
-          if (role.includes("customer")) {
-            this.toastrService.error("You don't have to permission to login admin panel!", "Error", { positionClass: 'toast-bottom-right' })
-            return false;
+        for (const k in this.decodedJwt) {
+          if (k === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier") {
+            this.decodedJwt["id"] = this.decodedJwt[k];
+            delete this.decodedJwt[k];
           }
-
+          if (k === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name") {
+            this.decodedJwt["name"] = this.decodedJwt[k];
+            delete this.decodedJwt[k];
+          }
+          if (k === "http://schemas.microsoft.com/ws/2008/06/identity/claims/role") {
+            this.decodedJwt["role"] = this.decodedJwt[k];
+            delete this.decodedJwt[k];
+          }
         }
 
         this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
+
+
         this.cookieService.set("jwt", response.data.token)
-        this.cookieService.set("uid", response.data.id)
+        this.cookieService.set("uid", this.decodedJwt.id)
         this.cookieService.set("sk", response.data.securityKey)
 
 
         // encrypt the role and set localstorage
-        var userRole = CryptoJS.AES.encrypt(role, 'superkey').toString();
+        var userRole = CryptoJS.AES.encrypt(this.decodedJwt.role, 'superkey').toString();
         localStorage.setItem("xx", userRole)
 
         setTimeout(() => { window.location.reload() }, 1500)
-        this
+
         if (this.rememberMeChecked) {
           this.cookieService.set("email", this.loginForm.controls['email'].value, 1)
         }

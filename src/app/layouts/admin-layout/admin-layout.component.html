@@ -6,6 +6,7 @@
         <button mat-raised-button [routerLink]="basketPage" class="mr-sm-2" style="background-color:white"><img
             src="assets/icons/menu/shopping-basket.png" style="color: black;"></button>
       </div> -->
+      
     </div>
     <button mat-button [routerLink]="routerLinkVariable">
       <img style="height: 54px; width: 58px; top: 5px;position: fixed;left: 20px;" src="assets/icons/leftfarm.png" />
@@ -27,13 +28,12 @@
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
+
   <mat-sidenav #sidenav [disableClose]="true" mode="side" [opened]="isShowing" *ngIf="isAuth">
     <a style="display:block; height: 90px; width: 150px; top: 15px;margin-bottom: -15px;"
       [routerLink]="routerLinkVariable">
       <img id="hicon" src="assets/icons/lely.png" />
     </a>
-    
-    
     <button mat-raised-button style="margin-top: 20%;" *ngIf="isAdmin || isUser"  [routerLink]="routerLinkVariable">
       <div style="margin-right: 40px;">
         <img src='assets/icons/menu/wheat.png' />
@@ -145,7 +145,7 @@
   </mat-sidenav>
   <!-- //Content -->
   <mat-sidenav-content>
-    <button *ngIf="isAuth" mat-button class="hide-toggle" title="Hide sidenav.." (click)="toggleSidenav()">≡</button>
+  
     <div class="content">
       <router-outlet></router-outlet>
     </div>
