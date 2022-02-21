@@ -7,6 +7,7 @@ import { ProductDetail } from '../models/productDetail';
 import { ProductsOnSale } from '../models/productsOnSale';
 import { ResponseModel } from '../models/responseModel';
 import { SingleResponseModel } from '../models/singleResponseModel';
+import { UploadImage } from '../models/uploadImage';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ProductsonsaleService {
   constructor(private httpClient: HttpClient) { }
 
 
-  addProduct(productsonsale: ProductsOnSale, file: File, userId: string): Observable<ResponseModel> {
+  addProduct(productsonsale: ProductsOnSale, uploadImage: UploadImage ): Observable<ResponseModel> {
     let getAllPath = this.apiUrl + "addproduct";
 
     const headers = new HttpHeaders();
@@ -26,10 +27,10 @@ export class ProductsonsaleService {
 
     const formData: FormData = new FormData();
 
-
     Object.keys(productsonsale).forEach(key => formData.append(key, productsonsale[key]));
-    formData.append('file', file);
-    formData.append('userId', userId);
+    Object.keys(uploadImage).forEach(key => formData.append(key, uploadImage[key]));
+    
+   
 
 
     return this.httpClient.post<ResponseModel>(getAllPath, formData, { headers: headers })

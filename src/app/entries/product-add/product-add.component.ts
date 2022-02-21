@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { UploadImage } from 'src/app/models/uploadImage';
 import { ProductsComponent } from 'src/app/pages/products/products.component';
 import { ProductsonsaleService } from 'src/app/services/productsonsale.service';
 
@@ -14,8 +15,9 @@ import { ProductsonsaleService } from 'src/app/services/productsonsale.service';
 export class ProductAddComponent implements OnInit {
   addProductGroup: FormGroup;
   modalRef: BsModalRef;
-
-  constructor(private productsComponent:ProductsComponent,private cookieService:CookieService,private productOnSaleService:ProductsonsaleService,private modalService: BsModalService,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
+  uploadImageModel: UploadImage;
+  imageFile: File;
+  constructor(private productsComponent: ProductsComponent, private cookieService: CookieService, private productOnSaleService: ProductsonsaleService, private modalService: BsModalService, private formBuilder: FormBuilder, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.createAddProductGroup()
@@ -27,16 +29,15 @@ export class ProductAddComponent implements OnInit {
       price: [''],
       categoryId: [''],
       description: [''],
-      sellerId : [this.cookieService.get("uid")],
-      file: [''],
+      sellerId: [this.cookieService.get("uid")],
       userId: [this.cookieService.get("uid")]
     });
   }
 
-  onFileSelect(event) {
+  upload(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.addProductGroup.get('file').setValue(file);
+      this.imageFile = file;
     }
   }
 
@@ -57,15 +58,15 @@ export class ProductAddComponent implements OnInit {
 
   addProduct() {
 
-    let productModel = { ...this.addProductGroup.value}
+    let productModel = { ...this.addProductGroup.value }
+    this.uploadImageModel = new UploadImage;
 
-    let file = this.addProductGroup.get("file").value;
-    let userId = this.addProductGroup.get("userId").value;
+    this.uploadImageModel.file = this.imageFile;
 
-    this.productOnSaleService.addProduct(productModel,file,userId).subscribe((response)=>{
-      this.toastrService.success(response.message,"Success",{positionClass:'toast-bottom-right'})
+    this.productOnSaleService.addProduct(productModel, this.uploadImageModel).subscribe((response) => {
+      this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
       this.productsComponent.hideModal()
-    },(responseError)=>{
+    }, (responseError) => {
       console.log(responseError)
       if (responseError.error.errors.length > 0) {
         for (let i = 0; i < responseError.error.errors.length; i++) {
