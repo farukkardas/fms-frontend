@@ -1,6 +1,6 @@
 # Farm Management System Frontend
 
-Merhaba, Farm Management System benim çiftlik sahipleri için geliştirdiğim kayıt ve takip uygulamasıdır. Bu kısım projenin front-end kısmını oluşturmakta. Angular ve Nodejs kullanarak geliştirilmiştir.
+Merhaba, Farm Management System kayıt ve satış panelinin web kısmı. Angular ve Nodejs kullanarak geliştirilmiştir.
 
 ## Development server
 
