@@ -56,7 +56,7 @@ export class AuthService {
     this.cookieService.delete("uid")
     this.cookieService.delete("sk")
     localStorage.clear()
-  setTimeout(()=>{  window.location.reload() },250) 
+    setTimeout(() => { window.location.reload() }, 10)
     this.router.navigate(["/login"])
   }
 

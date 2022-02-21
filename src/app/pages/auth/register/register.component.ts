@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { DecodedJwt } from 'src/app/models/decodedJwt';
 import { AuthService } from 'src/app/services/auth.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-register',
@@ -84,6 +85,9 @@ export class RegisterComponent implements OnInit {
           delete this.decodedJwt[k];
         }
       }
+
+
+
       this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
       this.cookieService.set("jwt", response.data.token)
       this.cookieService.set("uid", this.decodedJwt.id)
@@ -102,7 +106,5 @@ export class RegisterComponent implements OnInit {
   }
 
 }
-function jwt_decode(token: string): DecodedJwt {
-  throw new Error('Function not implemented.');
-}
+
 

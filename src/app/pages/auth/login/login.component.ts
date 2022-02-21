@@ -7,8 +7,7 @@ import { LoginModel } from 'src/app/models/loginModel';
 import { AuthService } from 'src/app/services/auth.service';
 import * as CryptoJS from 'crypto-js';
 import jwt_decode from 'jwt-decode';
-import { OperationClaim } from 'src/app/models/operationClaim';
-import { TokenModel } from 'src/app/models/tokenModel';
+
 import { DecodedJwt } from 'src/app/models/decodedJwt';
 
 @Component({
@@ -79,6 +78,7 @@ export class LoginComponent implements OnInit {
 
         this.decodedJwt = jwt_decode(response.data.token)
 
+
         for (const k in this.decodedJwt) {
           if (k === "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier") {
             this.decodedJwt["id"] = this.decodedJwt[k];
@@ -94,16 +94,24 @@ export class LoginComponent implements OnInit {
           }
         }
 
+
+        const acceptedRoles = ['admin', 'user'];
+        let getRole = this.decodedJwt.role;
+
+        if (!acceptedRoles.includes(getRole)) {
+          this.toastrService.error("You don't have permission to login panel!", "Error", { positionClass: 'toast-bottom-right' })
+          return false;
+        }
+
+        //Success
         this.toastrService.success(response.message, "Success", { positionClass: 'toast-bottom-right' })
-
-
         this.cookieService.set("jwt", response.data.token)
         this.cookieService.set("uid", this.decodedJwt.id)
         this.cookieService.set("sk", response.data.securityKey)
 
 
         // encrypt the role and set localstorage
-        var userRole = CryptoJS.AES.encrypt(this.decodedJwt.role, 'superkey').toString();
+        var userRole = CryptoJS.AES.encrypt(getRole, 'superkey').toString();
         localStorage.setItem("xx", userRole)
 
         setTimeout(() => { window.location.reload() }, 1500)

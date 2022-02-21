@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Injectable, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,22 +17,25 @@ import { ProductsonsaleService } from 'src/app/services/productsonsale.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<ProductsOnSale>;
-  displayedColumns: string[] = ['id', 'name', 'price','description' ,'imagePath','delete'];
+  displayedColumns: string[] = ['id', 'name', 'price', 'description', 'imagePath', 'delete'];
   modalRef: BsModalRef;
   emptyData: boolean = false;
-  constructor(private productOnSaleService: ProductsonsaleService,private modalService:BsModalService ,private toastrService: ToastrService, private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private productOnSaleService: ProductsonsaleService, private modalService: BsModalService, private toastrService: ToastrService, private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authService.checkSkOutdated()
     this.getProducts()
-    
+
   }
 
- 
+
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
@@ -46,7 +49,7 @@ export class ProductsComponent implements OnInit {
       if (response.data.length == 0) {
         this.emptyData = true;
       }
-    
+
       this.dataSource = new MatTableDataSource(response.data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -56,23 +59,28 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  deleteProducts(userId:any){
-    this.productOnSaleService.deleteProduct(userId).subscribe((response)=>{
+  deleteProducts(userId: any) {
+    this.productOnSaleService.deleteProduct(userId).subscribe((response) => {
       this.toastrService.info(response.message, "Success", { positionClass: 'toast-bottom-right' })
       this.getProducts()
-    },(responseError)=>{
-     
+    }, (responseError) => {
+
       this.toastrService.error(responseError.error.message, "Error", { positionClass: 'toast-bottom-right' })
     })
   }
 
-  
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-dialog-centered' })
   }
 
+  hideModal() {
+    this.dialog.closeAll()
+    this.refresh()
+  }
 
-  confirm(userId:any): void {
+
+  confirm(userId: any): void {
     this.deleteProducts(userId);
     this.modalRef.hide();
   }

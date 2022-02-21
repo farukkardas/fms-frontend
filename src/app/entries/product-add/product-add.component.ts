@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { ProductsComponent } from 'src/app/pages/products/products.component';
 import { ProductsonsaleService } from 'src/app/services/productsonsale.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class ProductAddComponent implements OnInit {
   addProductGroup: FormGroup;
   modalRef: BsModalRef;
 
-  constructor(private cookieService:CookieService,private productOnSaleService:ProductsonsaleService,private modalService: BsModalService,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
+  constructor(private productsComponent:ProductsComponent,private cookieService:CookieService,private productOnSaleService:ProductsonsaleService,private modalService: BsModalService,private formBuilder:FormBuilder,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.createAddProductGroup()
@@ -63,6 +64,7 @@ export class ProductAddComponent implements OnInit {
 
     this.productOnSaleService.addProduct(productModel,file,userId).subscribe((response)=>{
       this.toastrService.success(response.message,"Success",{positionClass:'toast-bottom-right'})
+      this.productsComponent.hideModal()
     },(responseError)=>{
       console.log(responseError)
       if (responseError.error.errors.length > 0) {
